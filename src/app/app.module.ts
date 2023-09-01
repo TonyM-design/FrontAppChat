@@ -18,6 +18,8 @@ import { HomeComponent } from './component/home/home.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { AddmessageComponent } from './component/addmessage/addmessage.component';
+import { MessageComponent } from './component/message/message.component';
+import { CanalComponent } from './component/canal/canal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AddmessageComponent } from './component/addmessage/addmessage.component
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    AddmessageComponent
+    AddmessageComponent,
+    MessageComponent,
+    CanalComponent
   ],
   imports: [
     BrowserModule,

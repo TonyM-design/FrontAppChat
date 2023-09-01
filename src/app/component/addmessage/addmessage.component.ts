@@ -21,7 +21,15 @@ export class AddmessageComponent {
 
   onClick() {
     console.log(this.form.value)
-  this.ms.createMessages(this.form.value.messagecontent);
+  this.ms.createMessages(this.form.value.messagecontent).subscribe(
+    (response) => {
+      console.log('Message created successfully:', response);
+      // You can perform further actions here
+    },
+    (error) => {
+      console.error('Error creating canal:', error);
+    }
+  );
 }
 
 }

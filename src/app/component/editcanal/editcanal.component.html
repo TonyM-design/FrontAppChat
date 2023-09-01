@@ -1,1 +1,9 @@
-<p>editcanal works!</p>
+<p>CANAUX DISPONIBLES</p>
+<table>
+<tr *ngFor="let canal of canals">
+   <td>{{canal.name}}</td> 
+   <td><a routerLink="/{{canal.id}}">Rejoindre</a></td>
+   <td>Renommer<input type="textarea"></td>
+   <td (click)="deleteCanal(canal)">Supprimer</td>
+</tr>
+</table>

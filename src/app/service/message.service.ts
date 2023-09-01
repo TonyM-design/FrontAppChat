@@ -20,12 +20,13 @@ export class MessageService {
 
   createMessages(content: any) {
     let date = new Date();
+    let newMessage = {user :{id :this.us.userlogged}, canal : {id :this.cs.canalusedId}, date:date, content: content}
         console.log(this.us.userlogged);
         console.log(this.cs.canalusedId);
         console.log(date);
         console.log(content);
       
-    // return this.http.post(this.url, newMessage);
+    return this.http.post(this.url, newMessage);
   }
 
   getAllMessages(): Observable<any> {

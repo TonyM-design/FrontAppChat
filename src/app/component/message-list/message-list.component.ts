@@ -29,7 +29,7 @@ constructor(private messageService : MessageService,
     return this.messageService.getMessagesByCanalId(id).subscribe(
       (data)=>{
         this.messagesToDisplay=data;
-        console.log(this.displayFullMessage(this.messagesToDisplay));
+        // console.log(this.displayFullMessage(this.messagesToDisplay));
       },
       (error)=>{
               console.error('Erreur de bdd', error);
