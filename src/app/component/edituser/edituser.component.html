@@ -1,1 +1,21 @@
-<p>edituser works!</p>
+<h2>User Profile</h2>
+
+<div class="user-info" *ngIf="user">
+    <!-- Circle Icon -->
+    <div class="icon" [class.online]="user.isLogged"></div>
+
+    <div>
+        <strong>Name:</strong> {{user.name}}
+    </div>
+    <div>
+        <strong>Email:</strong> {{user.email}}
+    </div>
+    
+</div>
+
+<div *ngIf="!user">
+    <p>No user data available.</p>
+</div>
+
+<!-- Logout Button -->
+<button (click)="deconnexion()">Logout</button>

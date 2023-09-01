@@ -17,6 +17,7 @@ const routes: Routes = [
   {path :'edit', component:EditcanalComponent},
   {path :'add', component:AddcanalComponent},
   {path :':id', component:MessageListComponent},
+  { path: 'userProfil/:id', component: EdituserComponent }
   
 ];
 

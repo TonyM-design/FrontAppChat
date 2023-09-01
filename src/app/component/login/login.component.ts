@@ -10,7 +10,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  user: User = { id: 0, name: '', nickname: '', email: '', password: '' };
+  user: User = { id: 0, name: '', nickname: '', email: '', password: '',isLogged:false };
 
   form: FormGroup;
   constructor(private fb: FormBuilder, private router: Router, private us: UserService) {
@@ -23,7 +23,8 @@ export class LoginComponent {
   login() {
 
     this.us.signIn(this.user.email, this.user.password).subscribe((data:any) => {this.dataUser=data;
-      
+      console.log(data);
+      this.router.navigate(['/userProfil',this.dataUser?.id])
     });
 
    
