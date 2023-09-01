@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CanalService } from 'src/app/service/canal.service';
 import { Canal } from 'src/app/entity/canal';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-canal-list',
@@ -21,6 +22,7 @@ constructor(
 }
 
   ngOnInit(): void {
+
     this.canalService.getAllCanals().subscribe(
       (data)=>{
         this.canals = data

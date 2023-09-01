@@ -3,4 +3,16 @@
     margin: 1em;
     background-color: rgb(176, 181, 194);
     cursor: pointer;
+    border-radius: 2em;
+    color: black;
+    }
+
+    .canals :hover{
+       color: white;
+        cursor: pointer;
+    }
+
+    a{
+        text-decoration: none;
+        color: black;
     }

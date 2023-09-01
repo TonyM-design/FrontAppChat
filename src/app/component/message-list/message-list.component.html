@@ -1,4 +1,11 @@
-<div class="container"><h3>Canal {{canalused}}</h3>
+<div class="container">
 
+<!--Nom du channel-->
+<h3>Canal {{canalused}}</h3>
+
+<!--Messages liés au channel en question-->
 <app-message  *ngFor="let message of messagesToDisplay" [message]="message"></app-message>
-<app-addmessage></app-addmessage></div>
+
+<!--Chatbox-->
+<app-addmessage></app-addmessage>
+</div>

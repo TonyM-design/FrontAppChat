@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../entity/user';
-import { MessageToCreate } from '../entity/messagetocreate';
 import { UserService } from './user.service';
 import { CanalService } from './canal.service';
 

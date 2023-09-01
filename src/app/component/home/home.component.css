@@ -1,9 +1,17 @@
-body{
-    background-color: aqua;
+body {
+    background-color: rgb(229, 231, 196);
     margin: 0;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
 }
+
+
+router-outlet{
+    flex-grow: 4;
+}
+
+
 app-header,
 app-footer {
     padding: 2em;

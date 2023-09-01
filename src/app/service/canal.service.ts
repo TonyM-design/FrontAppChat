@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Canal } from '../entity/canal';
 
 @Injectable({
@@ -9,12 +9,15 @@ import { Canal } from '../entity/canal';
 export class CanalService {
   private url = 'http://localhost:8080/canals';
   canalusedId: number = 1;
+  canalUsed !: Canal;
 
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Par défaut le canalUsed est le canal général
+    this.getCanalById(1).subscribe((data)=> this.canalUsed = data)
+  }
 
   createCanal(canal: any): Observable<any> {
-    console.log("on tente");
     return this.http.post(this.url, canal);
   }
 

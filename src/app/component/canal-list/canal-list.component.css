@@ -3,11 +3,23 @@
 .options{
     padding: 1em;
     margin: 1em;
-    background-color: rgb(30, 255, 0);
+    background-color: rgb(203, 236, 12);
     cursor: pointer;
+    border-radius: 2em;
     }
 
 .canallist{
     display: flex;
     flex-direction: row;
+    margin: auto;
+    width: 70%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color:red;
 }
