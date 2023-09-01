@@ -19,9 +19,9 @@ export class MessageService {
 
   createMessages(content: any) {
     let date = new Date();
-    let newMessage = {user :{id :this.us.userlogged}, canal : {id :this.cs.canalusedId}, date:date, content: content}
-        console.log(this.us.userlogged);
-        console.log(this.cs.canalusedId);
+    let newMessage = {user :this.us.connectedUser, canal :this.cs.canalUsed, date:date, content: content}
+        console.log(this.us.connectedUser);
+        console.log(this.cs.canalUsed);
         console.log(date);
         console.log(content);
       

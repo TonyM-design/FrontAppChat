@@ -9,7 +9,7 @@ import { Canal } from '../entity/canal';
 export class CanalService {
   private url = 'http://localhost:8080/canals';
   canalusedId: number = 1;
-  canalUsed !: Canal;
+  canalUsed : any = this.getCanalById(1);
 
   
   constructor(private http: HttpClient) {

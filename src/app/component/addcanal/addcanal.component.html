@@ -1,4 +1,4 @@
-<p>AJOUTER UN CANAL</p>
+<div class="container"><p>AJOUTER UN CANAL</p>
 <form [formGroup]="form" (submit)="onClick()">
     <label for="canalname">Nom du canal à créer:</label>
     <input 
@@ -10,3 +10,5 @@
     <p [hidden]="form.valid">Le nom de votre canal doit faire moins de 10 caractères</p>
     <button [disabled]="form.invalid">Créer canal!</button>
 </form>
+
+</div>

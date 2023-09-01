@@ -22,7 +22,7 @@ constructor(
 }
 
   ngOnInit(): void {
-
+    interval(1000).subscribe(()=>
     this.canalService.getAllCanals().subscribe(
       (data)=>{
         this.canals = data
@@ -30,13 +30,14 @@ constructor(
       (error)=>{
         console.error('Erreur : ', error)
       }
-    )
+    ))
   }
 
   changeCanal(canal: Canal) {
-    this.canalService.canalusedId=canal.id; // on change bien de canal, mais pas d'impact sur chat
+    console.log("ah");
+    this.canalService.canalUsed=canal; // on change bien de canal, mais pas d'impact sur chat
     this.canalEvent.emit(canal.id);
-    this.router.navigate(['/'+canal.id])
-
+    this.router.navigate(['/'+canal.id]);
+ 
   }
 }

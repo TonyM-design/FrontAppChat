@@ -9,13 +9,11 @@ import { User } from '../entity/user';
 export class UserService {
   private url = 'http://localhost:8080/users';
   userlogged: number=0;
-  connectedUser !:User;
+  connectedUser :any = this.getUserById(0);
   
   constructor(private http: HttpClient) {
     // Initialisation de l'utilisateur par défaut ) l'id 0 >> Anonymous
-    this.getUserById(0).subscribe((data)=>{
-      this.connectedUser=data
-    })
+    this.getUserById(0).subscribe((data)=>{this.connectedUser=data})
   }
 
   createUser(user: any): Observable<any> {

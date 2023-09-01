@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { interval } from 'rxjs';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
 
@@ -22,6 +23,7 @@ export class EditcanalComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    interval(100).subscribe(()=>
     this.canalService.getAllCanals().subscribe(
       (data)=>{
         this.canals = data
@@ -29,7 +31,7 @@ export class EditcanalComponent implements OnInit {
       (error)=>{
         console.error('Erreur : ', error)
       }
-    )
+    ))
   }
 
 

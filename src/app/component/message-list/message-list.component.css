@@ -6,3 +6,10 @@ margin: auto;
 
 
 }
+
+.chatbox{
+        height: 60vH;         /* Définir la hauteur fixe */
+        overflow: auto;    /* Activer la barre de défilement en cas de dépassement */
+        padding: 10px;
+        border: 1px solid #ccc;
+}

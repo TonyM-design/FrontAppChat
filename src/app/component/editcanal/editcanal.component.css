@@ -8,9 +8,15 @@ td{
     display: flex;
     flex-direction: row;
     margin-top: 2em;
-    margin-bottom: 2em;
+    margin-bottom: 2em;  
+  
 }
 
 .container{
 width:50%;
+height: 60vH;         /* Définir la hauteur fixe */
+overflow: auto;    /* Activer la barre de défilement en cas de dépassement */
+padding: 10px;
+border: 1px solid #ccc;
 }
+

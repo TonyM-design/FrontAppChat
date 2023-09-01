@@ -4,7 +4,7 @@ import { LoginService } from 'src/app/service/login.service';
 import { Message } from 'src/app/entity/message';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
-import { Subscribable, Subscription } from 'rxjs';
+import { Subscribable, Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-message-list',
@@ -16,17 +16,21 @@ export class MessageListComponent implements OnInit {
 messages : Message[] = [];
 messagesToDisplay : Message[] = [];
 loggedinUser: number=0;
-canalused : number= this.canalService.canalusedId;
+canalused : any= this.canalService.canalUsed;
 
 constructor(private messageService : MessageService,
-            private loginService : LoginService,
             private canalService : CanalService
   ){}
 
   ngOnInit(){
-   
-    let id: number =this.canalused; // on récupère le canal used pour filtre les messages
-    return this.messageService.getMessagesByCanalId(id).subscribe(
+   interval(100).subscribe(()=>
+   this.canalused=this.canalService.canalUsed)
+    // let id: number =this.canalused; 
+    // on récupère le canal used pour filtre les messages
+    
+    
+    interval(100).subscribe(()=>
+    this.messageService.getMessagesByCanalId(this.canalused.id).subscribe(
       (data)=>{
         this.messagesToDisplay=data;
         // console.log(this.displayFullMessage(this.messagesToDisplay));
@@ -34,7 +38,7 @@ constructor(private messageService : MessageService,
       (error)=>{
               console.error('Erreur de bdd', error);
       }
-    )
+    ))
   }
 
 
