@@ -3,17 +3,20 @@
 <tr *ngFor="let canal of canals">
    <td>{{canal.name}}</td> 
    <td><a routerLink="/{{canal.id}}">Rejoindre</a></td>
-   <td>
-      <input 
+   <td>Modifier</td>
+   <td (click)="deleteCanal(canal)">Supprimer</td>
+</tr>
+
+<div class="editcanal">
+   <input 
         type="text" 
         id="newcanalname" 
         name="newcanalname" 
         formControlName="newcanalname"
     >
+
+
     <button [disabled]="form.invalid">Renommer canal!</button>
       
-   
-   </td>
-   <td (click)="deleteCanal(canal)">Supprimer</td>
-</tr>
+</div>
 </table>

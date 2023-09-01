@@ -1,0 +1,12 @@
+.message{
+    border-radius: 2em;
+    background-color: aliceblue;
+    padding-left: 2em;
+    padding: 0.5em;
+    margin: 0.5em;
+    width:35%
+}
+
+.ConnectedUser{
+    background-color: grey;
+}

@@ -6,7 +6,7 @@ import { AddcanalComponent } from './component/addcanal/addcanal.component';
 import { MessageListComponent } from './component/message-list/message-list.component';
 
 const routes: Routes = [
- 
+  {path :'', component:MessageListComponent},
   {path :'edit', component:EditcanalComponent},
   {path :'add', component:AddcanalComponent},
   {path :':id', component:MessageListComponent},

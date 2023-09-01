@@ -7,13 +7,6 @@
         name="canalname" 
         formControlName="canalname"
     ><br><br>
-    <!-- <label for="canaldesc">Description du canal:</label>
-    <input 
-        type="textarea" 
-        id="canaldesc" 
-        name="canaldesc" 
-        formControlName="canaldesc"
-    ><br><br> -->
     <p [hidden]="form.valid">Le nom de votre canal doit faire moins de 10 caractères</p>
     <button [disabled]="form.invalid">Créer canal!</button>
 </form>
