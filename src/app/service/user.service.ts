@@ -11,8 +11,16 @@ export class UserService {
   
   constructor(private http: HttpClient) {}
 
-  createUser(canal: any): Observable<any> {
-    return this.http.post(this.url, canal);
+  createUser(user: any): Observable<any> {
+    return this.http.post(this.url, user);
+  }
+
+  signIn(email: string, password: string) {
+    const body = {
+      email: email,
+      password: password,
+    };
+    return this.http.post(this.url, body);
   }
 
   getAllUSers(): Observable<any> {

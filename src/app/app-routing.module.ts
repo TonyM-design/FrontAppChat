@@ -5,16 +5,19 @@ import { EditcanalComponent } from './component/editcanal/editcanal.component';
 import { AddcanalComponent } from './component/addcanal/addcanal.component';
 import { MessageListComponent } from './component/message-list/message-list.component';
 import { AdduserComponent } from './component/adduser/adduser.component';
+import { LoginComponent } from './component/login/login.component';
+import { EdituserComponent } from './component/edituser/edituser.component';
+
 
 const routes: Routes = [
  
+  {path :'login', component:LoginComponent},
   {path :'register', component:AdduserComponent},
+  {path :'userProfil', component:EdituserComponent},
   {path :'edit', component:EditcanalComponent},
   {path :'add', component:AddcanalComponent},
   {path :':id', component:MessageListComponent},
-
-
-
+  
 ];
 
 @NgModule({
