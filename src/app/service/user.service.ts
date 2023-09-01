@@ -15,6 +15,14 @@ export class UserService {
     return this.http.post(this.url, user);
   }
 
+  signIn(email: string, password: string) {
+    const body = {
+      email: email,
+      password: password,
+    };
+    return this.http.post(this.url, body);
+  }
+
   getAllUSers(): Observable<any> {
     return this.http.get(this.url);
   }

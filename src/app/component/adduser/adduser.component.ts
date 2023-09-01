@@ -24,7 +24,8 @@ export class AdduserComponent {
     if(this.form)
     {
       this.us.createUser(this.form.value).subscribe((data) => console.log(data));
-      console.log("L'utilisateur a été créé")
+      console.log("L'utilisateur a été créé");
+      
     }
     this.router.navigate(['']);
   }
