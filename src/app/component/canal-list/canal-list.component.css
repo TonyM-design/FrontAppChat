@@ -1,0 +1,18 @@
+.canals{
+padding: 1em;
+margin: 1em;
+background-color: red;
+cursor: pointer;
+}
+
+.options{
+    padding: 1em;
+    margin: 1em;
+    background-color: rgb(30, 255, 0);
+    cursor: pointer;
+    }
+
+.canallist{
+    display: flex;
+    flex-direction: row;
+}

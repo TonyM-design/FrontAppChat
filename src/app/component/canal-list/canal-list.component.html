@@ -1,0 +1,9 @@
+<p>canal-list works!</p>
+<div class =canallist>
+  <div class="canals" *ngFor="let canal of canals" (click)="changeCanal(canal)">
+    <a routerLink="">{{ canal.name }}</a>
+  </div>
+  <div class="options"><i class="bi bi-plus-circle-fill"></i><a routerLink="/add">Add Canal</a> </div> <!--pour ajouter canal--> 
+  <div class="options"><i class="bi bi-pencil-fill"></i><a routerLink="/edit"> Edit Canal</a></div> <!--pour modifier canal--> 
+
+</div>

@@ -1,0 +1,9 @@
+<h1>J'affiche les message du Canal {{canalused}}</h1>
+
+<ul>
+    <li *ngFor="let message of messagesToDisplay">
+      <p >{{message.user.name}} - {{message.date | date: 'le dd/MM/yy, à HH:mm'}}</p>
+      <p>{{ message.content}}</p>
+    </li>
+  </ul>
+  <app-addmessage></app-addmessage>

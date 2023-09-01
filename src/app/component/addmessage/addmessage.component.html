@@ -1,0 +1,10 @@
+<form [formGroup]="form" (submit)="onClick()">
+    <label for="canalname">Votre Message:</label>
+    <input 
+        type="text" 
+        id="messagecontent" 
+        name="messagecontent" 
+        formControlName="messagecontent"
+    ><br><br>
+    <button [disabled]="form.invalid">Envoyer !</button>
+</form>
