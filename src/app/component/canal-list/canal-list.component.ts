@@ -8,33 +8,34 @@ import { Router } from '@angular/router';
   templateUrl: './canal-list.component.html',
   styleUrls: ['./canal-list.component.css']
 })
-export class CanalListComponent implements OnInit{
+export class CanalListComponent implements OnInit {
 
-canals: any[] = [];
-@Output() canalEvent = new EventEmitter<number>();
+  canals: any[] = [];
+  @Output() canalEvent = new EventEmitter<number>();
 
-constructor(
-  private canalService: CanalService,
-  private router : Router,
-  ){
+  constructor(
+    private canalService: CanalService,
+    private router: Router,
+  ) {
 
-}
+  }
 
   ngOnInit(): void {
     this.canalService.getAllCanals().subscribe(
-      (data)=>{
+      (data) => {
+        console.log(data)
         this.canals = data
       },
-      (error)=>{
+      (error) => {
         console.error('Erreur : ', error)
       }
     )
   }
 
   changeCanal(canal: Canal) {
-    this.canalService.canalusedId=canal.id; // on change bien de canal, mais pas d'impact sur chat
+    this.canalService.canalused = canal; // on change bien de canal, mais pas d'impact sur chat
     this.canalEvent.emit(canal.id);
-    this.router.navigate(['/'+canal.id])
+    this.router.navigate(['/' + canal.id])
 
   }
 }

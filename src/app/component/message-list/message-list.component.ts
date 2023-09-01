@@ -4,7 +4,8 @@ import { LoginService } from 'src/app/service/login.service';
 import { Message } from 'src/app/entity/message';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
-import { Subscribable, Subscription } from 'rxjs';
+import { User } from 'src/app/entity/user';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-message-list',
@@ -12,40 +13,38 @@ import { Subscribable, Subscription } from 'rxjs';
   styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent implements OnInit {
-  private canalSubscription: Subscription = new Subscription;
-messages : Message[] = [];
-messagesToDisplay : Message[] = [];
-loggedinUser: number=0;
-canalused : number= this.canalService.canalusedId;
+  messagesToDisplay: Message[] = [];
+  connectedUser: User = this.userService.userlogged;
+  canalUsed: Canal = this.canalService.canalused;
 
-constructor(private messageService : MessageService,
-            private loginService : LoginService,
-            private canalService : CanalService
-  ){}
 
-  ngOnInit(){
-   
-    let id: number =this.canalused; // on récupère le canal used pour filtre les messages
-    return this.messageService.getMessagesByCanalId(id).subscribe(
-      (data)=>{
-        this.messagesToDisplay=data;
-        console.log(this.displayFullMessage(this.messagesToDisplay));
-      },
-      (error)=>{
-              console.error('Erreur de bdd', error);
-      }
+  constructor(private messageService: MessageService, private loginService: LoginService, private canalService: CanalService, private userService: UserService) {
+    console.log(this.canalService.canalused)
+    let id: number = this.canalUsed.id; // on récupère le canal used pour filtre les messages
+    console.log("CONSTRUCTOR message-list")
+    console.log(this.messageService.getMessagesByCanalId(id))
+    this.messageService.getMessagesByCanalId(id).subscribe(
+      (messages) => { messages.forEach((message: Message) => { this.messagesToDisplay.push(message) }) }
     )
+    console.log(this.messagesToDisplay.length)
+
+
+    console.log(this.messagesToDisplay)
+  }
+
+  ngOnInit() {
+
   }
 
 
-  getCanalId(message :Message){
+  getCanalId(message: Message) {
     return message.canal;
   }
 
 
-  displayFullMessage(messagelist : Message[]){
-    for (let message of messagelist){
-      console.log(message.date+" - "+message.content+" - "+message.user.id)
+  displayFullMessage(messagelist: Message[]) {
+    for (let message of messagelist) {
+      console.log(message.date + " - " + message.content + " - " + message.user.id)
     }
   }
 
