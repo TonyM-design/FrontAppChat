@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
 
@@ -8,10 +9,17 @@ import { CanalService } from 'src/app/service/canal.service';
   styleUrls: ['./editcanal.component.css']
 })
 export class EditcanalComponent implements OnInit {
-
+  form: FormGroup ;
   canals: any[] = [];
 
-  constructor(private canalService :CanalService){}
+  constructor(
+    private fb : FormBuilder,
+    private canalService :CanalService
+    ){
+      this.form = this.fb.group({
+        newcanalname:['', [Validators.required, Validators.maxLength(10)]],
+      })
+    }
 
   ngOnInit(): void {
     this.canalService.getAllCanals().subscribe(
@@ -26,9 +34,28 @@ export class EditcanalComponent implements OnInit {
 
 
   deleteCanal(canal: Canal) {
-    console.log("delete canal"+canal.name);
-    this.canalService.deleteCanal(canal.id);
-  
+    console.log("Try to delete canal :"+canal.name);
+    this.canalService.deleteCanal(canal.id).subscribe(
+      (response) => {
+        console.log('Canal deleted successfully:', response);
+      },
+      (error) => {
+        console.error('Error creating canal:', error);
+      }
+    );
+  }
+
+  updateCanal(canal : Canal){
+    console.log("Try to update canal :"+canal.name);
+    let newCanal:Canal = new Canal(canal.id, canal.name);
+    this.canalService.updateCanal(canal.id, newCanal).subscribe(
+      (response) => {
+        console.log('Canal updated successfully:', response);
+      },
+      (error) => {
+        console.error('Error creating canal:', error);
+      }
+    );
   }
     
 

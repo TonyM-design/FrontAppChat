@@ -16,7 +16,7 @@ constructor(
     private cs :  CanalService){
   this.form = this.fb.group({
     canalname:['', [Validators.required, Validators.maxLength(10)]],
-    canaldesc:['', [Validators.required, Validators.maxLength(200)]],
+    // canaldesc:['', [Validators.required, Validators.maxLength(200)]],
 
   })
 }
