@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Canal } from '../entity/canal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanalService {
-  private url = 'http://localhost:8080/canals';
-  canalusedId: number = 1;
+  private url = 'http://localhost:8888/canals';
+  canalused!: Canal;
 
-  
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+    this.getCanalById(1).subscribe((data) => { this.canalused = data })
+  }
 
   createCanal(canal: any): Observable<any> {
     console.log("on tente");
@@ -24,8 +27,8 @@ export class CanalService {
   getCanalById(id: number): Observable<any> {
     return this.http.get(`${this.url}/${id}`);
   }
-  
-  deleteCanal(id: number){
+
+  deleteCanal(id: number) {
     this.http.delete(`${this.url}/${id}`)
   }
 
