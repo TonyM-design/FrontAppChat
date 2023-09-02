@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../entity/user';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,11 @@ export class UserService {
     };
     return this.http.post(this.url+ '/signIn', body);
   }
+ updateUser(user:User):Observable<User>{
+  console.log(user);
+  let id=user.id
+  return this.http.put<User>(this.url+'/'+id,user);
+ }
 
   getAllUSers(): Observable<any> {
     return this.http.get(this.url);

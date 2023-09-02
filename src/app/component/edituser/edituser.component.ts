@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/entity/user';
 import { UserService } from 'src/app/service/user.service';
 
@@ -13,7 +13,8 @@ export class EdituserComponent {
   user?: User;
   constructor(
     public userServ: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     let id = this.route.snapshot.params['id'];
     this.userServ.getUserById(id).subscribe((data: any) => {
@@ -28,10 +29,25 @@ export class EdituserComponent {
     if (this.user) {
       this.user.isLogged = false;
       // this.user=undefined;
-      console.log('vous avez été déconnecté');
+      alert('vous avez été déconnecté');
+      this.router.navigate(['/home']);
     }
 
+  }
 
+  saveChanges() {
+    if (this.user) {
+      this.userServ.updateUser(this.user!).subscribe(
+        updateUser => {
+          this.user = updateUser;
+          this.user.isLogged=true;
+          alert('Votre profil a été misa jour.');
+        },
+        error => {
+          alert('Il y a eu une erreur pendant la mise à jour');
+        }
+      );
+    }
 
   }
 
