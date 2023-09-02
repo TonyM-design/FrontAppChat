@@ -19,12 +19,12 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.maxLength(10)]],
     });
   }
-  currentUser?: User
+  currentUser = this.us.userlogged
   login() {
-    this.us.signIn(this.user.email, this.user.password).subscribe(
+    this.us.login(this.user.email, this.user.password).subscribe(
       (data: any) => {
         this.currentUser = data;
-        if (this.currentUser ) {
+        if (this.currentUser) {
           this.router.navigate(['/userProfil', this.currentUser.id]);
         }
       },

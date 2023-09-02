@@ -22,18 +22,18 @@ export class UserService {
     return this.http.post(this.url, user);
   }
 
-  signIn(email: string, password: string) {
+  login(email: string, password: string) {
     const body = {
       email: email,
       password: password,
     };
-    return this.http.post(this.url+ '/signIn', body);
+    return this.http.post(this.url + '/signIn', body);
   }
- updateUser(user:User):Observable<User>{
-  console.log(user);
-  let id=user.id
-  return this.http.put<User>(this.url+'/'+id,user);
- }
+  updateUser(user: User): Observable<User> {
+    console.log(user);
+    let id = user.id
+    return this.http.put<User>(this.url + '/' + id, user);
+  }
 
   getAllUSers(): Observable<any> {
     return this.http.get(this.url);
