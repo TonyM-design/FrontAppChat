@@ -8,11 +8,11 @@ import { Canal } from '../entity/canal';
 })
 export class CanalService {
   private url = 'http://localhost:8888/canals';
-  canalused!: Canal;
+  canalUsed!: Canal;
 
 
   constructor(private http: HttpClient) {
-    this.getCanalById(1).subscribe((data) => { this.canalused = data })
+    this.getCanalById(1).subscribe((data) => { this.canalUsed = data })
   }
 
   createCanal(canal: any): Observable<any> {

@@ -41,7 +41,7 @@ import { LoginComponent } from './component/login/login.component';
     AddmessageComponent,
 
     MessageComponent,
-    CanalComponent
+    CanalComponent,
     LoginComponent
 
   ],
@@ -49,8 +49,8 @@ import { LoginComponent } from './component/login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule, 
-    FormsModule, 
+    RouterModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],

@@ -33,7 +33,7 @@ export class CanalListComponent implements OnInit {
   }
 
   changeCanal(canal: Canal) {
-    this.canalService.canalused = canal; // on change bien de canal, mais pas d'impact sur chat
+    this.canalService.canalUsed = canal; // on change bien de canal, mais pas d'impact sur chat
     this.canalEvent.emit(canal.id);
     this.router.navigate(['/' + canal.id])
 
