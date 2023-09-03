@@ -20,7 +20,7 @@ export class UserService {
       email: email,
       password: password,
     };
-    return this.http.post(this.url, body);
+    return this.http.post(this.url+ '/signIn', body);
   }
 
   getAllUSers(): Observable<any> {

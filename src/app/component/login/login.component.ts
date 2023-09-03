@@ -22,28 +22,9 @@ export class LoginComponent {
     });
   }
 
-  listuser:User[]=[];
-
-  @Output() valeurEmittee = new EventEmitter<any>();
-
+  dataUser?:User
   login() {
-
-    this.us.getAllUSers().subscribe((data)=> this.listuser=data)
-
-   for(let i=0 ; i<this.listuser.length;i++){
-    if(this.listuser[i].email==this.user.email && this.listuser[i].password==this.user.password)
-    {
-      console.log('true') ;
-      this.valeurEmittee.emit(this.listuser[i]);
-      this.router.navigate(['/userProfil']);
-      break;
-
-    }
-    else{
-      console.log('false') ;
-      
-    }
-   }
+    this.us.signIn(this.user.email, this.user.password).subscribe((data:any) => {this.dataUser=data;});
   }
 
 
