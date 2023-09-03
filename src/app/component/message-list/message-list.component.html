@@ -1,8 +1,12 @@
 <h1>J'affiche les message du Canal {{canalUsed}}</h1>
 
+<div class="container">
+  <ul>
+    <app-message *ngFor="let message of messagesToDisplay" [message]="message"
+      [messageList]="messagesToDisplay"></app-message>
+  </ul>
 
-<ul>
-  <app-message *ngFor="let message of messagesToDisplay" [message]="message"></app-message>
-</ul>
+  <app-addmessage>
 
-<app-addmessage></app-addmessage>
+  </app-addmessage>
+</div>

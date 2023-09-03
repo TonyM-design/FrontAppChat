@@ -18,21 +18,20 @@ export class MessageListComponent implements OnInit {
   connectedUser: User = this.userService.userlogged;
   canalUsed: Canal = this.canalService.canalUsed;
 
+  messageList!: Message[] | null;
+
+
 
   constructor(private messageService: MessageService, private loginService: LoginService, private canalService: CanalService, private userService: UserService) {
 
     let id: number = this.canalUsed.id; // on récupère le canal used pour filtre les messages
-    interval(100).subscribe(() => this.canalUsed = this.canalService.canalUsed)
-    interval(100).subscribe(() =>
-      this.messageService.getMessagesByCanalId(this.canalUsed.id).subscribe(
-        (data) => {
-          this.messagesToDisplay = data;
-          // console.log(this.displayFullMessage(this.messagesToDisplay));
-        },
-        (error) => {
-          console.error('Erreur de bdd', error);
-        }
-      ))
+    this.canalUsed = this.canalService.canalUsed
+    this.messageService.getMessagesByCanalId(this.canalUsed.id).subscribe((data) =>
+
+      this.messagesToDisplay = data
+      // console.log(this.displayFullMessage(this.messagesToDisplay));
+
+    )
   }
 
 

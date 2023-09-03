@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MessageService } from 'src/app/service/message.service';
 
@@ -32,7 +32,11 @@ export class AddmessageComponent {
 
     this.form = this.fb.group({
 
-      messagecontent: []
+      messageContent: ['', {
+        validators: [
+          Validators.required, Validators.minLength(1)
+        ],
+      }]
 
     })
 
