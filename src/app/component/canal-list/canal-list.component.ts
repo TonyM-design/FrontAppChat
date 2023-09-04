@@ -39,7 +39,7 @@ export class CanalListComponent implements OnInit {
 
   changeCanal(canal: Canal) {
     this.canalService.canalUsed = canal;
-    this.canalEvent.emit(canal.id);
+    console.log(canal.id)
     this.router.navigate(['/' + canal.id])
 
   }
