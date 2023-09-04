@@ -16,28 +16,33 @@ export class EditcanalComponent {
 
   constructor(private cs: CanalService, private us: UserService, private ms: MessageService) {
 
-    /* this.cs.getAllCanals().subscribe(
-       (data) => {
-         console.log(data)
-         this.canals = data
-       },
-       (error) => {
-         console.error('Erreur : ', error)
-       }
-     )*/
-    /* this.canals.forEach(canal => {
-       interval(100).subscribe(() =>
-         this.ms.getMessagesByCanalId(canal.id).subscribe(
-           (data) => {
-             //   this.messagesToDisplay = data;
-             // console.log(this.displayFullMessage(this.messagesToDisplay));
-           },
-           (error) => {
-             console.error('Erreur de bdd', error);
-           }
-         ))
-     })*/
+    this.cs.getAllCanals().subscribe(
+      (data) => {
+        console.log(data)
+        this.canals = data
+      },
+      (error) => {
+        console.error('Erreur : ', error)
+      }
+    )
+  }
 
+  onClickDelete(id: number) {
+    this.cs.deleteCanal(id)
+    console.log(this.canals)
+  }
+
+  getUserByCanal(i: number) {
+    let usersInCurrentCanal: Set<any> = new Set(); // Initialisez l'ensemble ici
+    let messagesInCurrentCanal = this.ms.getMessagesByCanalId(i);
+
+    messagesInCurrentCanal.forEach((data) => {
+      data.forEach((elem) => {
+        usersInCurrentCanal.add(elem.user);
+      });
+    });
+    console.log(usersInCurrentCanal)
+    return usersInCurrentCanal;
   }
 
   ngOnInit(): void {
@@ -52,6 +57,8 @@ export class EditcanalComponent {
     )
     console.log(this.canals)
   }
+
+
 
 
 }
