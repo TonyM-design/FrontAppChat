@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CanalService } from 'src/app/service/canal.service';
 import { Canal } from 'src/app/entity/canal';
 import { Router } from '@angular/router';
+import { MessageService } from 'src/app/service/message.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-canal-list',
@@ -16,11 +18,14 @@ export class CanalListComponent implements OnInit {
   constructor(
     private canalService: CanalService,
     private router: Router,
+    public userService: UserService
   ) {
 
   }
 
   ngOnInit(): void {
+
+
     this.canalService.getAllCanals().subscribe(
       (data) => {
         console.log(data)
@@ -33,7 +38,7 @@ export class CanalListComponent implements OnInit {
   }
 
   changeCanal(canal: Canal) {
-    this.canalService.canalUsed = canal; // on change bien de canal, mais pas d'impact sur chat
+    this.canalService.canalUsed = canal;
     this.canalEvent.emit(canal.id);
     this.router.navigate(['/' + canal.id])
 

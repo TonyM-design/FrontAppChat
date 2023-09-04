@@ -23,6 +23,7 @@ import { MessageComponent } from './component/message/message.component';
 import { CanalComponent } from './component/canal/canal.component';
 
 import { LoginComponent } from './component/login/login.component';
+import { CanalCardComponent } from './component/canal-card/canal-card.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { LoginComponent } from './component/login/login.component';
 
     MessageComponent,
     CanalComponent,
-    LoginComponent
+    LoginComponent,
+    CanalCardComponent
 
   ],
   imports: [
