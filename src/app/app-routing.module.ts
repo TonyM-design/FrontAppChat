@@ -11,8 +11,6 @@ import { CanalListComponent } from './component/canal-list/canal-list.component'
 
 
 const routes: Routes = [
- 
-  
   
   {path :'', component:CanalListComponent},
   {path :'login', component:LoginComponent},
