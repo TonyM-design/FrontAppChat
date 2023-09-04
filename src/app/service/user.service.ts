@@ -8,7 +8,7 @@ import { User } from '../entity/user';
 })
 export class UserService {
   private url = 'http://localhost:8888/users';
-  userlogged!: User;
+  userlogged!: User | undefined;
 
 
 
@@ -28,6 +28,10 @@ export class UserService {
       password: password,
     };
     return this.http.post(this.url + '/signIn', body);
+  }
+
+  logout() {
+    this.userlogged = undefined;
   }
   updateUser(user: User): Observable<User> {
     console.log(user);
