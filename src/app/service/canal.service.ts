@@ -7,7 +7,7 @@ import { Canal } from '../entity/canal';
   providedIn: 'root'
 })
 export class CanalService {
-  private url = 'http://localhost:8888/canals';
+  private url = 'http://localhost:8080/canals';
   canalUsed!: Canal;
 
 

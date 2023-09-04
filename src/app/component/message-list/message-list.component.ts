@@ -6,6 +6,7 @@ import { CanalService } from 'src/app/service/canal.service';
 import { User } from 'src/app/entity/user';
 import { UserService } from 'src/app/service/user.service';
 import { interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-message-list',
@@ -21,16 +22,21 @@ export class MessageListComponent implements OnInit {
 
 
 
-  constructor(private messageService: MessageService, private canalService: CanalService, private userService: UserService) {
+  constructor(
+    private messageService: MessageService,
+    private canalService: CanalService,
+    private userService: UserService,
+    private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      console.log("params : " + id);
+      this.canalService.canalUsed = this.canalUsed;
+      this.messageService.getMessagesByCanalId(id).subscribe((data) =>
+        this.messagesToDisplay = data
+      )
 
-    let id: number = this.canalUsed.id; // on récupère le canal used pour filtre les messages
-    this.canalUsed = this.canalService.canalUsed
-    this.messageService.getMessagesByCanalId(this.canalUsed.id).subscribe((data) =>
+    })
 
-      this.messagesToDisplay = data
-      // console.log(this.displayFullMessage(this.messagesToDisplay));
-
-    )
   }
 
 

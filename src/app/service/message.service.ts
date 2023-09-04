@@ -17,7 +17,7 @@ import { Message } from '../entity/message';
 
 export class MessageService {
 
-  private url = 'http://localhost:8888/messages';
+  private url = 'http://localhost:8080/messages';
 
   constructor(private http: HttpClient, private us: UserService, private cs: CanalService) { }
 

@@ -7,10 +7,14 @@ import { MessageListComponent } from './component/message-list/message-list.comp
 import { AdduserComponent } from './component/adduser/adduser.component';
 import { LoginComponent } from './component/login/login.component';
 import { EdituserComponent } from './component/edituser/edituser.component';
+import { CanalListComponent } from './component/canal-list/canal-list.component';
 
 
 const routes: Routes = [
  
+  
+  
+  {path :'', component:CanalListComponent},
   {path :'login', component:LoginComponent},
   {path :'register', component:AdduserComponent},
   {path :'userProfil', component:EdituserComponent},
