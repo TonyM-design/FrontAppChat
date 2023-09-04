@@ -8,6 +8,7 @@ import { AdduserComponent } from './component/adduser/adduser.component';
 import { LoginComponent } from './component/login/login.component';
 import { EdituserComponent } from './component/edituser/edituser.component';
 
+
 const routes: Routes = [
  
   {path :'login', component:LoginComponent},

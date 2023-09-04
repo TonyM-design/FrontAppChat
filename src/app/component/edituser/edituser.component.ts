@@ -10,7 +10,6 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class EdituserComponent {
 
-
   user?: User;
   constructor(
     public userServ: UserService,

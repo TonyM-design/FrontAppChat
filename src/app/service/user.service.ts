@@ -7,14 +7,13 @@ import { User } from '../entity/user';
   providedIn: 'root'
 })
 export class UserService {
-  private url = 'http://localhost:8888/users';
-  userlogged!: User;
+  private url = 'http://localhost:8080/users';
+  userlogged!: User | undefined;
 
 
 
   constructor(private http: HttpClient) {
-
-     this.getUserById(1).subscribe((data) => {
+    this.getUserById(1).subscribe((data) => {
       this.userlogged = data
     })
   }
