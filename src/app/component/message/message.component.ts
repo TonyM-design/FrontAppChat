@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Message } from 'src/app/entity/message';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
@@ -12,7 +12,7 @@ export class MessageComponent {
   @Input() message!: Message;
   @Input() messageList!: Message[];
   today = new Date();
-
+  @Output() messageDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(public us: UserService , private ms:MessageService) {
   }
@@ -66,12 +66,15 @@ export class MessageComponent {
   onDelete(id: number) {
     this.ms.deleteMessageById(id).subscribe(
       response => {
-        console.log(response); // You might want to do something more with the response, like show a notification
-        this.messageList = this.messageList.filter(msg => msg.id !== id);  // Remove the deleted message from the list
+        console.log(response); 
+        this.messageList = this.messageList.filter(msg => msg.id !== id);
+        this.messageDeleted.emit();
       },
       error => {
-        console.error("Error deleting the message:", error); // Handle the error, maybe show an error message to the user
+        console.error("Error deleting the message:", error); 
       }
     );
     }
+    
+   
 }

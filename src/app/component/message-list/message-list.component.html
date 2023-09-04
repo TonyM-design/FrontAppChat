@@ -5,11 +5,17 @@
   <ul>
     <app-message *ngFor="let message of messagesToDisplay" [message]="message"
       [messageList]="messagesToDisplay"></app-message>
+      <app-message 
+    *ngFor="let message of messagesToDisplay" 
+    [message]="message"
+    [messageList]="messagesToDisplay"
+    (messageDeleted)="refresh()">
+</app-message>
+     
   </ul>
 
-  <app-addmessage (RefreshEmitter)="refresh()">
-
-  </app-addmessage>
+  <app-addmessage (RefreshEmitter)="refresh()"  ></app-addmessage>
+  
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">

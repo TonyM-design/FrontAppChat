@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent implements OnInit {
+
   messagesToDisplay: Message[] = [];
   connectedUser: User | undefined = this.userService.userlogged;
   canalUsed: Canal = this.canalService.canalUsed;
