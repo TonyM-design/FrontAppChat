@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CanalToCreate } from 'src/app/entity/canaltocreate';
 import { CanalService } from 'src/app/service/canal.service';
@@ -10,7 +10,8 @@ import { CanalService } from 'src/app/service/canal.service';
 })
 export class AddcanalComponent {
 form: FormGroup ;
-
+  @Output() RefreshEmitter = new EventEmitter;
+  
 constructor(
     private fb: FormBuilder,
     private cs :  CanalService){
@@ -28,7 +29,8 @@ let newCanal = new CanalToCreate(this.form.value.canalname)
 this.cs.createCanal(newCanal).subscribe(
   (response) => {
     console.log('Canal created successfully:', response);
-    // You can perform further actions here
+              this.form.reset();
+          this.RefreshEmitter.emit();
   },
   (error) => {
     console.error('Error creating canal:', error);

@@ -17,6 +17,7 @@
                     <small>
                         <p>{{this.message.date | date: 'le dd/MM/yy, à HH:mm'}}</p>
                     </small>
+                    <p (click)="deleteMessage(message.id)">X</p>
                 </div>
                 <p class="mb-1">{{ this.message.content}}
                 </p>
@@ -34,6 +35,7 @@
                         <small>
                             <p>{{this.message.date | date: 'le dd/MM/yy, à HH:mm'}}</p>
                         </small>
+                        <p (click)="deleteMessage(message.id)">X</p>
                     </div>
                     <p class="mb-1">{{ this.message.content}}
                     </p>
