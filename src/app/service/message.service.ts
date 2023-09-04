@@ -17,7 +17,7 @@ import { Message } from '../entity/message';
 
 export class MessageService {
 
-  private url = 'http://localhost:8888/messages';
+  private url = 'http://localhost:8080/messages';
 
   constructor(private http: HttpClient, private us: UserService, private cs: CanalService) { }
 
@@ -41,7 +41,9 @@ export class MessageService {
     return this.http.get<Message[]>(`${this.url}/canal/${id}`);
   }
 
-
+ deleteMessageById(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`,{ responseType: 'text' });
+  }
 
 
 
