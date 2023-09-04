@@ -49,6 +49,7 @@ export class AddmessageComponent {
       this.ms.createMessages(this.form.value.messageContent).subscribe(
         (response) => {
           console.log('Message created successfully:', response);
+          this.form.reset();
         },
         (error) => {
           console.error('Error creating canal:', error);
