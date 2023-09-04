@@ -12,6 +12,7 @@ import { UserService } from 'src/app/service/user.service';
 export class LoginComponent {
 
   user: User = { id: 0, name: '', nickname: '', email: '', password: '', isLogged: false };
+  showAlert: boolean = false;
 
   form: FormGroup;
 
@@ -22,13 +23,14 @@ export class LoginComponent {
     });
   }
 
-  currentUser = this.us.userlogged
+
   login() {
     this.us.login(this.user.email, this.user.password).subscribe(
       (data: any) => {
-        this.currentUser = data;
-        if (this.currentUser) {
-          this.router.navigate(['/userProfil', this.currentUser.id]);
+        this.us.userlogged = data;
+        if (this.us.userlogged === data) {
+          this.showAlert = true;
+          setTimeout(() => { this.router.navigate(['']) }, 2500)
         }
       },
       error => {

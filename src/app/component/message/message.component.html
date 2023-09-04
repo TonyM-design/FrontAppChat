@@ -7,7 +7,7 @@
 
 
 
-<div [ngSwitch]="this.us.userlogged.name == this.message.user.name">
+<div *ngIf="this.us.userlogged" [ngSwitch]="this.us.userlogged.name == this.message.user.name">
     <div *ngSwitchCase="true">
         <div class="list-group mt-1 col-4 col-offset-4">
             <div class="active list-group-item list-group-item-action

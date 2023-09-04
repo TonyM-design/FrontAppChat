@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../entity/user';
 import { MessageToCreate } from '../entity/messagetocreate';
 import { UserService } from './user.service';
@@ -21,10 +21,15 @@ export class MessageService {
 
   constructor(private http: HttpClient, private us: UserService, private cs: CanalService) { }
 
-  createMessages(content: string) {
+  createMessages(content: string): Observable<Object> {
     let date = new Date();
-    const newMessage = { user: { id: this.us.userlogged.id }, canal: { id: this.cs.canalUsed.id }, date: date, content: content }
-    return this.http.post(this.url, newMessage);
+    if (this.us.userlogged) {
+      const newMessage = { user: { id: this.us.userlogged.id }, canal: { id: this.cs.canalUsed.id }, date: date, content: content }
+      return this.http.post(this.url, newMessage);
+    } else {
+      return throwError('User not logged in');
+    }
+
   }
   getAllMessages() {
     return this.http.get<Message[]>(this.url);
