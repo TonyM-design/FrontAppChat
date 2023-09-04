@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Message } from 'src/app/entity/message';
+import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -10,10 +11,11 @@ import { UserService } from 'src/app/service/user.service';
 export class MessageComponent {
   @Input() message!: Message;
   @Input() messageList!: Message[];
+  @Output() RefreshEmitter = new EventEmitter;
   today = new Date();
 
 
-  constructor(public us: UserService) {
+  constructor(public us: UserService, public ms: MessageService) {
   }
 
 
@@ -60,7 +62,18 @@ export class MessageComponent {
   }
 
 
-
+  deleteMessage(id: number) {
+    this.ms.deleteMessageById(id).subscribe(
+      response => {
+        console.log(response);
+        this.messageList = this.messageList.filter(msg => msg.id !== id); 
+        this.RefreshEmitter.emit();
+      },
+      error => {
+        console.error("Error deleting the message:", error); 
+      }
+    );
+  }
 
   ngOnInit() {
   }
