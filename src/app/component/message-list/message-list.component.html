@@ -1,5 +1,5 @@
-<h1>J'affiche les message du Canal {{canalUsed}}</h1>
-
+<h2> <i> Canal #{{canalUsed.id}} </i>| {{canalUsed.name}} </h2>
+<hr>
 <div class="container">
   <ul>
     <app-message *ngFor="let message of messagesToDisplay" [message]="message"

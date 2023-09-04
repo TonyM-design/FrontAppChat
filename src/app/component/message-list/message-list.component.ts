@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/service/message.service';
-import { LoginService } from 'src/app/service/login.service';
 import { Message } from 'src/app/entity/message';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
@@ -22,7 +21,7 @@ export class MessageListComponent implements OnInit {
 
 
 
-  constructor(private messageService: MessageService, private loginService: LoginService, private canalService: CanalService, private userService: UserService) {
+  constructor(private messageService: MessageService, private canalService: CanalService, private userService: UserService) {
 
     let id: number = this.canalUsed.id; // on récupère le canal used pour filtre les messages
     this.canalUsed = this.canalService.canalUsed

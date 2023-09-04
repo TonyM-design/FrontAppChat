@@ -24,10 +24,6 @@ export class MessageService {
   createMessages(content: string) {
     let date = new Date();
     const newMessage = { user: { id: this.us.userlogged.id }, canal: { id: this.cs.canalUsed.id }, date: date, content: content }
-    console.log(newMessage)/*
-    console.log(this.cs.canalUsed);
-    console.log(date);
-    console.log(content);*/
     return this.http.post(this.url, newMessage);
   }
   getAllMessages() {

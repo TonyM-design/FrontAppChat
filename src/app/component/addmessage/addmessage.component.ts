@@ -48,7 +48,7 @@ export class AddmessageComponent {
 
     console.log(this.form.value)
 
-    this.ms.createMessages(this.form.value.messagecontent).subscribe(
+    this.ms.createMessages(this.form.value.messageContent).subscribe(
 
       (response) => {
 

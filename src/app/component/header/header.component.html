@@ -3,75 +3,8 @@
   <!--
 a utiliser pour affichage des canaux ? 
 -->
-  <nav class="navbar navbar-light bg-dark fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu" aria-labelledby="dropdownId">
-                <a class="dropdown-item" href="#">Action 1</a>
-                <a class="dropdown-item" href="#">Action 2</a>
-              </div>
-            </li>
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <!---->
 
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler hidden-lg-up" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-        aria-label="Toggle navigation"></button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="#" aria-current="page">Home <span
-                class="visually-hidden">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownId">
-              <a class="dropdown-item" href="#">Action 1</a>
-              <a class="dropdown-item" href="#">Action 2</a>
-            </div>
-          </li>
-        </ul>
-        <form class="d-flex my-2 my-lg-0">
-          <input class="form-control me-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
 
 
   <ul class="nav nav-pills d-flex justify-content-between align-items-center ">
@@ -80,9 +13,15 @@ a utiliser pour affichage des canaux ?
       <li class="nav-item">
         <a class="nav-link " href="#">Accueil</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">Canaux</a>
+      </li>
       <li class="nav-item dropdown">
+
         <a class="nav-link dropdown-toggle pills active" data-bs-toggle="dropdown" href="#" role="button"
-          aria-haspopup="true" aria-expanded="false">Canaux</a>
+          aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i>
+        </a>
         <div class="dropdown-menu">
           <a class="dropdown-item " href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
@@ -91,17 +30,15 @@ a utiliser pour affichage des canaux ?
           <a class="dropdown-item" href="#">Separated link</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
     </div>
 
 
   </ul>
 </div>
+
+
+
+
 <!--<header>
   <h1>Slack Chat</h1>
   <div class="container-centered">
