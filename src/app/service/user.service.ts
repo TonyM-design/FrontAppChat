@@ -1,26 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../entity/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   private url = 'http://localhost:8080/users';
-  userlogged: number=0;
   
-  constructor(private http: HttpClient) {}
+  userlogged!: User;
+
+
+
+  constructor(private http: HttpClient) {
+
+     this.getUserById(1).subscribe((data) => {
+      this.userlogged = data
+    })
+  }
 
   createUser(user: any): Observable<any> {
     return this.http.post(this.url, user);
   }
 
-  signIn(email: string, password: string) {
+  login(email: string, password: string) {
     const body = {
       email: email,
       password: password,
     };
-    return this.http.post(this.url+ '/signIn', body);
+    return this.http.post(this.url + '/signIn', body);
+  }
+  updateUser(user: User): Observable<User> {
+    console.log(user);
+    let id = user.id
+    return this.http.put<User>(this.url + '/' + id, user);
   }
 
   getAllUSers(): Observable<any> {

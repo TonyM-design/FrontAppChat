@@ -11,7 +11,7 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class LoginComponent {
 
-  @Input() user: User = { id: 0, name: '', nickname: '', email: '', password: '' };
+  user: User = { id: 0, name: '', nickname: '', email: '', password: '', isLogged: false };
 
   form: FormGroup;
 
@@ -22,9 +22,19 @@ export class LoginComponent {
     });
   }
 
-  dataUser?:User
+  currentUser = this.us.userlogged
   login() {
-    this.us.signIn(this.user.email, this.user.password).subscribe((data:any) => {this.dataUser=data;});
+    this.us.login(this.user.email, this.user.password).subscribe(
+      (data: any) => {
+        this.currentUser = data;
+        if (this.currentUser) {
+          this.router.navigate(['/userProfil', this.currentUser.id]);
+        }
+      },
+      error => {
+        alert('Mot de passe ou email incorrect');
+      }
+    );
   }
 
   // listuser:User[]=[];
