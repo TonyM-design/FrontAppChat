@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message } from 'src/app/entity/message';
+import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class MessageComponent {
   today = new Date();
 
 
-  constructor(public us: UserService) {
+  constructor(public us: UserService , private ms:MessageService) {
   }
 
 
@@ -59,10 +60,18 @@ export class MessageComponent {
     }
   }
 
-
-
-
-  ngOnInit() {
+ ngOnInit() {
   }
 
+  onDelete(id: number) {
+    this.ms.deleteMessageById(id).subscribe(
+      response => {
+        console.log(response); // You might want to do something more with the response, like show a notification
+        this.messageList = this.messageList.filter(msg => msg.id !== id);  // Remove the deleted message from the list
+      },
+      error => {
+        console.error("Error deleting the message:", error); // Handle the error, maybe show an error message to the user
+      }
+    );
+    }
 }

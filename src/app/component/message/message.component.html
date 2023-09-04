@@ -19,6 +19,8 @@
                     </small>
                 </div>
                 <p class="mb-1">{{ this.message.content}}
+                    <button (click)="onDelete(message.id)">Delete</button>
+
                 </p>
             </div>
         </div>
@@ -36,6 +38,7 @@
                         </small>
                     </div>
                     <p class="mb-1">{{ this.message.content}}
+                        <button (click)="onDelete(message.id)">Delete</button>
                     </p>
                 </div>
             </div> 

@@ -12,8 +12,6 @@ import { CanalListComponent } from './component/canal-list/canal-list.component'
 
 const routes: Routes = [
  
-  
-  
   {path :'', component:CanalListComponent},
   {path :'login', component:LoginComponent},
   {path :'register', component:AdduserComponent},
@@ -21,7 +19,8 @@ const routes: Routes = [
   {path :'edit', component:EditcanalComponent},
   {path :'add', component:AddcanalComponent},
   {path :':id', component:MessageListComponent},
-  { path: 'userProfil/:id', component: EdituserComponent }
+  {path: 'userProfil/:id', component: EdituserComponent},
+  { path: '**', redirectTo: '/' }
   
 ];
 

@@ -41,10 +41,13 @@ export class MessageService {
     return this.http.get<Message[]>(`${this.url}/canal/${id}`);
   }
 
-
-
-
-
-
-
+  deleteMessageById(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`,{ responseType: 'text' });
+  }
 }
+
+
+
+
+
+

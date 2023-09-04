@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CanalService } from 'src/app/service/canal.service';
 
 import { MessageService } from 'src/app/service/message.service';
@@ -20,23 +19,17 @@ import { UserService } from 'src/app/service/user.service';
 })
 
 export class AddmessageComponent {
-
   form: FormGroup;
-
-
+  @Output() RefreshEmitter = new EventEmitter;
 
   constructor(
-
     private fb: FormBuilder,
     private ms: MessageService,
-    public us:UserService, 
-    public route:Router,
-    public  cs:CanalService
-
+    private cs : CanalService
+    
   ) {
 
     this.form = this.fb.group({
-
       messageContent: ['', {
         validators: [
           Validators.required, Validators.minLength(1)
@@ -54,6 +47,8 @@ export class AddmessageComponent {
       this.ms.createMessages(this.form.value.messageContent).subscribe(
         (response) => {
           console.log('Message created successfully:', response);
+          this.form.reset();
+          this.RefreshEmitter.emit();
         },
         (error) => {
           console.error('Error creating canal:', error);
@@ -64,6 +59,10 @@ export class AddmessageComponent {
     }
   }
 
+  refresh(){
+    this.ms.getMessagesByCanalId(this.cs.canalUsed.id);
+
+  }
 
 
 }
