@@ -50,29 +50,18 @@ export class AddmessageComponent {
 
 
   onClick() {
-
-    console.log(this.form.value)
-
-    this.ms.createMessages(this.form.value.messageContent).subscribe(
-
-      (response) => {
-
-        console.log('Message created successfully:', response);
-        this.form.reset();
-        location.reload();
-        // this.route.navigate(['/'+this.cs.canalUsed.id]);
-        console.log(this.us.userlogged);
-
-      },
-
-      (error) => {
-
-        console.error('Error creating canal:', error);
-
-      }
-
-    );
-
+    if (this.form.value.messageContent !== undefined) {
+      this.ms.createMessages(this.form.value.messageContent).subscribe(
+        (response) => {
+          console.log('Message created successfully:', response);
+        },
+        (error) => {
+          console.error('Error creating canal:', error);
+        }
+      );
+    } else {
+      console.error('Message content is undefined');
+    }
   }
 
 
