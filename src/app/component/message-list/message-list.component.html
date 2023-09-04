@@ -7,7 +7,7 @@
       [messageList]="messagesToDisplay"></app-message>
   </ul>
 
-  <app-addmessage>
+  <app-addmessage (RefreshEmitter)="refresh()">
 
   </app-addmessage>
 </div>
