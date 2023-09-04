@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CanalToCreate } from 'src/app/entity/canaltocreate';
 import { CanalService } from 'src/app/service/canal.service';
 
@@ -9,33 +10,31 @@ import { CanalService } from 'src/app/service/canal.service';
   styleUrls: ['./addcanal.component.css']
 })
 export class AddcanalComponent {
+
+  form: FormGroup;
+  showAlert = false;
+
+  constructor(
+
 form: FormGroup ;
   @Output() RefreshEmitter = new EventEmitter;
   
 constructor(
+
     private fb: FormBuilder,
-    private cs :  CanalService){
-  this.form = this.fb.group({
-    canalname:['', [Validators.required, Validators.maxLength(10)]],
-    canaldesc:['', [Validators.required, Validators.maxLength(200)]],
+    private cs: CanalService,
+    private router: Router) {
+    this.form = this.fb.group({
+      canalname: ['', [Validators.required, Validators.maxLength(25)]],
 
-  })
-}
-onClick() {
-console.log(this.form.value)
-let newCanal = new CanalToCreate(this.form.value.canalname)
-// this.cs.createCanal(newCanal);
-
-this.cs.createCanal(newCanal).subscribe(
-  (response) => {
-    console.log('Canal created successfully:', response);
-              this.form.reset();
-          this.RefreshEmitter.emit();
-  },
-  (error) => {
-    console.error('Error creating canal:', error);
+    })
   }
-);
-}
+  onClick() {
+    console.log(this.form.value)
+    let newCanal = new CanalToCreate(this.form.value.canalname)
+    console.log(newCanal)
+
+
+  }
 
 }
