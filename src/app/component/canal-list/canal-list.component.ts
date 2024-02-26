@@ -1,9 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CanalService } from 'src/app/service/canal.service';
 import { Canal } from 'src/app/entity/canal';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/service/message.service';
-import { UserService } from 'src/app/service/user.service';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
+import { StorageService } from 'src/app/service/storage.service';
+import { ModalService } from 'src/app/service/modal.service';
+import { WebSocketService } from 'src/app/service/web-socket.service';
 
 @Component({
   selector: 'app-canal-list',
@@ -12,35 +16,44 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class CanalListComponent implements OnInit {
 
-  canals: any[] = [];
+
   @Output() canalEvent = new EventEmitter<number>();
+  canals: Observable<Canal[]> = this.canalService.canals
 
   constructor(
+    public storageService: StorageService,
     private canalService: CanalService,
     private router: Router,
-    public userService: UserService
+    private route: ActivatedRoute,
+    public authService: AuthService,
+    private messageService: MessageService,
+    public modalService: ModalService,
+    private webSocketService: WebSocketService
   ) {
 
   }
 
   ngOnInit(): void {
+    this.canalService.setCanalList();
 
-
-    this.canalService.getAllCanals().subscribe(
-      (data) => {
-        console.log(data)
-        this.canals = data
-      },
-      (error) => {
-        console.error('Erreur : ', error)
-      }
-    )
   }
 
   changeCanal(canal: Canal) {
     this.canalService.canalUsed = canal;
-    console.log(canal.id)
     this.router.navigate(['/' + canal.id])
+    this.webSocketService.joinRoom(canal.id)
+    this.messageService.messageToDisplay.length = 0;
+    this.messageService.initializeMessageToDisplay(canal.id)
+    this.messageService.messagePagesCounter = 0;
 
+
+  }
+
+  resetPage() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = "reload"
+    this.router.navigate([''], {
+      relativeTo: this.route
+    })
   }
 }

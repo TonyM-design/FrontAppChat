@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
+import { StorageService } from 'src/app/service/storage.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+  constructor(public userService: UserService, public authService: AuthService, public storageService: StorageService) {
+
+  }
+
+  ngOnInit() {
+    //  console.log(this.userLogged)
+  }
 
 }

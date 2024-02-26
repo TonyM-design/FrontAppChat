@@ -1,63 +1,110 @@
-<p>AJOUTER UN CANAL</p>
-<form [formGroup]="form" (submit)="onClick()">
-    <input type="text" placeholder="Nom du canal à créer" id="canalname" name="canalname" formControlName="canalname">
-    <p [hidden]="form.valid">Le user name doit faire moins de 10 caractères</p>
-    <button [disabled]="form.invalid">Créer canal!</button>
-</form>
-
-<section class="h-100 gradient-form">
-    <form [formGroup]="form" (submit)="onClick()">
-
-        <div class="container">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-xl-6">
-                    <div class="card rounded-3 ">
-                        <div class="row g-0">
-                            <div>
-                                <div class="card-body p-md-5 mx-md-4">
-                                    <div class="text-center">
+<div class="flex justify-center align-middle pt-5 ">
+    <form [formGroup]="form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-9/12 max-w-sm"
+        (submit)="onClick()">
 
 
-                                        <h4 class="mt-1 mb-2 pb-1">Ajouter un canal</h4>
-                                        <div class="form-outline mb-4">
-                                            <input type="text" placeholder="Nom du canal à créer" id="canalname"
-                                                name="canalname" formControlName="canalname" class="form-control"
-                                                required />
+        <div>
+            <div class=" p-md-4 mx-md-2">
+                <div class="text-center">
+                    <h1
+                        class="mt-1 mb-2 pb-1 capitalize text-center tracking-widest text-lg title-font font-medium text-gray-400 ">
+                        Nouvelle conversation</h1>
+                    <div class=" mb-4">
+                        <input type="text" placeholder="Nom de la conversation" id="canalname" name="canalname"
+                            formControlName="canalname"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required />
+                    </div>
+                    <div class="form-outline mb-4 ">
 
-                                        </div>
-                                    </div>
+                        <textarea placeholder="Description du canal..."
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name="description" formControlName="description" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="flex justify-between  mb-4">
+                        <div [ngSwitch]="this.isPublic">
+                            <div *ngSwitchCase="true">
+                                <label class=" text-gray-400" for="flexSwitchCheckDefault">
+                                    Visibilité : <i class="text-green-500"> <b>
+                                            public</b></i></label>
+                            </div>
+                            <div *ngSwitchCase="false"><label class=" text-gray-400" for="flexSwitchCheckDefault">
+                                    Visibilité : <i class="text-red-600">
+                                        <b>privé</b></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <i *ngIf="!this.isPublic" class="fa-solid fa-lock text-red-600 "></i>
+                            <i *ngIf="this.isPublic" class="fa-solid fa-lock-open text-green-600 "></i>
+                            <input formControlName="isPublic" name="isPublic" id="isPublic"
+                                class=" text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-4"
+                                type="checkbox" id="flexSwitchCheckDefault" (click)="switchVisibility()">
+                        </div>
+                    </div>
 
-                                    <div *ngIf="this.showAlert === true" class="alert alert-success" role="alert">
-                                        <h4 class="alert-heading">Canal créer !</h4>
 
-                                        <hr />
-                                        <p>
-                                            Vous allez être automatiquement rédirigé sur la page
-                                            du canal dans quelques secondes.
-                                        </p>
-                                    </div>
+                    <div [@fadeInDownAnimation]
+                        *ngIf="this.isPublic === false && (eligibleUsersObservable | async) as eligibleUsers">
+                        <!-- ... Autres éléments HTML ... -->
+                        <div *ngIf="this.assignedUsers.size > 0">
+                            <ul class="">
+                                <li *ngFor="let user of assignedUsers" (click)="unassignUser(user)"
+                                    class="m-1 shadow appearance-none border rounded transition duration-300  py-2 px-3 capitalize bg-green-100 border-green-500 border-b hover:border-red-500 hover:text-red-600 hover:bg-red-100 cursor-pointer ">
+                                    {{user.name}} <i class="   fa-solid fa-xmark"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
 
-                                    <form>
 
-
-
-                                        <div class="text-center pt-1 mb-5 pb-1">
-                                            <button class="btn btn-outline-success" [disabled]="form.invalid"
-                                                type="submit">
-                                                <i class="bi bi-plus-circle-fill"> Ajouter canal</i>
-                                            </button>
-                                            <hr />
-                                        </div>
-
-                                    </form>
+                        <div class=" mb-2 mt-4 ">
+                            <label for="exampleSelect2" class=" mt-4">Assigner des
+                                utilisateurs</label>
+                            <div class="mt-4 shadow appearance-none border rounded w-full py-2 px-3 max-h-min overflow-scroll"
+                                style=" overflow-y:scroll ; overflow-x: hidden ;">
+                                <div class=" cursor-pointer  border-gray-200 border-b shadow appearance-none border rounded py-2 px-3 transition duration-300 hover:bg-green-100 hover:border-green-500 hover:text-green-500"
+                                    *ngFor="let user of eligibleUsers, let index = index " (click)="assignUser(user)"
+                                    value="user.name">
+                                    {{index+ 1}}. {{user.name}}
+                                    <i style="color: #41d7a7;" class="fa-regular fa-circle-check m-1"></i>
                                 </div>
                             </div>
 
+
+
+
                         </div>
                     </div>
+
+
+
                 </div>
+                <div *ngIf="this.showAlert === true" class="" role="alert">
+                    <h4 class="">Canal créer !</h4>
+                    <hr />
+                    <p>
+                        Vous allez être automatiquement rédirigé sur la page
+                        du canal dans quelques secondes.
+                    </p>
+                </div>
+
+
+                <div class="text-center justify-between flex pt-1 mb-5 pb-1">
+                    <button type="submit"
+                        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                        <i class="fa fa-plus"></i> Créer
+                    </button>
+                    <button class="" type="reset" (click)="this.modalService.close()">
+                        <i> Annuler</i>
+                    </button>
+                    <hr />
+                </div>
+
             </div>
         </div>
+
+
     </form>
 
-</section>
+</div>

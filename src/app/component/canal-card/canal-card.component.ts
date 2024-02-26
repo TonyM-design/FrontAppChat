@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { Canal } from 'src/app/entity/canal';
 import { Message } from 'src/app/entity/message';
-import { CanalService } from 'src/app/service/canal.service';
+import { User } from 'src/app/entity/user';
 import { MessageService } from 'src/app/service/message.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-canal-card',
@@ -11,27 +13,22 @@ import { MessageService } from 'src/app/service/message.service';
 })
 export class CanalCardComponent {
   @Input() canal!: Canal;
-  last3Messages: any[] = [];
-  lastMessages: any[] = [];
-  constructor(private messageService: MessageService) {
+  lastMessage!: Message | undefined;
+  messageListLength!: number;
+  usersInCanal!: User[];
+  subscription!: Subscription;
+
+  constructor(private messageService: MessageService, private userService: UserService) {
   }
 
-  ngOnInit() {
-    this.messageService.getMessagesByCanalId(this.canal.id).subscribe((data) => {
-      this.getLastMessages(data)
-    });
+  async ngOnInit() {
+    this.usersInCanal = await lastValueFrom(this.userService.getUsersByCanalId(this.canal.id))
+    this.lastMessage = await this.messageService.getLastMessageByCanalId(this.canal.id)
+    this.messageListLength = (await lastValueFrom(this.messageService.getMessagesByCanalId(this.canal.id))).length
 
   }
 
-  getLastMessages(data: any[]) {
-    console.log(data)
-    let counter = 0;
-    if (data.length > 0) {
-      for (let i = data.length - 1; counter <= 2; i--) {
-        this.last3Messages.push(data[i])
-        counter++
-      }
-    }
+  openCanal(canalId: number) {
 
   }
 

@@ -24,6 +24,13 @@ import { CanalComponent } from './component/canal/canal.component';
 
 import { LoginComponent } from './component/login/login.component';
 import { CanalCardComponent } from './component/canal-card/canal-card.component';
+import { CanalHomeComponent } from './component/canal-home/canal-home.component';
+import { ModalComponent } from './component/modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserBadgeComponent } from './component/user-badge/user-badge.component';
+import { AddUserToCanalComponent } from './component/add-user-to-canal/add-user-to-canal.component';
+import { MessageQuoteComponent } from './component/message-quote/message-quote.component';
+import { CanalParamComponent } from './component/canal-param/canal-param.component';
 
 
 @NgModule({
@@ -40,11 +47,16 @@ import { CanalCardComponent } from './component/canal-card/canal-card.component'
     HeaderComponent,
     FooterComponent,
     AddmessageComponent,
-
+    CanalHomeComponent,
     MessageComponent,
     CanalComponent,
     LoginComponent,
-    CanalCardComponent
+    CanalCardComponent,
+    ModalComponent,
+    UserBadgeComponent,
+    AddUserToCanalComponent,
+    MessageQuoteComponent,
+    CanalParamComponent
 
   ],
   imports: [
@@ -53,9 +65,10 @@ import { CanalCardComponent } from './component/canal-card/canal-card.component'
     HttpClientModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { interval } from 'rxjs';
+import { take } from 'rxjs';
 import { Canal } from 'src/app/entity/canal';
+import { User } from 'src/app/entity/user';
 import { CanalService } from 'src/app/service/canal.service';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
+import { ModalService } from 'src/app/service/modal.service';
 
 @Component({
   selector: 'app-editcanal',
@@ -11,52 +13,49 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./editcanal.component.css']
 })
 export class EditcanalComponent {
-  canals: any[] = [];
+  canals = this.canalService.subjectCanalList.asObservable();
+  assignedUser: Set<User> | undefined;
 
 
-  constructor(private cs: CanalService, private us: UserService, private ms: MessageService) {
+  constructor(private canalService: CanalService, private userService: UserService, private messageService: MessageService, public modalService: ModalService) {
 
-    this.cs.getAllCanals().subscribe(
-      (data) => {
-        console.log(data)
-        this.canals = data
-      },
-      (error) => {
-        console.error('Erreur : ', error)
-      }
-    )
+  }
+  ngOnInit(): void {
+    console.log(this.canals)
+
   }
 
   onClickDelete(id: number) {
-    this.cs.deleteCanal(id)
-    console.log(this.canals)
+    this.canalService.deleteCanal(id)
   }
 
   getUserByCanal(i: number) {
-    let usersInCurrentCanal: Set<any> = new Set(); // Initialisez l'ensemble ici
-    let messagesInCurrentCanal = this.ms.getMessagesByCanalId(i);
+    let usersInCurrentCanal: Set<any> = new Set();
+    let messagesInCurrentCanal = this.messageService.getMessagesByCanalId(i);
 
     messagesInCurrentCanal.forEach((data) => {
       data.forEach((elem) => {
         usersInCurrentCanal.add(elem.user);
       });
     });
-    console.log(usersInCurrentCanal)
     return usersInCurrentCanal;
   }
 
-  ngOnInit(): void {
-    this.cs.getAllCanals().subscribe(
-      (data) => {
-        console.log(data)
-        this.canals = data
-      },
-      (error) => {
-        console.error('Erreur : ', error)
-      }
-    )
-    console.log(this.canals)
+  switchCanalIsPublic(canal: Canal) {
+    canal.isPublic = !canal.isPublic
+    console.log(canal.isPublic)
   }
+
+  saveCanalChanges(canalToSave: Canal) {
+    console.log("declenchement")
+    console.log(canalToSave)
+    this.canalService.updateCanal(canalToSave).pipe(take(1)).subscribe(updatedCanal => {
+      alert("mise a jour canal")
+    })
+  }
+
+
+
 
 
 

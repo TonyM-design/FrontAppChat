@@ -1,3 +1,5 @@
+import { Canal } from "./canal";
+
 export class User {
     constructor(
         public id: number,
@@ -5,7 +7,9 @@ export class User {
         public nickname: string,
         public email: string,
         public password: string,
-        public isLogged: boolean
+        public assignedCanals: Canal[] | undefined,
+        public viewMessages: Map<number, number> | undefined = new Map<number, number>(),
+        public badgeColor: string
     ) {
     }
 

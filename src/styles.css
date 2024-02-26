@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import './assets/bootstrapperso.min.css';
+@import '../../../fontawesome/fontawesome/css/all.css';
 
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vertical-rule {
+  border-left: 3px solid #ccc; /* Couleur et style de la bordure gauche du séparateur */
+  height: 25vh; /* Hauteur du séparateur (100% de la hauteur de la vue) */
+  margin: 0; /* Supprime la marge par défaut de la balise hr */
+  border-top: 0px;
+}
