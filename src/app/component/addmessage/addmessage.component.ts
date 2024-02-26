@@ -1,8 +1,10 @@
+
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'src/app/entity/message';
+
 
 import { MessageService } from 'src/app/service/message.service';
 
@@ -34,8 +36,8 @@ import { MessageService } from 'src/app/service/message.service';
 })
 
 export class AddmessageComponent {
-
   form: FormGroup;
+
   @Input() messageToDisplay!: Message[];
 
 
@@ -44,6 +46,7 @@ export class AddmessageComponent {
   ) {
 
     this.form = this.formBuilder.group({
+
       messageContent: ['', {
         validators: [
           Validators.required, Validators.minLength(1)
@@ -76,7 +79,9 @@ export class AddmessageComponent {
     if (this.form.value.messageContent !== undefined) {
       this.messageService.createMessages(this.form.value.messageContent).subscribe(
         (response) => {
+
           console.log(response)
+
         },
         (error) => {
           console.error('Error creating canal:', error);
@@ -90,6 +95,10 @@ export class AddmessageComponent {
     this.form.reset();
   }
 
+  refresh(){
+    this.ms.getMessagesByCanalId(this.cs.canalUsed.id);
+
+  }
 
 
 }

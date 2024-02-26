@@ -20,6 +20,7 @@ import { WebSocketService } from './web-socket.service';
 })
 
 export class MessageService {
+
   private url = 'http://localhost:8888/messages';
   allMessageList!: Message[];
   subjectMessageLists: Record<number, BehaviorSubject<Message[]>> = {};
@@ -81,6 +82,7 @@ export class MessageService {
     console.log(this.messageToDisplay)
     return this.messageToDisplay;
   }
+
 
 
 
@@ -178,4 +180,5 @@ export class MessageService {
 
     return this.http.get<Message[]>(`${this.url}/canal/${canalId}/test`, { params });
   }
+
 }

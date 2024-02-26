@@ -1,3 +1,4 @@
+
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom, map } from 'rxjs';
@@ -6,6 +7,7 @@ import { User } from 'src/app/entity/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { MessageService } from 'src/app/service/message.service';
 import { StorageService } from 'src/app/service/storage.service';
+
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -16,7 +18,9 @@ import { UserService } from 'src/app/service/user.service';
 export class MessageComponent {
   @Input() message!: Message;
   @Input() messageList!: Message[];
+
   @Input() isLastMessage!: Message;
+
 
   today = new Date();
   hovered = false;
@@ -28,8 +32,10 @@ export class MessageComponent {
     this.modifyIfSerializedId(this.message)
   }
 
+
   onMouseEnter(): void {
     this.hovered = !this.hovered;
+
   }
 
   respondTo() {
@@ -83,7 +89,9 @@ export class MessageComponent {
   }
 
 
+
   isSameTime() {
+
 
   }
 

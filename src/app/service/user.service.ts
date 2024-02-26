@@ -7,11 +7,13 @@ import { User } from '../entity/user';
   providedIn: 'root'
 })
 export class UserService {
+
   private url = 'http://localhost:8888/users';
   subjectUserLogged = new BehaviorSubject<User | undefined>(undefined);
   userList: User[] = [];
   subjectUserList = new BehaviorSubject<User[]>([])
   userError: String = "";
+
 
 
 
