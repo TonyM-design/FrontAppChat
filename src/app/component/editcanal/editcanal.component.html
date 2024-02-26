@@ -1,22 +1,86 @@
 <div class="container-fluid">
+
+    <app-modal id="addUserToCanalModal" title="Ajouter des utilisateurs">
+
+    </app-modal>
+
+    <!-- <app-modal id="modal-2">
+            <h1>A tall modal popup</h1>
+            <p style="">Close with the button below or by clicking the background.</p>
+            <button (click)="modalService.close();">Close</button>
+        </app-modal>
+    -->
+
+
     <div class="row d-flex justify-content-center">
         <div class="table-responsive col-8">
-            <table class="table table-striped
-    table-hover	
-    table-borderless
-    table-primary
-    align-middle
-    ">
+            <table class="table table-striped table-hover table-borderless table-primary align-middle">
                 <thead class="table-dark">
                     <h3>Gestion des canaux</h3>
                     <tr>
-                        <th></th>
+                        <th>Nom</th>
+                        <th>Status</th>
+                        <th>Utilisateurs</th>
+                        <th>Enregistrer </th>
                         <th>Supprimer</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
-                    <tr *ngFor="let canal of canals" class="table-primary">
+                <tbody class="table-group-divider" *ngIf="(canals | async) as canals">
+
+
+                    <tr *ngFor="let canal of canals" class="table-primary ">
                         <td scope="row">{{canal.name}}</td>
+                        <td>
+                            <div class="form-check form-switch  d-flex ">
+                                <div [ngSwitch]="canal.isPublic">
+
+                                    <div *ngSwitchCase="true"><input class="form-check-input" type="checkbox"
+                                            id="flexSwitchCheckDefault" (click)="switchCanalIsPublic(canal)">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">
+                                            <i class="text-success"> <b> public</b></i></label>
+                                    </div>
+                                    <div *ngSwitchCase="false">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                            checked (click)="switchCanalIsPublic(canal)"><label class="form-check-label"
+                                            for="flexSwitchCheckDefault">
+                                            <i class="text-info">privé</i></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+
+                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button"
+                                        class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        X utilisateurs
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <li><a class="dropdown-item"
+                                                (click)="modalService.open('addUserToCanalModal')">Afficher les
+                                                utilisateurs</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li [ngSwitch]="canal.isPublic">
+                                            <button *ngSwitchCase="true" class="dropdown-item" href="#" disabled>Ajouter
+                                                un
+                                                utilisateur</button>
+                                            <button *ngSwitchCase="false" class="dropdown-item" href="#">Ajouter un
+                                                utilisateur</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <button type="button" (click)="saveCanalChanges(canal)">Enregistrer</button>
+
+                        </td>
                         <td><i class="bi bi-x-circle-fill" type="button" (click)="onClickDelete(canal.id)"></i>
                         </td>
                     </tr>
@@ -26,4 +90,6 @@
             </table>
         </div>
     </div>
+
+
 </div>

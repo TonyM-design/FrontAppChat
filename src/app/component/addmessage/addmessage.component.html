@@ -1,10 +1,41 @@
-<hr>
-<form [formGroup]="form" (submit)="onClick()">
+<div [class]="messageService.subjectMessageToRespond.getValue() === undefined ? 'pt-14' : 'pt-32'"
+    class="fixed  w-screen   bottom-0  ">
 
-    <div class="input-group mb-3">
-        <input type="text" formControlName="messageContent" required name="messageContent" id="messagecontent"
-            class="form-control" aria-describedby="helpId" placeholder="Ecrire un message"
-            aria-describedby="button-addon2">
-        <button [disabled]="form.invalid" class="btn btn-primary" type="submit" id="button-addon2">Envoyer</button>
+
+    <div class="  bg-white rounded-xl  m-2 border border-gray-200  ">
+
+        <!--START -- RESPONSE QUOTE PART IF NOT UNDEFINED-->
+        <div [@fadeInDownAnimation] *ngIf="this.messageService.subjectMessageToRespond.getValue()!== undefined"
+            class="w-full flex mt-4 ml-3  ">
+            <app-message-quote>
+
+            </app-message-quote>
+
+
+
+
+            <i class="fa-solid fa-xmark mt-2 ml-1 text-gray-400" (click)="closeResponse()"></i>
+
+
+
+        </div>
+        <!--END -- RESPONSE QUOTE PART IF NOT UNDEFINED-->
+
+        <form class=" " [formGroup]="form" (submit)="onClick()">
+
+            <div class=" mb-3 mt-3 flex   ">
+
+                <input type="text" formControlName="messageContent" required name="messageContent" id="messagecontent"
+                    class="form-control w-10/12 px-4 " placeholder="Ecrire un message... "
+                    aria-describedby="button-addon2">
+                <button [disabled]="form.invalid" class="w-2/12" type="submit" id="button-addon2"><i
+                        class="fa-regular fa-paper-plane text-gray-400 cursor-pointer z-10 "></i>
+                    <span></span>
+                </button>
+            </div>
+
+
+
+        </form>
     </div>
-</form>
+</div>

@@ -1,39 +1,28 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Liste des canaux</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <li class="nav-item">
-        <a class="nav-link active">Afficher tout les canaux</a>
-      </li>
-      <div *ngFor="let canal of canals">
-        <li class="nav-item" (click)="changeCanal(canal)">
-          <a class="nav-link " routerLink="">{{ canal.name }}</a>
-        </li>
-      </div>
-    </ul>
+<app-modal id="createCanalModal" title="Créer une discussion" class="h-full">
+
+</app-modal>
+
+
+<div class="">
+  <div class="flex m-4 justify-center">
+    <h1 class="capitalize text-center tracking-widest text-sm title-font font-medium text-gray-400 mb-1 "> DISCUSSIONS
+    </h1>
+    <i class="fa-solid fa-ellipsis-vertical  text-gray-400 ml-4 mt-0.5"></i>
 
   </div>
-</div>
-
-
-<div class=" container">
-
-
-  <div class="row d-flex ">
-    <app-canal-card class="col-4" *ngFor=" let canal of canals" (click)="changeCanal(canal)"
-      [canal]="canal"></app-canal-card>
-  </div>
-
-  <div *ngIf="this.userService.userlogged !== undefined">
+  <div *ngIf='this.storageService.get("userLogged") !== undefined' class="pt-1">
     <hr>
     <div class="d-flex justify-content-between m-2">
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="button" aria-pressed="false"
-        autocomplete="off" routerLink="/add"><i class="bi bi-plus-circle-fill"> Créer un canal</i> </button>
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="button" aria-pressed="false"
-        autocomplete="off" routerLink="/edit"><i class="bi bi bi-pencil-fill"> Modifier un canal</i> </button>
+      <button type="button" (click)="modalService.open('createCanalModal')"
+        class="bg-white hover:bg-gray-400 hover:text-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow duration-150"><i
+          class="bi bi-plus-circle-fill"> </i>Nouvelle discussions </button>
+      <button type="button" class="border rounded-full p-2 font-normal" routerLink="/edit"><i
+          class="bi bi bi-pencil-fill"></i> Modifier un canal </button>
     </div>
   </div>
+  <div *ngIf="(canals | async) as canals" class="  sm:flex-none md:flex-col md:columns-3 mx-10 md:px-40  ">
+    <app-canal-card *ngFor=" let canal of canals" (click)="changeCanal(canal)" [canal]="canal"></app-canal-card>
+  </div>
+
+
 </div>

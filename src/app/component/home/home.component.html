@@ -10,23 +10,16 @@
 </head>
 
 <body>
-
     <!-- HEADER-->
-    <app-header></app-header>
 
 
-    <!--AFFICHAGE DYNAMIQUE-->
-    <router-outlet></router-outlet>
+    <div *ngIf='this.storageService.get("userLogged") === undefined'>
+        <h1>Accès refusé, veuillez vous connecter pour acceder a l'application</h1>
+    </div>
+    <div *ngIf='this.storageService.get("userLogged") !== undefined'>
+        <app-canal-list></app-canal-list>
+    </div>
 
-
-    <!--FENETRE CHAT-->
-    <!-- <app-message-list></app-message-list> -->
-
-    <!-- <app-user-list></app-user-list> -->
-
-
-    <!-- FOOTER-->
-    <app-footer></app-footer>
 
 
 </body>

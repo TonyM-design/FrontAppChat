@@ -1,0 +1,31 @@
+<div class=" modal-open h-full bg-gray-500 bg-opacity-25   ">
+    <div class="mt-10 animate-slide-top ">
+
+
+        <!-- Some borders are removed -->
+
+        <div *ngIf="id === 'addUserToCanalModal'">
+            <ul class="">
+                <li *ngFor="let user of availableUserForAssign; let i =index" class="">
+                    {{user.name}}
+                    <input class=" me-1" type="checkbox" value="" [(ngModel)]="assignUserCheckboxStatus[i]">
+                </li>
+            </ul>
+
+            <div>
+                <button (click)="getUsersToAssign();">Valider</button>
+                <button (click)="modalService.close();">Annuler</button>
+            </div>
+        </div>
+
+
+        <div *ngIf="id === 'createCanalModal'">
+            <app-addcanal></app-addcanal>
+
+        </div>
+        <div *ngIf="id === 'addUsersToPrivateCanalModal'">
+            <app-add-user-to-canal></app-add-user-to-canal>
+
+        </div>
+    </div>
+</div>

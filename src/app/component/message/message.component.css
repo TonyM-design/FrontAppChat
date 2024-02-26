@@ -1,0 +1,36 @@
+.message-extra {
+  opacity: 0;
+  height: 0px;
+}
+
+@keyframes myAnim {
+  0% {
+    opacity: 0;
+    height: 0px;
+    transform: translateY(-15px);
+  }
+
+  100% {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-extra-show {
+  opacity: 1;
+  height: auto;
+  animation: myAnim 0.3s ease-out 0s 1 normal none;
+}
+
+.message-response :hover {
+  color: rgb(57, 203, 251);
+  cursor: pointer;
+}
+
+.shadow-sm-t {
+  --tw-shadow: 0 -2px 4px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 -2px 4px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}

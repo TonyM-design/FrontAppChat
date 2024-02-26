@@ -1,0 +1,50 @@
+/* MODAL STYLES
+-------------------------------*/
+app-modal {
+  /* modals are hidden by default */
+  display: none;
+}
+.jw-modal {
+  /* modal container fixed across whole screen */
+  position: fixed;
+  inset: 0;
+
+  /* z-index must be higher than everything else on the page */
+  z-index: 10000;
+
+  /* semi-transparent black background exposed by padding */
+  background-color: deeppink;
+  padding: 40px;
+
+  /* enables scrolling for tall modals */
+}
+
+.jw-modal-body {
+  padding: 20px;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2) 70%
+  );
+}
+.modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  margin-top: 0px;
+  margin-left: 0px;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  border: none;
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2),
+    inset -1px -1px rgba(255, 255, 255, 0.1),
+    1px 3px 24px -1px rgba(0, 0, 0, 0.15);
+  bak: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2) 70%
+  );
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  overflow-x: scroll;
+}

@@ -1,0 +1,15 @@
+<div class=" border bg-white border-gray-200 w-fit rounded-xl max-w-xs p-2 opacity-60 bg-opacity-100">
+    <p class=""> {{this.messageInput !== undefined ? this.messageInput.user.name : this.messageSubject!.user.name }}
+        <small class="pl-2 text-gray-400">
+            <i>{{this.messageInput !== undefined ? (this.messageInput.date | date: 'le dd/MM/yy, à HH:mm') :
+                (this.messageSubject!.date | date: 'le dd/MM/yy, à HH:mm')}}</i>
+        </small>
+        <br>
+
+    </p>
+    <p [ngStyle]=" this.messageSubject!== undefined ? messageStyleOriginal(this.messageSubject) : messageStyleOriginal(this.messageInput) "
+        class="mt-1 border border-white  w-fit rounded-xl max-w-xs p-2">
+        {{this.messageInput !== undefined ? this.messageInput.content : this.messageSubject?.content}}
+    </p>
+
+</div>

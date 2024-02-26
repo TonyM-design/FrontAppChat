@@ -1,0 +1,56 @@
+<div *ngIf=" (this.eligibleUsers | async) as eligibleUsers ">
+    <div class="flex justify-center align-middle ">
+        <form class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4 w-9/12 max-w-sm" (submit)="onClick()">
+
+            <hr>
+
+            <p *ngIf="this.assignedUsers.size === 0" class="text-red-600 animate-pulse border border-red-600 p-2">
+                <i><b>Attention</b>,
+                    assignez au
+                    moins un utilisateur</i>
+            </p>
+
+            <div *ngIf="this.assignedUsers.size > 0">
+                <ul class="">
+                    <li *ngFor="let user of assignedUsers" (click)="unassignUser(user)"
+                        class="m-1 shadow appearance-none border rounded transition duration-300  py-2 px-3 capitalize bg-green-100 border-green-500 border-b hover:border-red-500 hover:text-red-600 hover:bg-red-100 cursor-pointer ">
+                        {{user.name}} <i class="   fa-solid fa-xmark"></i>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <hr>
+
+
+
+            <div class=" mb-2 mt-4 ">
+                <label for="exampleSelect2" class=" mt-4">Assigner des
+                    utilisateurs :</label>
+                <div class="mt-4 shadow appearance-none border rounded w-full py-2 px-3 max-h-min overflow-scroll"
+                    style=" overflow-y:scroll ; overflow-x: hidden ;">
+                    <div class=" cursor-pointer  border-gray-200 border-b shadow appearance-none border rounded py-2 px-3 transition duration-300 hover:bg-green-100 hover:border-green-500 hover:text-green-500"
+                        *ngFor="let user of eligibleUsers, let index = index " (click)="assignUser(user)"
+                        value="user.name">
+                        {{index+ 1}}. {{user.name}}
+                        <i style="color: #41d7a7;" class="fa-regular fa-circle-check m-1"></i>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="text-center justify-between flex pt-1 mb-5 pb-1">
+                <button type="submit"
+                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    <i class="fa fa-plus"></i> Créer
+                </button>
+                <button class="" type="reset" (click)="this.modalService.close()">
+                    <i> Annuler</i>
+                </button>
+                <hr />
+            </div>
+        </form>
+    </div>

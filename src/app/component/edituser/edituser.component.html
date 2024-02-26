@@ -1,37 +1,92 @@
-<h2>User Profile</h2>
+<div class="container">
+    <hr>
+    <h2>Modifier mon compte</h2>
+    <hr>
+    <div class="card text-white bg-secondary row  col-12 " style="border-radius: 25px;">
+        <div class="card-header  ">
+            <form class=" row  " *ngIf="user" (submit)="saveChanges()">
+                <div class="">
+                    <h4 class="mt-1">Email</h4>
+                    <hr>
+                    <div class="form-group ">
+                        <fieldset>
+                            <label class="form-label mt-4" for="readOnlyInput">Readonly input</label>
+                            <input class="form-control is-valid" id="readOnlyInput " type="text" value="{{user.email}}"
+                                readonly="">
+                        </fieldset>
+                    </div>
+                    <div class="form-group ">
+                        <label class="form-label " for="inputValid">Saisir mon nouveau email</label>
+                        <input type="text" class="form-control " id="inputValid"
+                            placeholder="Saisisser votre nouveau email" [(ngModel)]="this.newEmail">
+                    </div>
+                    <div class="form-group ">
+                        <label class="form-label mt-1 " for="inputValid">Saisir une nouvelle fois mon nouveau
+                            email</label>
+                        <input type="text" class="form-control " id="inputValid"
+                            placeholder="Saisisser une nouvelle fois votre nouveau email"
+                            [(ngModel)]="this.emailVerification">
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <form class=" row  " *ngIf="user" (submit)="saveChanges()">
 
-<form *ngIf="user" (submit)="saveChanges()">
+                <h4 class="mt-1">Mot de passe</h4>
+                <hr>
+                <div class="form-group ">
+                    <label class="form-label " for="inputValid">Saisir mon ancien mot de passe</label>
+                    <input type="text" class="form-control " id="inputValid"
+                        placeholder="Saisisser votre nouveau Mot de passe">
+                </div>
+                <div class="form-group ">
+                    <label class="form-label " for="inputValid">Saisir mon nouveau mot de passe</label>
+                    <input type="text" class="form-control " id="inputValid"
+                        placeholder="Saisisser votre nouveau Mot de passe">
+                </div>
+                <div class="form-group ">
+                    <label class="form-label mt-1 " for="inputValid">Saisir une nouvelle fois mon nouveau mot de
+                        passe</label>
+                    <input type="text" class="form-control " id="inputValid"
+                        placeholder="Saisisser une nouvelle fois votre nouveau Mot de passe">
+                </div>
 
-    <!-- Circle Icon -->
-    <div class="icon" [class.online]="user.isLogged"></div>
 
-    <div>
-        <label>
-            <strong>Name:</strong>
-            <input type="text" id="name" class="name" [(ngModel)]="user.name" name="name">
-        </label>
+                <div>
+                    <label>
+                        <strong>Name:</strong>
+                        <input class='form-control' type="text" id="name" class="name" [(ngModel)]="user.name"
+                            name="name">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <strong>Nickname:</strong>
+                        <input type="text" id="nickname" class="nickname" [(ngModel)]="user.nickname" name="nickname">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <strong>Email:</strong>
+                        <input type="email" id="email" class="email" [(ngModel)]="user.email" name="email">
+                    </label>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex card-body justify-content-between ">
+            <div class="">
+                <button class="btn  btn-primary " type="submit">Update Profile</button>
+            </div>
+
+            <div *ngIf="!user">
+                <p>No user data available.</p>
+            </div>
+
+            <!-- Logout Button -->
+            <div class=" ">
+                <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+            </div>
+        </div>
     </div>
-    
-    <div>
-        <label>
-            <strong>Nickname:</strong>
-            <input type="text" id="nickname" class="nickname" [(ngModel)]="user.nickname" name="nickname">
-        </label>
-    </div>
-    
-    <div>
-        <label>
-            <strong>Email:</strong>
-            <input type="email" id="email" class="email" [(ngModel)]="user.email" name="email">
-        </label>
-    </div>
-    
-    <button type="submit">Update Profile</button>
-</form>
-
-<div *ngIf="!user">
-    <p>No user data available.</p>
 </div>
-
-<!-- Logout Button -->
-<button (click)="deconnexion()">Logout</button>
