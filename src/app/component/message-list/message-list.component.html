@@ -35,8 +35,7 @@
         <button type="button" (click)="this.messageService.initializeMessageToDisplay(this.canalUsed.id)">load
           more</button>
         <div>
-          <app-message *ngFor="let message of toDisplay | async" [message]="message"
-            [id]='message === messagesToDisplay[messagesToDisplay.length-1] ? "lastMessage":"" '>
+          <app-message *ngFor="let message of toDisplay | async" [message]="message">
           </app-message>
         </div>
 
