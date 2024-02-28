@@ -27,6 +27,7 @@ export class MessageListComponent implements OnInit {
 
 
 
+
   constructor(public webSocketService: WebSocketService, public modalService: ModalService, public messageService: MessageService, private canalService: CanalService, private userService: UserService, private router: Router, public navigationService: NavigationService) {
 
   }
@@ -57,6 +58,7 @@ export class MessageListComponent implements OnInit {
       })
     }
     this.webSocketService.joinRoom(this.canalUsed.id)
+
     for (const message of await this.messageService.initializeMessageToDisplay(this.canalUsed.id)) {
       this.messagesToDisplay.push(message)
     }
@@ -105,7 +107,15 @@ export class MessageListComponent implements OnInit {
 
   }
 
+refresh(){
+  let id: number = this.canalUsed.id; // on récupère le canal used pour filtre les messages
+    this.messageService.getMessagesByCanalId(this.canalUsed.id).subscribe((data) =>
 
+      this.messagesToDisplay = data
+      // console.log(this.displayFullMessage(this.messagesToDisplay));
+
+    )
+}
 
   ngOnDestroy() {
 

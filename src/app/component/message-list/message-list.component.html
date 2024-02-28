@@ -1,3 +1,4 @@
+
 <app-modal id="addUsersToPrivateCanalModal" title="Assigner des utilisateurs" class="h-full">
 
 </app-modal>
@@ -34,10 +35,12 @@
       <div class="pt-2 mb-36 ">
         <button type="button" (click)="this.messageService.initializeMessageToDisplay(this.canalUsed.id)">load
           more</button>
+
         <div>
           <app-message *ngFor="let message of toDisplay | async" [message]="message">
           </app-message>
         </div>
+
 
       </div>
     </ul>
