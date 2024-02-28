@@ -38,7 +38,6 @@ export class HeaderComponent {
 
 
   logout() {
-    console.log("déconnexion")
     this.authService.logout();
     setTimeout(() => { this.router.navigate(['']) }, 2500)
     this.dropdownOpen = false;

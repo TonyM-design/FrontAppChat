@@ -75,7 +75,6 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    console.log(user);
     let id = user.id
     return this.http.put<User>(this.url + '/' + id, user);
   }

@@ -59,11 +59,10 @@ export class AddmessageComponent {
 
   }
 
-  scrollToLastMessage() {
+  scrollToEndMessage() {
 
-    const elementToScroll = document.getElementById("addMessage")
-    elementToScroll?.scrollIntoView()
-
+    const elementToScroll = document.getElementById("artificialEnd")
+    elementToScroll?.scrollIntoView({ behavior: "smooth" })
 
   }
 
@@ -91,7 +90,7 @@ export class AddmessageComponent {
       console.error('Message content is undefined');
     }
     const elementToScroll = document.getElementById("addMessage")
-    elementToScroll?.scrollIntoView()
+    elementToScroll?.scrollIntoView({ behavior: "smooth" });
     this.form.reset();
   }
 

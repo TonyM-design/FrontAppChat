@@ -33,7 +33,6 @@ export class AdduserComponent {
     if (this.form) {
       this.us.createUser(this.form.value).subscribe(
         (data: any) => {
-          console.log(data)
           this.storageService.set("userLogged", data);
           this.showAlertSuccess = true;
           setTimeout(() => { this.router.navigate(['']) }, 2500)

@@ -21,8 +21,6 @@ export class EditcanalComponent {
 
   }
   ngOnInit(): void {
-    console.log(this.canals)
-
   }
 
   onClickDelete(id: number) {
@@ -43,12 +41,9 @@ export class EditcanalComponent {
 
   switchCanalIsPublic(canal: Canal) {
     canal.isPublic = !canal.isPublic
-    console.log(canal.isPublic)
   }
 
   saveCanalChanges(canalToSave: Canal) {
-    console.log("declenchement")
-    console.log(canalToSave)
     this.canalService.updateCanal(canalToSave).pipe(take(1)).subscribe(updatedCanal => {
       alert("mise a jour canal")
     })

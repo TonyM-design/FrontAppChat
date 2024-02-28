@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log("declenchement login() AuthService")
     const body = {
       email: email,
       password: password,
@@ -52,10 +51,7 @@ export class AuthService {
   }
 
   logout() {
-    console.log("declenchementLogOut() depuis service Auth")
     this.storageService.remove("userLogged")
-    console.log(this.storageService.get('userLogged'))
-    //reset page
     this.globalService.reloadPage();
   }
 

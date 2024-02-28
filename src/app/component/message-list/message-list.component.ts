@@ -4,7 +4,7 @@ import { Message } from 'src/app/entity/message';
 import { Canal } from 'src/app/entity/canal';
 import { CanalService } from 'src/app/service/canal.service';
 import { UserService } from 'src/app/service/user.service';
-import { lastValueFrom, take } from 'rxjs';
+import { Observable, Subscriber, lastValueFrom, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { NavigationService } from 'src/app/service/navigation.service';
 import { ModalService } from 'src/app/service/modal.service';
@@ -16,10 +16,13 @@ import { WebSocketService } from 'src/app/service/web-socket.service';
   styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent implements OnInit {
+
   canalUsed!: Canal;
   messagesToDisplay: any = [];
-  isLastMessage!: Message;
+  toDisplay: Observable<Message[]> = this.messageService.subjectMessageToDisplay
+  lastMessage!: Message;
   pageCounter: number = 0;
+  massagesLoaded: Boolean = false;
 
 
 
@@ -30,7 +33,18 @@ export class MessageListComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.listenerMessage()
+    this.listenerMessage();
+    this.initialize().then(() => {
+    })
+    setTimeout(() => {
+      const elementToScroll = document.getElementById("artificialEnd")
+      elementToScroll?.scrollIntoView({ behavior: "smooth" })
+    }, 100)
+
+
+  }
+
+  async initialize() {
     this.canalUsed = this.canalService.canalUsed;
     if (this.canalUsed === undefined) {
       const url = new URL(window.location.href);
@@ -45,36 +59,33 @@ export class MessageListComponent implements OnInit {
     }
     this.webSocketService.joinRoom(this.canalUsed.id)
 
-
-
-
-
-
     for (const message of await this.messageService.initializeMessageToDisplay(this.canalUsed.id)) {
       this.messagesToDisplay.push(message)
     }
-    const elementToScroll = document.getElementById("addMessage")
-    elementToScroll?.scrollIntoView()
+
   }
 
 
 
   async listenerMessage() {
-    console.log('LISTENER MESSAGE')
-    console.log(this.webSocketService.stompClient)
+    // la pile de message du websocket
     this.webSocketService.getMessageSubject().subscribe((messages: any) => {
-      console.log(messages)
       messages.map(async (mess: any) => {
-        if (!this.messagesToDisplay.includes(mess)) {
-          mess.user = await lastValueFrom(this.userService.getUserById(mess.user.id))
-          console.log(mess)
-          this.messagesToDisplay.push(mess)
+        mess.user = await lastValueFrom(this.userService.getUserById(mess.user.id))
+        if (this.messageService.subjectMessageToDisplay.getValue().includes(mess) === false) {
+          this.messageService.subjectMessageToDisplay.next([...this.messageService.subjectMessageToDisplay.getValue(), mess])
         }
       })
+      const elementToScroll = document.getElementById("artificalEnd")
+      elementToScroll?.scrollIntoView({ behavior: "smooth" })
     });
-    if (this.messagesToDisplay.length === undefined) {
-      this.isLastMessage = await this.messageService.getLastMessageByCanalId(this.canalService.canalUsed.id)
-    }
+
+  }
+
+
+  loadMoreMessage() {
+    this.messageService.getAnyNumberLastMessageByCanalId(this.canalUsed.id, 15);
+
   }
 
   onClickPrevPage() {
@@ -105,6 +116,10 @@ refresh(){
 
     )
 }
+
+  ngOnDestroy() {
+
+  }
 
 
 }

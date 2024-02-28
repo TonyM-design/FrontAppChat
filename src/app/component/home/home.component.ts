@@ -15,7 +15,6 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    //  console.log(this.userLogged)
   }
 
 }
