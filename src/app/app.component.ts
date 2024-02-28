@@ -13,7 +13,6 @@ export class AppComponent {
 
   constructor(private userService: UserService, private storageService: StorageService, private authService: AuthService) { }
   ngOnInit() {
-    console.log(this.storageService.get("userLogged"));
 
   }
 

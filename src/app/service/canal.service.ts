@@ -44,7 +44,6 @@ export class CanalService {
 
       const filteredCanals = authorizedCanals.filter(
         (canal) => canal.isPublic === true || this.userLoggedIsPresent(canal) === true)
-      console.log(filteredCanals)
       this.subjectCanalList.next(filteredCanals)
     }
 

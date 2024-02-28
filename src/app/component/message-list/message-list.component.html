@@ -26,7 +26,6 @@
         </div>
       </div>
 
-
     </div>
 
 
@@ -35,14 +34,21 @@
       <div class="pt-2 mb-36 ">
         <button type="button" (click)="this.messageService.initializeMessageToDisplay(this.canalUsed.id)">load
           more</button>
-        <app-message *ngFor="let message of messagesToDisplay" [isLastMessage]="isLastMessage" [message]="message"
-          [messageList]="messagesToDisplay">
-        </app-message>
+        <div>
+          <app-message *ngFor="let message of toDisplay | async" [message]="message"
+            [id]='message === messagesToDisplay[messagesToDisplay.length-1] ? "lastMessage":"" '>
+          </app-message>
+        </div>
+
       </div>
     </ul>
 
     <div id="addMessage" [class]="messageService.subjectMessageToRespond.getValue() === undefined ? 'mt-14' : 'mt-32'">
       <app-addmessage [messageToDisplay]="messagesToDisplay"> </app-addmessage>
+    </div>
+
+    <div id="artificialEnd" class="opacity-0 w-full h-1 ">
+
     </div>
 
 

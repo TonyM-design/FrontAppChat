@@ -19,7 +19,6 @@ export class AddUserToCanalComponent {
   assignUser(user: User) {
     if (!this.assignedUsers.has(user)) {
       this.assignedUsers.add(user);
-      console.log(this.assignedUsers);
     }
   }
   unassignUser(user: User) {

@@ -1,14 +1,11 @@
 <div class="container w-100">
-    <div class=" flex justify-around align-middle py-5 shadow-sm-t mt-4 pt-2  " *ngIf="isSameDate() === false">
-
+    <div class=" flex justify-around align-middle py-5 shadow-sm-t mt-4 pt-2 " *ngIf="sameDatePrev === false">
         <small class="capitalize text-center text-sm  text-gray-400">{{this.message.date
             | date: 'dd/MM/yy'}}</small>
     </div>
-
     <div class="pt-5">
         <div *ngIf='this.storageService.get("userLogged")'
             [ngSwitch]='this.storageService.get("userLogged").name === this.message.user.name '>
-
 
             <!--USERLOGGED MESSAGE-->
             <div *ngSwitchCase="true" class="  pr-2">
@@ -23,49 +20,15 @@
                     </div>
                 </div>
                 <div class=" flex justify-end">
-
-                    <div
-                        class="mt-1 bg-white w-fit rounded-xl max-w-xs p-2 border  shadow-[0_3px_10px_rgb(0,0,0,0.05)]  ">
+                    <div class="mt-1 bg-white w-fit rounded-xl max-w-xs p-2 border shadow-[0_3px_10px_rgb(0,0,0,0.05)]">
                         <!-- AFFICHAGE RESPONSE QUOTE -->
-                        <!-- TEST INTEGRATION APP-MESSAGE-QUOTE -->
-
-                        <div *ngIf="this.message.responseQuote !== null">
+                        <div *ngIf="this.message.responseQuote !== null && this.message.responseQuote !== undefined">
                             <app-message-quote [messageInput]="this.message.responseQuote"></app-message-quote>
                         </div>
-
-
-
-                        <!-- <div *ngIf="this.message.responseQuote !== null">
-                            <div class=" border border-gray-200 w-fit rounded-xl max-w-xs p-2  opacity-70">
-                                <p class=""> {{this.message.responseQuote.user.name}}
-                                    <small class="pl-2 text-gray-400">
-                                        <i>{{this.message.responseQuote.date | date: 'le dd/MM/yy, à HH:mm'}}</i>
-                                    </small>
-                                    <br>
-
-                                </p>
-                                <p [ngStyle]="messageStyle(message.responseQuote)"
-                                    class="mt-1 border border-white  w-fit rounded-xl max-w-xs p-2">
-                                    {{this.message.responseQuote.content}}
-                                </p>
-
-                            </div>
-                        </div>-->
-                        <!-- FIN RESPONSE QUOTE-->
-
-                        <div class="">
-
-                            <p class="mb-1">{{ this.message.content}}
-                            </p>
-                        </div>
+                        <p class="mb-1">{{ this.message.content}}
+                        </p>
                     </div>
-
                 </div>
-
-
-
-
-
             </div>
 
             <!--OTHER USER MESSAGE-->
@@ -77,13 +40,12 @@
                     </small>
                 </div>
                 <div [ngStyle]="messageStyle(message)" (click)="respondTo()" class="  w-fit rounded-xl max-w-xs p-2 ">
-                    <!-- VERIFIER LA PRESENCE DU RESPONSE QUOTE SUR LE NOUVEAU MESSAGE -->
+                    <!-- AFFICHAGE RESPONSE QUOTE -->
                     <div *ngIf="this.message.responseQuote !== null">
                         <app-message-quote [messageInput]="this.message.responseQuote"></app-message-quote>
                     </div>
                     <div class="" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseEnter()">
                         <p class="mb-1">{{ this.message.content}}</p>
-
                         <div class=" d-flex justify-content-end"
                             [ngClass]="{ 'message-extra-show ': hovered, 'message-extra' : !hovered }">
                             <p class="message-response m-1"> <i>Répondre <i type="button"
@@ -91,13 +53,8 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-            <!--RESPONSE MESSAGE-->
-
         </div>
     </div>
 </div>

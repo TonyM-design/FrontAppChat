@@ -63,29 +63,17 @@ export class MessageService {
 
 
   async initializeMessageToDisplay(canalId: number) {
-    if (this.messageToDisplay === undefined) {
-      this.messageToDisplay = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
-    }
-    else {
-      const messagesToAdd = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
-      for (const message of messagesToAdd) {
-        this.messageToDisplay.push(message)
-        console.log(message.date)
-      }
-    }
-
-    this.messagePagesCounter++;
-    this.messageToDisplay.sort((message1, message2) => {
+    const messagesToAdd = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
+    this.subjectMessageToDisplay.next([...this.subjectMessageToDisplay.getValue(), ...messagesToAdd].sort((message1, message2) => {
       return parseInt(message1.date.toString()) - parseInt(message2.date.toString());
-    })
-    console.log(this.messageToDisplay)
-    return this.messageToDisplay;
+    }));
+    this.messagePagesCounter++;
+    return this.subjectMessageToDisplay.getValue();
   }
 
 
 
   createMessages(content: string): Observable<Object> {
-    console.log("declenchement createMessage()")
     let date = new Date();
     if (this.storageService.get('userLogged')) {
       let newMessage: any
@@ -105,15 +93,14 @@ export class MessageService {
           content: content,
           responseQuote: this.subjectMessageToRespond.getValue()
         };
-        newMessage.responseQuote.canal = newMessage.responseQuote.canal.id
+        newMessage.responseQuote.canal = this.canalService.canalUsed.id
       }
-
-      console.log(newMessage) // ok
       return this.http.post(this.url, newMessage).pipe(
         switchMap((response) => {
-          this.messageToDisplay.push(newMessage)
-          console.log(this.messageToDisplay)
+          //   this.subjectMessageToDisplay.next([... this.subjectMessageToDisplay.getValue(), newMessage])
 
+          const elementToScroll = document.getElementById("artificialEnd")
+          elementToScroll?.scrollIntoView({ behavior: "smooth" })
           // envois du message via websocket en plus du systeme bdd IMPORTANT
           this.webSocketService.sendMessage(this.canalService.canalUsed.id, newMessage)
 
@@ -129,6 +116,7 @@ export class MessageService {
     } else {
       return throwError('User not logged in');
     }
+
   }
 
 

@@ -11,7 +11,6 @@ import { WebSocketService } from './web-socket.service';
 export class NavigationService {
 
   constructor(private storageService: StorageService, private router: Router, private canalService: CanalService, private webSocketService: WebSocketService) {
-    console.log("NAVIGATION")
   }
   onClickProfil() {
     if (this.storageService.get("userLogged") !== undefined) {

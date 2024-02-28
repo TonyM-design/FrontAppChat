@@ -23,16 +23,10 @@ export class WebSocketService {
     this.stompClient.disconnect()
   }
   joinRoom(canalId: number) {
-    console.log("JOIN ROOM")
     this.clearChatMessageSubject()
     this.stompClient.connect({}, (frame: any) => {
-      // a partir d'ici perte de la responseQuote, le message reçu via le subscribe ne contient pas de response quote
-      // 
       this.stompClient.subscribe(`/topic/${canalId}`, (message: any) => {
-        console.log("déclenchement SUBSCRIBE ")
-        console.log(message)
         const messageContent = JSON.parse(message.body);
-        console.log(messageContent)
         const currentMessage = this.chatMessageSubject.getValue();
         currentMessage.push(messageContent);
         this.chatMessageSubject.next(currentMessage);
