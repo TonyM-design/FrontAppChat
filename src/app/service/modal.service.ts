@@ -12,8 +12,6 @@ export class ModalService {
 
   add(modal: ModalComponent) {
     // unique id 
-    console.log("modal " + modal.id)
-    console.log(this.modals)
     if (!modal.id || this.modals.find(x => x.id === modal.id)) {
 
       throw new Error('modal must have a unique id attribute');
@@ -29,9 +27,7 @@ export class ModalService {
   }
 
   open(id: string) {
-    console.log("lancement Open() " + id)
     const modal = this.modals.find(modal => modal.id === id);
-    console.log(modal)
     if (!modal) {
       throw new Error(`modal '${id}' not found`);
     }
@@ -40,7 +36,6 @@ export class ModalService {
   }
 
   openCreateCanalModal(id: string) {
-    console.log("lancement openCreateCanalModal() " + id)
     const modal = this.modals.find(x => x.id === id);
 
     if (!modal) {

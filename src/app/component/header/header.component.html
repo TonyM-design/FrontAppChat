@@ -1,5 +1,6 @@
-<header class="text-gray-600 body-font shadow-sm">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+<header [@fadeInDownAnimation]="hideHeader ? 'void' : '*'" [@fadeInTopAnimation]="hideHeader ? '*' : 'void'"
+  class="fixed top-0  text-gray-600 body-font bg-white shadow-sm w-full z-50">
+  <div class="  container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
       <a class="mr-5 hover:text-gray-900 border-r pr-4 border-gray-500" type="button"
         (click)="onClickHome()">Messages</a>
@@ -13,12 +14,8 @@
         </button>
       </a>
       <!--DROPDOWN -->
-
-
-
       <hr *ngIf="dropdownOpen" [@fadeInDownAnimation] class="h-px w-full my-4 bg-gray-200  dark:bg-gray-700">
-
-      <div *ngIf="dropdownOpen" [@fadeInDownAnimation] class=" flex justify-between bg-white rounded-md  ">
+      <div *ngIf="dropdownOpen" [@fadeInDownAnimation] class=" flex justify-between bg-green-500 rounded-md  ">
         <a (click)="onClickProfil()" *ngIf='this.storageService.get("userLogged") !== null'
           class=" py-2 mr-5 hover:text-gray-900  border-r pr-4 border-gray-500 capitalize">
           Profil
@@ -43,5 +40,4 @@
 
   </div>
 </header>
-<div *ngIf="dropdownOpen" (click)="dropdownOpen = false" class="absolute opacity-0
- h-full w-full z-10"></div>
+<!--<app-header-sub-info></app-header-sub-info>-->

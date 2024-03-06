@@ -42,8 +42,7 @@ export class CanalListComponent implements OnInit {
     this.canalService.canalUsed = canal;
     this.router.navigate(['/' + canal.id])
     this.webSocketService.joinRoom(canal.id)
-    this.messageService.messageToDisplay.length = 0;
-    this.messageService.initializeMessageToDisplay(canal.id)
+    this.messageService.subjectMessageToDisplay.next([])
     this.messageService.messagePagesCounter = 0;
 
 

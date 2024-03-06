@@ -60,10 +60,25 @@ export class MessageService {
 
   }
 
-
-
-
   async initializeMessageToDisplay(canalId: number) {
+    const messagesToAdd = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
+    if (this.messagePagesCounter === 0) {
+      this.subjectMessageToDisplay.next(messagesToAdd.sort((message1, message2) => {
+        return parseInt(message1.date.toString()) - parseInt(message2.date.toString());
+      }));
+    }
+    else {
+      messagesToAdd.sort((message1, message2) => {
+        return parseInt(message1.date.toString()) - parseInt(message2.date.toString());
+      })
+      this.subjectMessageToDisplay.next([...messagesToAdd, ...this.subjectMessageToDisplay.getValue()]);
+    }
+    this.messagePagesCounter++;
+    return this.subjectMessageToDisplay.getValue();
+  }
+
+
+  async initializeMessageToDisplay2(canalId: number) {
     const messagesToAdd = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
     this.subjectMessageToDisplay.next([...this.subjectMessageToDisplay.getValue(), ...messagesToAdd].sort((message1, message2) => {
       return parseInt(message1.date.toString()) - parseInt(message2.date.toString());

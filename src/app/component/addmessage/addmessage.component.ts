@@ -94,10 +94,6 @@ export class AddmessageComponent {
     this.form.reset();
   }
 
-  refresh(){
-    this.ms.getMessagesByCanalId(this.cs.canalUsed.id);
-
-  }
 
 
 }
