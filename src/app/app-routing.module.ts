@@ -12,6 +12,7 @@ import { CanalListComponent } from './component/canal-list/canal-list.component'
 
 const routes: Routes = [
 
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: AdduserComponent },
   { path: 'userProfil', component: EdituserComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'canallist', component: CanalListComponent },
 
   { path: 'userProfil/:id', component: EdituserComponent }
+
 
 ];
 

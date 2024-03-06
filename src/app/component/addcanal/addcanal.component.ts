@@ -1,5 +1,7 @@
+
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { CanalToCreate } from 'src/app/entity/canaltocreate';
@@ -31,6 +33,7 @@ import { UserService } from 'src/app/service/user.service';
   ]
 })
 export class AddcanalComponent {
+
   form: FormGroup;
   showAlert = false;
   isPublic: Boolean = true;
@@ -44,6 +47,7 @@ export class AddcanalComponent {
 
 
   constructor(
+
     public globalService: GlobalService,
     private fb: FormBuilder,
     private cs: CanalService,
@@ -116,6 +120,7 @@ export class AddcanalComponent {
         console.error('Error creating canal:', error);
       }
     );
+
   }
 
 }

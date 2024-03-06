@@ -1,3 +1,4 @@
+
 import { Component, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, lastValueFrom, map, take } from 'rxjs';
@@ -6,6 +7,7 @@ import { User } from 'src/app/entity/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { MessageService } from 'src/app/service/message.service';
 import { StorageService } from 'src/app/service/storage.service';
+
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -15,9 +17,11 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class MessageComponent {
   @Input() message!: Message;
+
   //plus besoin de le passer en input
   messageList: Observable<Message[]> = this.messageService.subjectMessageToDisplay;
   sameDatePrev!: boolean;
+
   today = new Date();
   hovered = false;
 
@@ -29,8 +33,10 @@ export class MessageComponent {
     await this.isSameDate()
   }
 
+
   onMouseEnter(): void {
     this.hovered = !this.hovered;
+
   }
 
   respondTo() {
@@ -74,7 +80,9 @@ export class MessageComponent {
 
   }
 
+
   isSameTime() {
+
 
   }
 

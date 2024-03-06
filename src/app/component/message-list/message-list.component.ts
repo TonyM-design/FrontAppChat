@@ -72,6 +72,7 @@ export class MessageListComponent implements OnInit {
       })
     }
     this.webSocketService.joinRoom(this.canalUsed.id)
+
     for (const message of await this.messageService.initializeMessageToDisplay(this.canalUsed.id)) {
       this.messagesToDisplay.push(message)
     }
