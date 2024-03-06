@@ -10,7 +10,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class CanalService {
-  private url = 'http://localhost:8080/canals';
+  private url = 'http://localhost:8888/canals';
   canalUsed!: Canal;
   subjectCanalList = new BehaviorSubject<Canal[]>([])
   canals = this.subjectCanalList.asObservable();
