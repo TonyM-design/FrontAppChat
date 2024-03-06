@@ -43,7 +43,6 @@ export class NavigationService {
   }
 
   changeCanal(canal: Canal) {
-    console.log("changeCANAL")
     this.canalService.canalUsed = canal;
     // this.webSocketService.clearChatMessageSubject()
 

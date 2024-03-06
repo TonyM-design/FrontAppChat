@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
-
+  scrollEvent: EventEmitter<number> = new EventEmitter<number>();
   constructor(public router: Router) { }
+
 
   reloadComponent(self: boolean, urlToNavigateTo?: string) {
     console.log("Current route I am on:", this.router.url);

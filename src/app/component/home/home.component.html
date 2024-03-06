@@ -10,13 +10,10 @@
 </head>
 
 <body>
-    <!-- HEADER-->
-
-
     <div *ngIf='this.storageService.get("userLogged") === undefined'>
         <h1>Accès refusé, veuillez vous connecter pour acceder a l'application</h1>
     </div>
-    <div *ngIf='this.storageService.get("userLogged") !== undefined'>
+    <div class="pt-16" *ngIf='this.storageService.get("userLogged") !== undefined'>
         <app-canal-list></app-canal-list>
     </div>
 

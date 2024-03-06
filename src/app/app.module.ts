@@ -31,6 +31,7 @@ import { UserBadgeComponent } from './component/user-badge/user-badge.component'
 import { AddUserToCanalComponent } from './component/add-user-to-canal/add-user-to-canal.component';
 import { MessageQuoteComponent } from './component/message-quote/message-quote.component';
 import { CanalParamComponent } from './component/canal-param/canal-param.component';
+import { HeaderSubInfoComponent } from './component/header-sub-info/header-sub-info.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { CanalParamComponent } from './component/canal-param/canal-param.compone
     UserBadgeComponent,
     AddUserToCanalComponent,
     MessageQuoteComponent,
-    CanalParamComponent
+    CanalParamComponent,
+    HeaderSubInfoComponent
 
   ],
   imports: [

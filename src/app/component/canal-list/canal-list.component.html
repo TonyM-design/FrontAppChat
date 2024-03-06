@@ -3,13 +3,7 @@
 </app-modal>
 
 
-<div class="">
-  <div class="flex m-4 justify-center">
-    <h1 class="capitalize text-center tracking-widest text-sm title-font font-medium text-gray-400 mb-1 "> DISCUSSIONS
-    </h1>
-    <i class="fa-solid fa-ellipsis-vertical  text-gray-400 ml-4 mt-0.5"></i>
-
-  </div>
+<div class="overflow-scroll w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
   <div *ngIf='this.storageService.get("userLogged") !== undefined' class="pt-1">
     <hr>
     <div class="d-flex justify-content-between m-2">

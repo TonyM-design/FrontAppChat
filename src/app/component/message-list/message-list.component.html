@@ -1,56 +1,19 @@
 <app-modal id="addUsersToPrivateCanalModal" title="Assigner des utilisateurs" class="h-full">
 
 </app-modal>
-<div class=" w-100 ">
+<div class="  ">
   <div *ngIf="canalUsed !== undefined">
-    <div class=" flex justify-between mt-4 px-4 pb-4 shadow-sm w-full ">
-      <div class="">
-        <h1
-          class="capitalize text-center tracking-widest text-lg title-font font-medium text-gray-400 focus:animate-bounce  ">
-          <i class="cursor-pointer fa-solid fa-arrow-left mr-1" (click)="this.navigationService.onClickHome()"></i>
-          {{canalUsed!.name}}
-        </h1>
-      </div>
-
-      <div class="d-flex">
-        <div class="" *ngIf="canalUsed!.isPublic === false">
-          <button (click)="modalService.open('addUsersToPrivateCanalModal')">
-            <i class=" fa-solid fa-user-plus fa-lg text-gray-400"></i>
-          </button>
-        </div>
-        <div>
-          <button>
-            <i class="mt-4 fa-solid fa-gear fa-lg text-gray-400 "></i>
-          </button>
-
-        </div>
-      </div>
-
-    </div>
-
-
-
     <ul>
-      <div class="pt-2 mb-36 ">
-        <button type="button" (click)="this.messageService.initializeMessageToDisplay(this.canalUsed.id)">load
-          more</button>
-        <div>
-          <app-message *ngFor="let message of toDisplay | async" [message]="message">
-          </app-message>
-        </div>
-
+      <div #list class="overflow-scroll w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
+        <app-message *ngFor="let message of toDisplay | async" [message]="message" [id]="message.id">
+        </app-message>
+        <div id="artificialEnd" class="opacity-0 w-full h-1 "></div>
       </div>
     </ul>
 
-    <div id="addMessage" [class]="messageService.subjectMessageToRespond.getValue() === undefined ? 'mt-14' : 'mt-32'">
+    <div class="fixed" id="addMessage"
+      [class]="messageService.subjectMessageToRespond.getValue() === undefined ? '' : ''">
       <app-addmessage [messageToDisplay]="messagesToDisplay"> </app-addmessage>
     </div>
-
-    <div id="artificialEnd" class="opacity-0 w-full h-1 ">
-
-    </div>
-
-
   </div>
-
 </div>
