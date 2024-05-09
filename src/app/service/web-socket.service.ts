@@ -3,29 +3,45 @@ import { Stomp } from '@stomp/stompjs'
 import * as SockJS from 'sockjs-client';
 import { Message } from '../entity/message';
 import { BehaviorSubject } from 'rxjs';
+import { User } from '../entity/user';
+import { InviteContact } from '../entity/InviteContact';
+import { UserService } from './user.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  public stompClient: any;
+  public stompClientContact: any;
+  public stompClientCanal: any;
+  public stompClientInvite: any;
   private chatMessageSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 
-  constructor() {
+  private contactListSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+
+  private inviteListSubject: BehaviorSubject<InviteContact[][]> = new BehaviorSubject<InviteContact[][]>([]);
+  private inviteToDelete: BehaviorSubject<InviteContact | null> = new BehaviorSubject<InviteContact | null>(null);
+
+  constructor(private storageService: StorageService) {
     this.initializeSocketConnection()
   }
   initializeSocketConnection() {
     const url = "//localhost:8888/chat-socket";
-    this.stompClient = Stomp.over(() => new SockJS(url));
+    this.stompClientContact = Stomp.over(() => new SockJS(url));
+    this.stompClientCanal = Stomp.over(() => new SockJS(url));
+    this.stompClientInvite = Stomp.over(() => new SockJS(url));
   }
 
   closeConnection() {
-    this.stompClient.disconnect()
+    this.stompClientContact.disconnect()
+    this.stompClientCanal.disconnect()
+    this.stompClientInvite.disconnect()
   }
+
   joinRoom(canalId: number) {
     this.clearChatMessageSubject()
-    this.stompClient.connect({}, (frame: any) => {
-      this.stompClient.subscribe(`/topic/${canalId}`, (message: any) => {
+    this.stompClientCanal.connect({}, (frame: any) => {
+      this.stompClientCanal.subscribe(`/topic/${canalId}`, (message: any) => {
         const messageContent = JSON.parse(message.body);
         const currentMessage = this.chatMessageSubject.getValue();
         currentMessage.push(messageContent);
@@ -33,16 +49,88 @@ export class WebSocketService {
       })
     })
   }
+
+
+  // ne se declenche plus aprés le send aucune reception !!
+  joinContactRoom(userId: number) {
+    console.log("test initialisation joinContactRoom")
+    this.stompClientContact.connect({}, (frame: any) => {
+      this.stompClientContact.subscribe(`/topic/userContacts/${userId}`, (contact: any) => {
+        console.log("déclenchement subscribe joinContactRoom")
+        const contactContent = JSON.parse(contact.body);
+        const currentContactsList = this.contactListSubject.getValue();
+        currentContactsList.push(contactContent);
+        console.log(currentContactsList)
+        this.contactListSubject.next(currentContactsList);
+
+
+      });
+    });
+  }
+  joinInviteRoom(userId: number) {
+    this.stompClientInvite.connect({}, (frame: any) => {
+      this.stompClientInvite.subscribe(`/topic/userInvites/${userId}`, (invite: any) => {
+        const inviteContent = JSON.parse(invite.body);
+        const currentInvitesList = this.inviteListSubject.getValue();
+        currentInvitesList.push(inviteContent);
+        this.inviteListSubject.next(currentInvitesList);
+      });
+
+      this.stompClientInvite.subscribe(`/topic/userInvites/delete`, async (invite: any) => {
+        console.log("demande de suppression / reponse a la reception du message socket")
+        const inviteContent: InviteContact = JSON.parse(invite.body);
+        console.log("invite à supprimer : ")
+        console.log(inviteContent)
+        this.inviteToDelete.next(inviteContent)
+        console.log(this.inviteToDelete)
+
+      });
+    })
+  }
+
   getMessageSubject() {
     return this.chatMessageSubject.asObservable();
+  }
+  getContactSubject() {
+    return this.contactListSubject.asObservable();
+  }
+  getInviteSubject() {
+    return this.inviteListSubject.asObservable();
+  }
+  getInviteToDeleteSubject() {
+    return this.inviteToDelete.asObservable();
   }
 
   clearChatMessageSubject() {
     return this.chatMessageSubject.next([]);
   }
+  clearContactListSubject() {
+    return this.contactListSubject.next([]);
+  }
+  clearInviteListSubject() {
+    return this.inviteListSubject.next([]);
+  }
 
   sendMessage(canalId: number, newMessage: Message) {
+    return this.stompClientCanal.send(`/app/chat/${canalId}`, {}, JSON.stringify(newMessage));
+  }
 
-    return this.stompClient.send(`/app/chat/${canalId}`, {}, JSON.stringify(newMessage));
+  sendInvite(invite: InviteContact) {
+    this.stompClientInvite.send(`/app/invite/${invite.sendBy.id}`, {}, JSON.stringify(invite))
+    return this.stompClientInvite.send(`/app/invite/${invite.sendTo.id}`, {}, JSON.stringify(invite))
+  }
+  deleteInvite(invite: InviteContact) {
+    return this.stompClientInvite.send(`/app/invite/delete`, {}, JSON.stringify(invite))
+
+  }
+
+  addNewContact(user: User, newContact: User) {
+    this.stompClientContact.send(`/app/contact/${newContact.id}`, {}, JSON.stringify(user))
+    return this.stompClientContact.send(`/app/contact/${user.id}`, {}, JSON.stringify(newContact))
+  }
+
+  // suppression des deux partis ou d'un seul 
+  deleteContact(userId: number, newContact: User) {
+    return this.stompClientContact.send(`/app/contact/delete/${userId}`, {}, JSON.stringify(newContact))
   }
 }

@@ -20,6 +20,9 @@ export class NavigationService {
   onClickSignIn() {
     this.router.navigate(['/register']);
   }
+  onClickContacts() {
+    this.router.navigate(['/contacts']);
+  }
   onClickLogin() {
     this.router.navigate(['/login']);
 
@@ -42,11 +45,4 @@ export class NavigationService {
     this.router.navigate(['/add']);
   }
 
-  changeCanal(canal: Canal) {
-    this.canalService.canalUsed = canal;
-    // this.webSocketService.clearChatMessageSubject()
-
-    this.router.navigate(['/' + canal.id]);
-
-  }
 }

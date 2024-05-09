@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Message } from 'src/app/entity/message';
 import { MessageService } from 'src/app/service/message.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-message-quote',
@@ -15,11 +16,25 @@ export class MessageQuoteComponent {
   message = this.messageService.subjectMessageToRespond.getValue();
 
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private userService: UserService) {
 
   }
 
   ngOnInit() {
+    if (this.messageInput.user.id === undefined && this.messageInput.user !== undefined) {
+
+
+      const deserializedUser = this.userService.getUserById(this.messageInput.user).subscribe((user) => {
+        return this.messageInput.user = user;
+
+      })
+
+
+
+    }
+
+
+
   }
 
   messageStyle(): { [key: string]: string } {

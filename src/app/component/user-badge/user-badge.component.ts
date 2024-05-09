@@ -9,8 +9,11 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./user-badge.component.css']
 })
 export class UserBadgeComponent {
-  @Input() user!: User;
+  @Input() user!: any;
   @Input() index!: number;
+  @Input() height: number = 25;
+  @Input() width: number = 25;
+
   userInitials!: string
 
   constructor(private userService: UserService) {
@@ -27,7 +30,7 @@ export class UserBadgeComponent {
 
   getUserInitials() {
     const emailParts = this.user.email.split('@')
-    const prefixParts = emailParts[0].split('.')
+    const prefixParts: string[] = emailParts[0].split('.')
     let initials = ""
     prefixParts.forEach(str => {
       initials += str[0]
@@ -36,15 +39,21 @@ export class UserBadgeComponent {
   }
 
   badgeStyle(): { [key: string]: string } {
-
     const backgroundColor: string = this.user.badgeColor;
-
     return {
-      zIndex: this.index.toString(),
-      width: '25px',
-      height: '25px',
+      zIndex: this.index?.toString(),
+      width: this.width + 'px',
+      height: this.height + 'px',
       backgroundColor,
-      marginLeft: this.index > 0 ? '-12px' : '0px'
+      marginLeft: '-12px'
+    };
+  }
+  pillsStyle(): { [key: string]: string } {
+    return {
+      zIndex: "10",
+      width: this.width / 3 + 'px',
+      height: this.height / 3 + 'px',
+      marginLeft: this.height > 25 ? "18px" : "6px"
     };
   }
 

@@ -24,7 +24,6 @@ import { CanalComponent } from './component/canal/canal.component';
 
 import { LoginComponent } from './component/login/login.component';
 import { CanalCardComponent } from './component/canal-card/canal-card.component';
-import { CanalHomeComponent } from './component/canal-home/canal-home.component';
 import { ModalComponent } from './component/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserBadgeComponent } from './component/user-badge/user-badge.component';
@@ -32,6 +31,10 @@ import { AddUserToCanalComponent } from './component/add-user-to-canal/add-user-
 import { MessageQuoteComponent } from './component/message-quote/message-quote.component';
 import { CanalParamComponent } from './component/canal-param/canal-param.component';
 import { HeaderSubInfoComponent } from './component/header-sub-info/header-sub-info.component';
+import { ContactListComponent } from './component/contact-list/contact-list.component';
+import { ContactCardComponent } from './component/contact-card/contact-card.component';
+import { AddContactComponent } from './component/add-contact/add-contact.component';
+import { ContactInvitationComponent } from './component/contact-invitation/contact-invitation.component';
 
 
 @NgModule({
@@ -48,7 +51,6 @@ import { HeaderSubInfoComponent } from './component/header-sub-info/header-sub-i
     HeaderComponent,
     FooterComponent,
     AddmessageComponent,
-    CanalHomeComponent,
     MessageComponent,
     CanalComponent,
     LoginComponent,
@@ -58,7 +60,11 @@ import { HeaderSubInfoComponent } from './component/header-sub-info/header-sub-i
     AddUserToCanalComponent,
     MessageQuoteComponent,
     CanalParamComponent,
-    HeaderSubInfoComponent
+    HeaderSubInfoComponent,
+    ContactListComponent,
+    ContactCardComponent,
+    AddContactComponent,
+    ContactInvitationComponent
 
   ],
   imports: [

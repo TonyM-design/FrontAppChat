@@ -8,6 +8,7 @@ import { AdduserComponent } from './component/adduser/adduser.component';
 import { LoginComponent } from './component/login/login.component';
 import { EdituserComponent } from './component/edituser/edituser.component';
 import { CanalListComponent } from './component/canal-list/canal-list.component';
+import { ContactListComponent } from './component/contact-list/contact-list.component';
 
 
 const routes: Routes = [
@@ -18,11 +19,11 @@ const routes: Routes = [
   { path: 'userProfil', component: EdituserComponent },
   { path: 'edit', component: EditcanalComponent },
   { path: 'add', component: AddcanalComponent },
-  { path: ':id', component: MessageListComponent },
   { path: '', component: HomeComponent },
   { path: 'canallist', component: CanalListComponent },
-
-  { path: 'userProfil/:id', component: EdituserComponent }
+  { path: 'userProfil/:id', component: EdituserComponent },
+  { path: 'contacts', component: ContactListComponent },
+  { path: ':id', component: MessageListComponent }
 
 
 ];

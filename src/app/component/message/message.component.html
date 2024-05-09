@@ -4,8 +4,8 @@
             | date: 'dd/MM/yy'}}</small>
     </div>
     <div class="pt-5">
-        <div *ngIf='this.storageService.get("userLogged")'
-            [ngSwitch]='this.storageService.get("userLogged").name === this.message.user.name '>
+        <div *ngIf='this.storageService.get("userLogged")' [ngSwitch]='this.storageService.get("userLogged").name === this.message.user.name 
+            || this.storageService.get("userLogged").name === undefined '>
 
             <!--USERLOGGED MESSAGE-->
             <div *ngSwitchCase="true" class="  pr-2">
@@ -34,29 +34,38 @@
 
 
             <!--OTHER USER MESSAGE-->
-            <div *ngSwitchCase="false" class="mt-1 pl-2">
-                <div class=" p-1 flex items-baseline justify-between w-fit h-fit ">
-                    <p class=" h-fit text-sm ">{{this.message.user.name}}</p>
-                    <small class=" h-fit pl-2 text-gray-400">
-                        <i>{{this.message.date | date: 'le dd/MM/yy, à HH:mm'}}</i>
-                    </small>
-                </div>
-                <div [ngStyle]="messageStyle(message)" (click)="respondTo()" class="  w-fit rounded-xl max-w-xs p-2 ">
-                    <!-- AFFICHAGE RESPONSE QUOTE -->
-                    <div *ngIf="this.message.responseQuote !== null">
-                        <app-message-quote [messageInput]="this.message.responseQuote"></app-message-quote>
-                    </div>
-                    <div class="" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseEnter()">
-                        <p class="mb-1">{{ this.message.content}}</p>
-                        <div class=" d-flex justify-content-end"
-                            [ngClass]="{ 'message-extra-show ': hovered, 'message-extra' : !hovered }">
-                            <p class="message-response m-1"> <i>Répondre <i type="button"
-                                        class="fa-solid fa-reply"></i></i>
-                            </p>
-                        </div>
+            <div *ngSwitchCase="false" class="mt-1 pl-4 flex ">
 
+                <app-user-badge class="m-1 " [user]="this.message.user"></app-user-badge>
+
+                <div>
+
+                    <div class=" p-1 flex items-baseline justify-between w-fit h-fit ">
+                        <p class=" h-fit text-sm ">{{this.message.user.name}}</p>
+                        <small class=" h-fit pl-2 text-gray-400">
+                            <i>{{this.message.date | date: 'le dd/MM/yy, à HH:mm'}}</i>
+                        </small>
                     </div>
+
+                    <div [ngStyle]="messageStyle(message)" (click)="respondTo()"
+                        class=" -ml-6 mt-1.5 w-fit rounded-xl max-w-xs p-2 ">
+                        <!-- AFFICHAGE RESPONSE QUOTE -->
+                        <div *ngIf="this.message.responseQuote !== null">
+                            <app-message-quote [messageInput]="this.message.responseQuote"></app-message-quote>
+                        </div>
+                        <div class="" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseEnter()">
+                            <p class="mb-1">{{ this.message.content}}</p>
+                            <div class=" d-flex justify-content-end"
+                                [ngClass]="{ 'message-extra-show ': hovered, 'message-extra' : !hovered }">
+                                <p class="message-response m-1"> <i>Répondre <i type="button"
+                                            class="fa-solid fa-reply"></i></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>

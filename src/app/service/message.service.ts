@@ -62,6 +62,7 @@ export class MessageService {
 
   async initializeMessageToDisplay(canalId: number) {
     const messagesToAdd = await lastValueFrom(this.getAnyNumberLastMessageByCanalId(canalId, 15))
+
     if (this.messagePagesCounter === 0) {
       this.subjectMessageToDisplay.next(messagesToAdd.sort((message1, message2) => {
         return parseInt(message1.date.toString()) - parseInt(message2.date.toString());

@@ -1,7 +1,7 @@
 <div>
     <div class=" pt-5">
         <div
-            class=" shadow-[0_3px_10px_rgb(0,0,0,0.1)] h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden transition duration-300 hover:shadow-none hover:cursor-pointer">
+            class=" bg-white shadow-[0_3px_10px_rgb(0,0,0,0.1)] h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden transition duration-300 hover:shadow-none hover:cursor-pointer">
 
             <div class="p-6   justify-between">
 
@@ -14,7 +14,7 @@
                 <div class="flex mt-1">
 
                     <div *ngIf="usersInCanal as users" class="flex justify-start">
-                        <app-user-badge class="m-1 ml-0.5" *ngFor=" let user of users; let i=index" [user]="user"
+                        <app-user-badge class="m-1 " *ngFor=" let user of users; let i=index" [user]="user"
                             [index]="i"></app-user-badge>
                     </div>
                     <span

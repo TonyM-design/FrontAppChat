@@ -1,0 +1,53 @@
+<div
+    class=" h-auto  animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards p-6 pb-2 items-baseline justify-between grid grid-cols-12 hover:bg-slate-50  active:bg-slate-50">
+    <div *ngIf="openIsToDelete == true"
+        class="w-full h-fit  absolute z-10 animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards    grid grid-cols-12 hover:bg-slate-50 cursor-pointer  active:bg-slate-50">
+        <div role="alert" class="col-span-12 ">
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-1">
+                Supprimer contact
+            </div>
+            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                <p>Voulez-vous vraiment supprimer le contact : {{this.contact.name}} ? <a
+                        class="underline"><b>Supprimer</b></a> - <a class="underline"
+                        (click)="cancelDeleteContact()">Annuler</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-span-11 grid grid-cols-12 cursor-pointer ">
+        <div class=" col-span-2">
+            <app-user-badge class="" [user]="this.contact" [height]="50" [width]="50"></app-user-badge>
+        </div>
+        <div class="text-gray-500  col-span-10">
+            <p class="text-xl"><b>{{this.contact.name}}</b></p>
+            <p class="text-xl"><i>{{this.contact.email}}</i></p>
+        </div>
+    </div>
+    <div (click)="openDropdown()" class="col-start-12 flex  justify-center  h-6 w-6 col-span-1  hover:text-fuchsia-500">
+        <i class="fa-solid fa-ellipsis fa-lg"></i>
+    </div>
+</div>
+
+
+<div *ngIf="dropdownOpen"
+    class="p-2 px-12 mt-5 flex justify-around bg-slate-100 animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards">
+
+    <div class=" text-cyan-500">
+        <a class="hover:underline focus:underline  text-cyan-500"> Messages</a>
+
+    </div>
+    <div class=" text-cyan-500">
+        <a class="hover:underline focus:underline  text-cyan-500"> Profil</a>
+
+    </div>
+    <div class=" text-cyan-500">
+        <a (click)="deleteContact()" class="hover:underline focus:underline  text-cyan-500"> Supprimer</a>
+
+    </div>
+
+
+
+</div>
+
+<hr class="shadow">

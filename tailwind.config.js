@@ -16,8 +16,18 @@ module.exports = {
             transform: 'translateY(0px)'
           }
         }
+      },
+      keyframes: {
+        pulse2: {
+          '0%, 49%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+          '100%': { opacity: 0, display: 'none' }
+        }
+      },
+      animation: {
+        pulse2: 'pulse2 2s cubic-bezier(0.4, 0, 0.6, 1) '
       }
     }
   },
-  plugins: []
+  plugins: [require('tailwindcss-animated')]
 }

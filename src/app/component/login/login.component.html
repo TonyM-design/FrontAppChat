@@ -1,64 +1,62 @@
-<section class="h-100 gradient-form">
-  <div class="container">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-6">
-        <div class="card rounded-3 ">
-          <div class="row g-0">
-            <div>
-              <div class="card-body p-md-5 mx-md-4">
-                <div class="text-center">
+<div class="w-full bg-gray-50  pt-40 h-screen">
+  <div class="flex justify-around content-center align-middle  py-5  mt-4 pt-2">
+    <div
+      class="  w-full mx-5 border bg-white border-gray-300 shadow-sm rounded-xl max-w-xs p-2 opacity-60 bg-opacity-100">
+      <div class="card-body p-md-5 mx-md-4">
+        <div class="text-center">
+          <h4 class="mt-1 mb-2 pb-1 ">Connexion</h4>
+        </div>
+        <div *ngIf="this.showAlert === true" class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Vous êtes désormais connecté !</h4>
+          <hr />
+          <p>
+            Vous allez être automatiquement rédirigé sur la page
+            d'accueil dans quelques secondes.
+          </p>
+        </div>
 
-
-                  <h4 class="mt-1 mb-2 pb-1">Se connecter</h4>
-                </div>
-
-                <div *ngIf="this.showAlert === true" class="alert alert-success" role="alert">
-                  <h4 class="alert-heading">Vous êtes désormais connecté !</h4>
-
-                  <hr />
-                  <p>
-                    Vous allez être automatiquement rédirigé sur la page
-                    d'accueil dans quelques secondes.
-                  </p>
-                </div>
-
-                <form>
-
-
-                  <div class="form-outline mb-4">
-                    <input type="email" name="username" id="form2Example11" class="form-control"
-                      placeholder="Entrez votre adresse mail de connexion" [(ngModel)]="user.email" />
-                    <label class="form-label" for="form2Example11">E-mail</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="password" name="password" id="form2Example22" class="form-control"
-                      [(ngModel)]="user.password" />
-                    <label class="form-label" for="form2Example22">Mot de passe</label>
-                  </div>
-
-                  <div class="text-center pt-1 mb-5 pb-1">
-                    <button (click)="login()" class="btn btn-outline-success" type="submit">
-                      Se connecter
-                    </button>
-                    <hr />
-                  </div>
-
-                  <div class="d-flex align-items-center justify-content-center pb-4">
-                    <p class="mb-0 me-2">
-                      Pas encore de compte ?
-                    </p>
-                    <button routerLink="/register" type="button" class="btn btn-outline-danger">
-                      Créer un compte !
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+        <form>
+          <div class="mb-4">
+            <input type="email" name="username" id="form2Example11"
+              class=" border p-2 bg-white border-gray-300 shadow-sm  w-full rounded-xl"
+              placeholder="Saisissez adresse mail" [(ngModel)]="user.email" />
+          </div>
+          <div class="mb-4">
+            <input type="password" name="password" id="form2Example22"
+              class=" border p-2 bg-white border-gray-300 shadow-sm w-full rounded-xl"
+              placeholder="Saisissez votre mot de passe" [(ngModel)]="user.password" />
+          </div>
+          <div class="text-center pt-1 mb-5  pb-1">
+            <button (click)="login()"
+              class="my-2 shadow-sm  bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded "
+              type="submit">
+              Se connecter
+            </button>
 
           </div>
-        </div>
+          <hr />
+          <div class="flex-none">
+            <small class="decoration-gray-600 ">
+              <button routerLink="/register" type="button"
+                class="hover:underline focus:underline focus:text-cyan-800   ">
+                Créer un compte.
+              </button>
+            </small>
+            <br>
+            <small>
+              <button routerLink="/forgotpassword" type="button"
+                class="hover:underline focus:underline focus:text-cyan-800 ">
+                J'ai oublié mon mot de passe.
+              </button>
+            </small>
+
+          </div>
+
+
+        </form>
+
       </div>
     </div>
+
   </div>
-</section>
+</div>

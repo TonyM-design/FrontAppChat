@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, switchMap, take, throwError } from 'rxjs';
+import { catchError, of, switchMap, take, throwError } from 'rxjs';
 import { User } from 'src/app/entity/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { StorageService } from 'src/app/service/storage.service';
@@ -46,10 +46,10 @@ export class LoginComponent {
       this.storageService.set('userLogged', userLog)
       this.showAlert = true;
       this.router.navigate([''])
-      return throwError(null);
+      return of(userLog);
     }),
       catchError(error => {
-        console.log('erreur login')
+
         return throwError(error);
       })).subscribe()
   }

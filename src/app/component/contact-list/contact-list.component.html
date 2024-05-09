@@ -1,0 +1,54 @@
+<div class="overflow-scroll overflow-x-hidden pt-24  fixed h-full w-full">
+
+    <app-add-contact (click)="onClickHideInvit()" [hideListDropdown]="hideListDropdown"
+        (hideListDropdownChange)="onHideListDropdownChange($event)" [user]="user"></app-add-contact>
+    <div *ngIf="subjectUserInviteToDisplay | async as invites"
+        class=" pb-10 border border-white rounded-3xl rounded-b-none shadow-md bg-slate-100">
+
+        <div (click)="onClickSwitchInvit()">
+            <p class=" text-slate-400 capitalize py-1 text-center ">invitations {{'('
+                +invites[0]?.length+')'}}
+                <span *ngIf="invites[0]?.length !== 0" class="">
+                    <span
+                        class=" ml-1.5 mt-2 animate-ping absolute  inline-flex h-2 w-2 rounded-full bg-cyan-300 opacity-75"></span>
+                    <span class="ml-1.5 mt-2 absolute inline-flex rounded-full h-2 w-2 bg-cyan-400 opacity-90"></span>
+                </span>
+            </p>
+            <hr *ngIf="this.hideInvitDropdown === false" class="bg-slate-300 ">
+        </div>
+
+        <ul *ngIf="this.hideInvitDropdown === false" class="m-2 " [@fadeInDownAnimation]>
+            <small class="text-slate-400 capitalize py-1">invitations
+                reçues</small>
+            <app-contact-invitation *ngFor="let invite of invites[0]" [invite]="invite" [contact]="invite.sendBy">
+            </app-contact-invitation>
+        </ul>
+
+        <ul *ngIf="this.hideInvitDropdown === false" class="m-2 " [@fadeInDownAnimation]>
+            <small class="text-slate-400 capitalize py-1">invitations
+                envoyés</small>
+            <app-contact-invitation *ngFor="let invite of invites[1]" [invite]="invite" [contact]="invite.sendTo">
+            </app-contact-invitation>
+        </ul>
+    </div>
+
+    <div class=" -mt-10 border bg-white border-white overflow-scroll rounded-3xl rounded-b-none "
+        (click)="onClickHide()">
+        <div (click)="onClickHideContact()">
+            <p class="text-slate-400 capitalize  py-1 text-center ">contacts</p>
+            <hr class="">
+        </div>
+
+        <ul *ngIf="this.hideContactDropdown !== true" [@fadeInDownAnimation] class=" h-3/4 overflow-scroll">
+            <app-contact-card *ngFor="let contact of (subjectUserContactToDisplay | async)"
+                [contact]="contact"></app-contact-card>
+
+        </ul>
+
+        <hr class="bg-red-600 absolute -mt-8 bottom-0 h-5">
+        <hr class="absolute  text-red-700">
+    </div>
+
+
+
+</div>

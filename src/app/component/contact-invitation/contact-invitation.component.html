@@ -1,0 +1,75 @@
+<!--<div *ngIf="toDelete"[ngClass]="{  'hidden' : this.toDelete}"
+    class="w-full bg-opacity-80  absolute mb-2 bg-lime-300  rounded-full items-center px-6 py-3 grid grid-cols-12 cursor-pointer border border-lime-200 shadow   ">
+    <div class="  col-span-10 grid grid-cols-12 justify-between items-center">
+        <div class=" col-span-1">
+            <app-user-badge class="opacity-0" [user]="this.contact" [height]="50" [width]="50"></app-user-badge>
+        </div>
+        <div class="text-white   col-start-2 col-span-11   ">
+            <b class="text-2xl drop-shadow uppercase   ">
+                Invitation acceptée
+            </b>
+
+        </div>
+    </div>
+</div>-->
+<div *ngIf="toDelete">
+    <!-- rejected invite -->
+    <div *ngIf=" accepted === false "
+        class="mb-2 animate-pulse2 animate-fill-forwards  bg-red-100 border-red-300   rounded-full items-center px-6 py-3 grid grid-cols-12 border  shadow   ">
+        <div class="  col-span-10 grid grid-cols-12 justify-between items-center">
+            <div class=" col-span-1">
+                <app-user-badge class="opacity-0" [user]="this.contact" [height]="50" [width]="50"></app-user-badge>
+            </div>
+            <div class="text-red-300   col-start-2 col-span-11   ">
+                <b class="text-xl  uppercase   ">
+                    Invitation supprimée
+                </b>
+
+            </div>
+        </div>
+    </div>
+    <!-- accepted invite -->
+    <div *ngIf="accepted">
+    </div>
+</div>
+
+<div *ngIf="toDelete === false" (click)="this.invite.viewed === false ? onClickViewInvite() : null"
+    [ngClass]="{ 'animate-pulse ': this.invite.viewed === false, 'border-cyan-500 ': this.invite.viewed === false, 'hidden' : this.toDelete}"
+    class="mb-2 bg-white   rounded-full items-center px-6 py-3 grid grid-cols-12 hover:bg-slate-50 cursor-pointer border  shadow  active:bg-slate-50 animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards">
+
+    <div class="  col-span-10 grid grid-cols-12 justify-between items-center">
+        <div class=" col-span-2">
+            <app-user-badge class="" [user]="this.contact" [height]="50" [width]="50"></app-user-badge>
+        </div>
+        <div class="text-gray-500 col-start-3  col-span-10 ">
+            <b class="text-xl ">{{this.contact.name}} </b>
+
+            <div class="text-cyan-500" *ngIf="invite.sendBy.name == loggedUser.name">
+                <a (click)="onClickRejectInvite()" class="hover:underline focus:underline  text-cyan-500"> Annuler
+                    l'invitation</a>
+
+            </div>
+            <div class="text-cyan-500" *ngIf="invite.sendBy.name !== loggedUser.name">
+                <a (click)="onClickAcceptInvite()" class="hover:underline focus:underline  text-cyan-500"> Accepter</a>
+                | <a (click)="onClickRejectInvite()" class="hover:underline focus:underline  text-cyan-500"> Rejeter</a>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+
+<!--
+<div *ngIf="dropdownOpen" [@fadeInDownAnimation] class="p-5 flex justify-center ">
+
+    <div class="bg-red-600 ">test1</div>
+    <div class="bg-cyan-600">test2</div>
+    <div class="bg-lime-600">test3</div>
+
+
+</div>-->

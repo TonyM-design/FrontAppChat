@@ -79,7 +79,7 @@ export class AddmessageComponent {
       this.messageService.createMessages(this.form.value.messageContent).subscribe(
         (response) => {
 
-          console.log(response)
+
 
         },
         (error) => {

@@ -1,0 +1,37 @@
+<div class="  overflow-scroll overflow-x-hidden  p-2   w-full  px-5">
+    <input type="text" class=" w-full border py-2 border-t-0 border-x-0 border-gray-300 bg-transparent"
+        placeholder="Rechercher un contact...  " type="text" [formControl]="searchControl" name="" id=""
+        (click)="openListDropdown();closeAddOptionDropdown()">
+
+
+    <div [@fadeInDownAnimation]="hideListDropdown ? 'void' : '*'"
+        [@fadeInTopAnimation]="hideListDropdown ? '*' : 'void'"
+        class=" mt-3 scroll overflow-x-hidden h-auto max-h-48 overflow-scroll">
+        <div *ngIf="hideListDropdown === false" [@fadeInTopAnimation]="hideListDropdown ? '*' : 'void'">
+
+            <div *ngFor="let contact of (contactsSuggests | async),let index = index"
+                class=" cursor-pointer text-xl text-ellipsis hover:bg-slate-50  active:bg-slate-200 text-slate-400  px-3 border border-x-0 border-t-0 "
+                (click)="openAddOptionDropdown(index)">
+                <!--<app-user-badge class="py-1" [user]="contact" [height]="24" [width]="24"></app-user-badge>-->
+                <div>
+                    <p>{{contact.name}}</p>
+                    <p></p>
+                </div>
+                <div *ngIf=" hideAddOptionDropdown[index] " [@fadeInDownAnimation]
+                    class=" flex mb-2 justify-between mx-16    ">
+                    <div (click)="sendInvite(contact)">
+
+                        <i
+                            class="fa-solid fa-user-plus hover:text-slate-200 active:text-slate-200 cursor-pointer hover:drop-shadow-sm active:drop-shadow-sm"></i>
+                    </div>
+
+                    <div><i class="fa-regular fa-comment"></i></div>
+                    <div><i class="fa-solid fa-ellipsis"></i></div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

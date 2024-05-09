@@ -1,7 +1,9 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, async, catchError, lastValueFrom, map } from 'rxjs';
+import { BehaviorSubject, Observable, async, catchError, from, last, lastValueFrom, map, mergeMap, of, switchMap, take, throwError, toArray } from 'rxjs';
 import { User } from '../entity/user';
+import { StorageService } from './storage.service';
+import { WebSocketService } from './web-socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +11,50 @@ import { User } from '../entity/user';
 export class UserService {
 
   private url = 'http://localhost:8888/users';
-  subjectUserLogged = new BehaviorSubject<User | undefined>(undefined);
-  userList: User[] = [];
-  subjectUserList = new BehaviorSubject<User[]>([])
+
+  // contient tout les contacts 
+  subjectUserList = new BehaviorSubject<User[]>([]);
   userError: String = "";
 
-
-
-
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storageService: StorageService, private webSocketService: WebSocketService) {
     this.setUsers();
-
-
   }
 
   async setUsers() {
     let authorizedUsers: User[] = [];
     try {
       let users: User[] = await lastValueFrom(this.http.get<User[]>(this.url));
+      for (const user of users) {
+        authorizedUsers.push(user)
+      }
+    }
+    catch (error) {
+      console.error('An error occurred', error);
+      this.subjectUserList.error('An error occurred');
+    }
+    this.subjectUserList.next(authorizedUsers)
+
+
+  }
+
+
+  async unifyContactsUser() {
+    (await lastValueFrom(this.subjectUserList)).forEach(user => {
+
+      if (user.contactOf !== undefined) {
+        user.contacts = user.contacts?.concat(user.contactOf);
+
+      }
+    }
+    )
+  }
+
+  // version originale
+  /*async setUsers() {
+    let authorizedUsers: User[] = [];
+    try {
+      let users: User[] = await lastValueFrom(this.http.get<User[]>(this.url));
+      this.rowUserList = users
       for (const user of users) {
         if (user.email === undefined) {
           const userIdToDeserialize = user as unknown;
@@ -43,20 +70,23 @@ export class UserService {
       this.subjectUserList.error('An error occurred');
     }
   }
+*/
 
 
-  async deserializeUsers(users: User[]) {
-    const deserializedUsers = users.map(async user => {
-      if (user.email === undefined) {
-        const userIdToSearch = user as unknown as number;
-        return await lastValueFrom(this.getUserById(userIdToSearch));
-      } else {
-        return user;
-      }
-    });
-    return deserializedUsers
+
+
+  // version getUserbyId return Observable
+  async deserializeUser2(user: User) {
+    if (user.id === undefined) {
+      const userIdToSearch = user as unknown as number;
+
+      const deserialized = await lastValueFrom(this.getUserById(userIdToSearch));
+
+      user = deserialized
+      return user
+    }
+    else return user
   }
-
 
   createUser(user: any): Observable<string> {
     return this.http.post(this.url, user, { observe: 'response' }).pipe(
@@ -82,23 +112,65 @@ export class UserService {
   getAllUSers(): Observable<any> {
     return this.http.get(this.url);
   }
-
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.url}/${id}`);
   }
-
+  getContactsById(id: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/${id}/contacts`);
+  }
+  getContactOfById(id: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/${id}/contactOf`);
+  }
   getUsersByCanalId(canalId: number): Observable<any> {
     return this.http.get<User>(`${this.url}/associate/${canalId}`);
   }
 
-  isUserAlreadyExist(email: String): Boolean {
-    for (const user of this.userList) {
-      if (user.email == email) {
-        this.userError = " Adresse mail déjà utilisé ";
-        return true;
-      }
+
+  async addNewContact(userId: number, contactToAdd: User) {
+    const user = await lastValueFrom(this.getUserById(userId))
+    return this.http.post(this.url + "/addContact/" + userId, contactToAdd, { observe: 'response' }).pipe(
+      switchMap((response) => {
+        this.webSocketService.addNewContact(user, contactToAdd)
+        return of(response);
+      }),
+      catchError((error) => {
+        console.error('Erreur innatendue :');
+        return throwError(error);
+      })
+    ).subscribe();
+  }
+
+  // a des fin de test uniquement 
+  /*async addNewContact(userId: number, contactToAdd: User) {
+    const user = await lastValueFrom(this.getUserById(userId))
+    this.webSocketService.addNewContact(user, contactToAdd)
+
+  }*/
+
+  addNewContact2(newContact: User) {
+    let user = this.storageService.get("userLogged");
+    this.storageService.get("userLogged").contacts?.push(newContact)
+    if (this.storageService.get("userLogged")) {
+      this.updateUser(user)
+        .pipe(
+          take(1),
+          switchMap((updatedUser: User) => {
+            this.storageService.set("userLogged", updatedUser)
+            alert('CONTACT AJOUTE : ' + newContact.name);
+            return of(updatedUser);
+          }),
+          catchError(error => {
+            alert('Il y a eu une erreur pendant la mise à jour.');
+            return throwError(error);
+          })
+        )
+        .subscribe();
     }
-    return false;
+  }
+
+
+  removeContact(contactToRemove: User) {
+
   }
 
 }

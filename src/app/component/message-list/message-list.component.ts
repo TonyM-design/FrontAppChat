@@ -34,6 +34,7 @@ export class MessageListComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     this.listenerMessage();
     this.initialize().then(() => {
     })

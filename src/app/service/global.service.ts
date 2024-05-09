@@ -10,11 +10,11 @@ export class GlobalService {
 
 
   reloadComponent(self: boolean, urlToNavigateTo?: string) {
-    console.log("Current route I am on:", this.router.url);
+
     const url = self ? this.router.url : urlToNavigateTo;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([`/${url}`]).then(() => {
-        console.log(`After navigation I am on:${this.router.url}`)
+
       })
     })
   }

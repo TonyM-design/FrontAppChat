@@ -29,6 +29,7 @@ export class MessageComponent {
   }
 
   async ngOnInit() {
+
     this.modifyIfSerializedId(this.message);
     await this.isSameDate()
   }
@@ -87,27 +88,19 @@ export class MessageComponent {
   }
 
 
-  private modifyIfSerializedId(message: Message) {
+  private async modifyIfSerializedId(message: Message) {
     if (message.user.id === undefined) {
-      const id: unknown = this.message.user;
-      this.userService.getUserById(id as number).subscribe((user) => {
-        message.user = user;
-      });
+      const id = this.message.user as unknown;
+      const deserializedUser = await lastValueFrom(this.userService.getUserById(id as number))
+      this.message.user = deserializedUser
     }
     if (message.responseQuote !== null && message.responseQuote.user.id !== undefined) {
-      console.log(this.message.responseQuote.user)
+
     }
     return message
   }
 
-  private modifyIfSerializedId2() {
-    if (this.message.user.id === undefined) {
-      const id: unknown = this.message.user;
-      this.userService.getUserById(id as number).subscribe((user) => {
-        this.message.user = user;
-      });
-    }
-  }
+
 
 
 

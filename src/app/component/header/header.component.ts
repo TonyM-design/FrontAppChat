@@ -44,7 +44,6 @@ export class HeaderComponent {
   dropdownOpen: boolean = false;
   hideHeader: boolean = false;
   lastScrollPosition!: number;
-  @ViewChild('list', { static: false }) list!: ElementRef;
 
   constructor(private globalService: GlobalService, public authService: AuthService, private canalService: CanalService, private router: Router, public storageService: StorageService, private navigationService: NavigationService) {
   }
@@ -98,12 +97,16 @@ export class HeaderComponent {
     this.dropdownOpen = false;
     this.navigationService.onClickHome();
   }
-
-  changeCanal(canal: Canal) {
+  onClickContacts() {
     this.dropdownOpen = false;
-    this.canalService.canalUsed = canal;
-    this.router.navigate(['/' + canal.id])
+    this.navigationService.onClickContacts();
   }
+  onClickEditCanal() {
+    this.dropdownOpen = false;
+    this.navigationService.onClickProfil();
+  }
+
+
 
   openDropdown() {
     this.dropdownOpen = !this.dropdownOpen

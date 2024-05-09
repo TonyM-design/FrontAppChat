@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { Observable, combineLatest, concatMap, distinctUntilChanged, findIndex, flatMap, forkJoin, from, map, mergeMap, of, shareReplay, switchMap, toArray } from 'rxjs';
 import { CanalToCreate } from 'src/app/entity/canaltocreate';
 import { User } from 'src/app/entity/user';
 import { CanalService } from 'src/app/service/canal.service';
@@ -39,19 +39,21 @@ export class AddcanalComponent {
   isPublic: Boolean = true;
   assignedUsers: Set<User> = new Set<User>();
 
-
-  eligibleUsersObservable = this.userService.subjectUserList.pipe(
+  eligibleUsersObservable: Observable<User[]> = this.userService.subjectUserList.pipe(
     map(users => users.filter(user => !this.isAlreadySelected(user)))
   );
-  eligibleFilteredUsers: User[] = [];
 
+  // ----- for  parallel deserialisation
+  deserializedAssignedUsers: User[] = new Array()
+  deserializedUsersList: User[] = new Array()
+  // ------- 
 
   constructor(
 
     public globalService: GlobalService,
     private fb: FormBuilder,
     private cs: CanalService,
-    private userService: UserService,
+    public userService: UserService,
     public modalService: ModalService) {
 
     this.form = this.fb.group({
@@ -64,32 +66,59 @@ export class AddcanalComponent {
   }
 
   ngOnInit() {
+    this.eligibleUsersObservable.subscribe(user => {
+      this.deserializedUsersList.length = 0;
+      this.deserializedUsersList = user
+      this.deserializedUsersList.forEach(async (user, index) => {
+        this.deserializedUsersList[index] = await this.userService.deserializeUser2(user).then()
+      })
+    })
+
+
+
+
     this.form.value.isPublic = this.isPublic
   }
 
-  isAlreadySelected(user: User) {
+  isAlreadySelected(user: User) { // ok
     if (this.assignedUsers.size === 0) {
       return false
     }
-    for (const assignedUser of this.assignedUsers) {
-      if (assignedUser.name == user.name) {
-        return true;
+    if (this.assignedUsers.has(user) === true) {
+      return true
+    }
+    else if (user.id === undefined) {
+      const id = (user as unknown) as number;
+      for (const user of this.assignedUsers) {
+        return id == user.id ? true : false
       }
     }
     return false;
   }
 
 
-  assignUser(user: User) {
+  async assignUser(user: User) {
     if (!this.assignedUsers.has(user)) {
       this.assignedUsers.add(user);
+      const deserializedUser = await this.userService.deserializeUser2(user)
+      this.deserializedAssignedUsers.push(deserializedUser)
       this.userService.subjectUserList.next([...this.userService.subjectUserList.value]);
     }
+
   }
 
   unassignUser(user: User) {
     if (this.assignedUsers.has(user)) {
       this.assignedUsers.delete(user)
+      let index: number = -1;
+      for (const item of this.assignedUsers) {
+        index++;
+        if (item === user) {
+          break
+        }
+      }
+      this.deserializedAssignedUsers.splice(index, 1)
+
       this.userService.subjectUserList.next([...this.userService.subjectUserList.value]);
     }
   }
@@ -103,13 +132,13 @@ export class AddcanalComponent {
 
   onClick() {
     let newCanal: CanalToCreate;
-    const UsersList = Array.from(this.assignedUsers)
-
-    if (this.form.value.isPublic == "true") {
-      newCanal = new CanalToCreate(this.form.value.canalname, UsersList, true, this.form.value.description, 0)
+    const usersList = Array.from(this.assignedUsers)
+    // si user list contient des contact serialisé
+    if (this.form.value.isPublic === true) {
+      newCanal = new CanalToCreate(this.form.value.canalname, usersList, true, this.form.value.description, 0)
     }
     else {
-      newCanal = new CanalToCreate(this.form.value.canalname, UsersList, false, this.form.value.description, 0)
+      newCanal = new CanalToCreate(this.form.value.canalname, usersList, false, this.form.value.description, 0)
     }
     this.cs.createCanal(newCanal).subscribe(
       (response) => {
