@@ -36,6 +36,8 @@ export class MessageListComponent implements OnInit {
   async ngOnInit() {
 
     this.listenerMessage();
+    this.canalUsed = this.canalService.canalUsed
+    console.log(this.canalUsed)
     this.initialize().then(() => {
     })
     setTimeout(() => {

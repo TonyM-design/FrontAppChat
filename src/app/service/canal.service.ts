@@ -5,6 +5,7 @@ import { Canal } from '../entity/canal';
 import { CanalToCreate } from '../entity/canaltocreate';
 import { AuthService } from './auth.service';
 import { StorageService } from './storage.service';
+import { User } from '../entity/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class CanalService {
   }
 
   ngOnInit() {
+  }
+
+  async setCanalUsed(canalId: number) {
+    this.canalUsed = await lastValueFrom(this.getCanalById(canalId))
   }
 
   async setCanalList() {
@@ -66,6 +71,9 @@ export class CanalService {
     return false;
   }
 
+  searchExistingCanal(userId1: number, userId2: number) {
+    return this.http.get<Canal>(`${this.url}/between/${userId1}/${userId2}`)
+  }
 
 
   createCanal(canal: CanalToCreate): Observable<any> {

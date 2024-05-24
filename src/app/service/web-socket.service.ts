@@ -18,6 +18,7 @@ export class WebSocketService {
   private chatMessageSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 
   private contactListSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  private contactToDelete: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   private inviteListSubject: BehaviorSubject<InviteContact[][]> = new BehaviorSubject<InviteContact[][]>([]);
   private inviteToDelete: BehaviorSubject<InviteContact | null> = new BehaviorSubject<InviteContact | null>(null);
@@ -32,9 +33,13 @@ export class WebSocketService {
     this.stompClientInvite = Stomp.over(() => new SockJS(url));
   }
 
-  closeConnection() {
-    this.stompClientContact.disconnect()
+  closeCanalConnection() {
     this.stompClientCanal.disconnect()
+  }
+  closeContactConnection() {
+    this.stompClientContact.disconnect()
+  }
+  closeInviteConnection() {
     this.stompClientInvite.disconnect()
   }
 
@@ -62,11 +67,17 @@ export class WebSocketService {
         currentContactsList.push(contactContent);
         console.log(currentContactsList)
         this.contactListSubject.next(currentContactsList);
-
-
       });
+
+      this.stompClientContact.subscribe(`/topic/userContacts/delete/${userId}`, (contactToDelete: any) => {
+        console.log("demande de suppression joinContactRoom / reponse a la reception du message socket CONTACT")
+        const toDelete = JSON.parse(contactToDelete.body)
+        this.contactToDelete.next(toDelete)
+      })
     });
   }
+
+
   joinInviteRoom(userId: number) {
     this.stompClientInvite.connect({}, (frame: any) => {
       this.stompClientInvite.subscribe(`/topic/userInvites/${userId}`, (invite: any) => {
@@ -77,7 +88,7 @@ export class WebSocketService {
       });
 
       this.stompClientInvite.subscribe(`/topic/userInvites/delete`, async (invite: any) => {
-        console.log("demande de suppression / reponse a la reception du message socket")
+        console.log("demande de suppression / reponse a la reception du message socket INVITE")
         const inviteContent: InviteContact = JSON.parse(invite.body);
         console.log("invite à supprimer : ")
         console.log(inviteContent)
@@ -93,6 +104,9 @@ export class WebSocketService {
   }
   getContactSubject() {
     return this.contactListSubject.asObservable();
+  }
+  getContactToDeleteSubject() {
+    return this.contactToDelete.asObservable()
   }
   getInviteSubject() {
     return this.inviteListSubject.asObservable();
@@ -128,9 +142,11 @@ export class WebSocketService {
     this.stompClientContact.send(`/app/contact/${newContact.id}`, {}, JSON.stringify(user))
     return this.stompClientContact.send(`/app/contact/${user.id}`, {}, JSON.stringify(newContact))
   }
-
-  // suppression des deux partis ou d'un seul 
-  deleteContact(userId: number, newContact: User) {
-    return this.stompClientContact.send(`/app/contact/delete/${userId}`, {}, JSON.stringify(newContact))
+  deleteContact(user: User, contactToDelete: User) {
+    this.stompClientContact.send(`/app/contact/delete/${contactToDelete.id}`, {}, JSON.stringify(user))
+    return this.stompClientContact.send(`/app/contact/delete/${user.id}`, {}, JSON.stringify(contactToDelete))
   }
+
+
+
 }

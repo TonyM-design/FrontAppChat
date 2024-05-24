@@ -43,13 +43,12 @@
         </div>
         <div class="text-gray-500 col-start-3  col-span-10 ">
             <b class="text-xl ">{{this.contact.name}} </b>
-
-            <div class="text-cyan-500" *ngIf="invite.sendBy.name == loggedUser.name">
+            <div class="text-cyan-500" *ngIf="invite.sendBy.id == loggedUser.id">
                 <a (click)="onClickRejectInvite()" class="hover:underline focus:underline  text-cyan-500"> Annuler
                     l'invitation</a>
 
             </div>
-            <div class="text-cyan-500" *ngIf="invite.sendBy.name !== loggedUser.name">
+            <div class="text-cyan-500" *ngIf="invite.sendBy.id !== loggedUser.id">
                 <a (click)="onClickAcceptInvite()" class="hover:underline focus:underline  text-cyan-500"> Accepter</a>
                 | <a (click)="onClickRejectInvite()" class="hover:underline focus:underline  text-cyan-500"> Rejeter</a>
             </div>

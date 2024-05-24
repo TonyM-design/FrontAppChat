@@ -135,6 +135,7 @@ export class UserService {
       }),
       catchError((error) => {
         console.error('Erreur innatendue :');
+        console.error(error)
         return throwError(error);
       })
     ).subscribe();
@@ -169,8 +170,18 @@ export class UserService {
   }
 
 
-  removeContact(contactToRemove: User) {
-
+  async removeContact(contactToRemove: User) {
+    const userLogged: User = this.storageService.get("userLogged")
+    return this.http.delete(this.url + "/removeContact/" + userLogged.id, { body: contactToRemove }).pipe(
+      switchMap((response) => {
+        this.webSocketService.deleteContact(userLogged, contactToRemove)
+        return of(response);
+      }),
+      catchError((error) => {
+        console.error('Erreur innatendue :');
+        return throwError(error);
+      })
+    ).subscribe();
   }
 
 }

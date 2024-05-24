@@ -83,24 +83,42 @@ export class ContactListComponent {
     this.hideListDropdown = true
   }
 
+  //au rechargement de la page le listener re ajoute le contact alors qu'il est deja present ( se produit une seule fois )
   async listenerContact() {
     this.webSocketService.getContactSubject().subscribe((contacts: any) => {
-      console.log('DECLENCHEMENT LISTENER CONTACT MODIFICATION DU CONTACT SUBJECT DANS WEBSOCKETSERVICE')
+      console.log(contacts)
+      console.log('DECLENCHEMENT LISTENER CONTACT ')
       contacts.map(async (contact: any) => {
-        console.log("test test test test test test")
         if (this.subjectUserContactToDisplay.getValue().includes(contact) === false) {
           console.log("contact non present, rajout du contact")
           this.subjectUserContactToDisplay.next([...this.subjectUserContactToDisplay.getValue(), contact])
           console.log(this.subjectUserContactToDisplay.getValue())
+          this.webSocketService.clearContactListSubject()
         }
       });
     })
   }
 
+
+  // rajouter une verification de la présence de id pour eviter un null a l'initialisation
+  // sinon peux etre un probleme d'initialisation, la methode est initialisé avant que le subjectToDelte soit defini et donc 
+  // recupere un changement d'état du a l'initialisation du subject to delete a null 
+  listenerContactToDelete() {
+    this.webSocketService.getContactToDeleteSubject().subscribe((contactToDelete: any) => {
+      console.log("declenchement Listener DELETE CONTACT")
+      let newContactsList = this.subjectUserContactToDisplay.getValue()
+      console.log(newContactsList)
+      const toDelete: number = this.subjectUserContactToDisplay.getValue().findIndex(contact => contact.id == contactToDelete.id)
+      newContactsList.splice(toDelete, 1)
+      this.subjectUserContactToDisplay.next(newContactsList)
+    })
+
+  }
+
+
   listenerInvite() {
     this.webSocketService.getInviteSubject().subscribe(async (invites: any) => {
       console.log("declenchement Listener Invite")
-
       const receivedInvites = await lastValueFrom(this.inviteService.getReceivedInvites(this.user.id))
       const sendedInvites = await lastValueFrom(this.inviteService.getSendedInvites(this.user.id))
       this.hideInvitDropdown = false
@@ -140,6 +158,7 @@ export class ContactListComponent {
     this.subjectUserInviteToDisplay.next([[...receivedInvites], [...sendedInvites]])
 
     this.listenerContact()
+    this.listenerContactToDelete()
     this.listenerInvite()
     this.listenerInviteToDelete()
     this.hideContactDropdown = false;

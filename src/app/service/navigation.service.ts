@@ -31,8 +31,15 @@ export class NavigationService {
     this.router.navigate(['']);
   }
 
+  openCanal(canalId: number) {
+    this.router.navigate(['/' + canalId])
+    this.webSocketService.joinRoom(canalId)
+
+  }
+
   onClickHome() {
-    this.webSocketService.closeConnection()
+    this.webSocketService.closeContactConnection()
+    this.webSocketService.closeInviteConnection()
     this.router.navigate(['']);
   }
   onClickEditAllCanal() {

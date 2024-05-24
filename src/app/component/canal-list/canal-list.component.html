@@ -3,7 +3,8 @@
 </app-modal>
 
 
-<div class="overflow-scroll bg-gray-50 w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
+
+<div class="overflow-scroll w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
   <div *ngIf='this.storageService.get("userLogged") !== undefined' class="pt-1">
     <hr>
     <div class="d-flex justify-content-between m-2">
@@ -14,8 +15,8 @@
           class="bi bi bi-pencil-fill"></i> Modifier un canal </button>
     </div>
   </div>
-  <div *ngIf="(canals | async) as canals" class="  sm:flex-none md:flex-col md:columns-3 mx-10 md:px-40  ">
-    <app-canal-card *ngFor=" let canal of canals" (click)="changeCanal(canal)" [canal]="canal"></app-canal-card>
+  <div *ngIf="(canals | async) as canals" class="  ">
+    <app-canal-card *ngFor=" let canal of canals" [canal]="canal"></app-canal-card>
   </div>
 
 

@@ -65,7 +65,6 @@ export class InviteService {
 
   public acceptInvite(userId: number, contactToAdd: User, invite: InviteContact) {
 
-    //this.deleteInvite(invite.id) // fonctionnel mais pas maj en temps réel.à integrer lors du websocket des invites
     return this.userService.addNewContact(userId, contactToAdd)
   }
 }

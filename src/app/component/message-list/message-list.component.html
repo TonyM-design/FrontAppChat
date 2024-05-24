@@ -3,8 +3,14 @@
 </app-modal>
 <div class="  ">
   <div *ngIf="canalUsed !== undefined">
+
     <ul>
-      <div #list class="overflow-scroll w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
+      <div #list class="overflow-scroll w-full fixed pt-20 pb-28 h-screen overflow-x-hidden">
+        <div *ngIf="(toDisplay | async)?.length === 0" class="flex justify-center">
+          <p class="text-slate-300 pt-5 text-sm">
+            Écrivez un message pour démarrer la conversation.
+          </p>
+        </div>
         <app-message *ngFor="let message of toDisplay | async" [message]="message" [id]="message.id">
         </app-message>
         <div id="artificialEnd" class="opacity-0 w-full h-1 "></div>

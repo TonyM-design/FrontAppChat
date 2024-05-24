@@ -1,6 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { Observable, combineLatest, concatMap, take } from 'rxjs';
+import { Observable, combineLatest, concatMap, lastValueFrom, take } from 'rxjs';
 import { InviteContact } from 'src/app/entity/InviteContact';
 import { User } from 'src/app/entity/user';
 import { InviteService } from 'src/app/service/invite.service';
@@ -67,8 +67,13 @@ export class ContactInvitationComponent {
 
   }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    console.log(this.invite)
+    console.log(typeof (this.invite.sendBy))
+    if (typeof (this.invite.sendBy) == "number") {
+      const deserializedUser = await lastValueFrom(this.userService.getUserById(this.invite.sendBy))
+      this.invite.sendBy = deserializedUser
+    }
   }
 
   onClickViewInvite() { // ok
