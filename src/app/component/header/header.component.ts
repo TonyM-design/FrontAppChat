@@ -14,7 +14,7 @@ import { StorageService } from 'src/app/service/storage.service';
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
-    imports:[CommonModule],
+    imports: [CommonModule],
     animations: [
         trigger('fadeInDownAnimation', [
             state('void', style({
@@ -38,8 +38,7 @@ import { StorageService } from 'src/app/service/storage.service';
             })),
             transition('void => *', animate('0.3s ease-in-out'))
         ]),
-    ],
-    standalone: true
+    ]
 })
 export class HeaderComponent {
   canals: any[] = [];

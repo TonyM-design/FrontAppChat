@@ -9,9 +9,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-message-quote',
     templateUrl: './message-quote.component.html',
     styleUrls: ['./message-quote.component.css'],
-    standalone: true,
-    imports: [CommonModule,FormsModule],
-
+    imports: [CommonModule, FormsModule]
 })
 export class MessageQuoteComponent {
   @Input() messageInput: any;

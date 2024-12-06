@@ -14,12 +14,10 @@ import { CanalCardComponent } from '../canal-card/canal-card.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-canal-list',
-  templateUrl: './canal-list.component.html',
-  styleUrls: ['./canal-list.component.css'],
-  imports: [CommonModule, LoginComponent, ModalComponent, CanalCardComponent],
-
-  standalone: true,
+    selector: 'app-canal-list',
+    templateUrl: './canal-list.component.html',
+    styleUrls: ['./canal-list.component.css'],
+    imports: [CommonModule, LoginComponent, ModalComponent, CanalCardComponent]
 })
 export class CanalListComponent implements OnInit {
   openedCanalPropertiesId: number | null = null;

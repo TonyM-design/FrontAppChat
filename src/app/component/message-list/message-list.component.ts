@@ -19,8 +19,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-message-list',
     templateUrl: './message-list.component.html',
     styleUrls: ['./message-list.component.css'],
-    standalone: true,
-    imports: [CommonModule,MessageComponent, ModalComponent, AddmessageComponent]
+    imports: [CommonModule, MessageComponent, ModalComponent, AddmessageComponent]
 })
 export class MessageListComponent implements OnInit {
   canalUsed!: Canal;

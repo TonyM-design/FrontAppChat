@@ -8,9 +8,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-add-user-to-canal',
     templateUrl: './add-user-to-canal.component.html',
     styleUrls: ['./add-user-to-canal.component.css'],
-    imports: [CommonModule],
-
-    standalone: true
+    imports: [CommonModule]
 })
 export class AddUserToCanalComponent {
   assignedUsers: Set<User> = new Set<User>();

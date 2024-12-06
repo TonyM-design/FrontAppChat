@@ -10,9 +10,7 @@ import { OpenspaceCellMapComponent } from '../openspace-cell-map/openspace-cell-
     selector: 'app-openspace-map',
     templateUrl: './openspace-map.component.html',
     styleUrls: ['./openspace-map.component.css'],
-    imports: [CommonModule,OpenspaceCellMapComponent],
-
-    standalone: true
+    imports: [CommonModule, OpenspaceCellMapComponent]
 })
 export class OpenspaceMapComponent {
   scale: number = 1;

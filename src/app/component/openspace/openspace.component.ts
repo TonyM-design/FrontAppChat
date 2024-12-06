@@ -11,9 +11,7 @@ import { OpenspaceLoadSettingsComponent } from '../openspace-load-settings/opens
     selector: 'app-openspace',
     templateUrl: './openspace.component.html',
     styleUrls: ['./openspace.component.css'],
-    imports: [CommonModule,OpenspaceParametersToolsComponent,OpenspaceLoadSettingsComponent],
-
-    standalone: true
+    imports: [CommonModule, OpenspaceParametersToolsComponent, OpenspaceLoadSettingsComponent]
 })
 export class OpenspaceComponent {
    maxPeople! : number

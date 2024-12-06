@@ -8,8 +8,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-user-badge',
     templateUrl: './user-badge.component.html',
     styleUrls: ['./user-badge.component.css'],
-    imports: [CommonModule],
-    standalone: true
+    imports: [CommonModule]
 })
 export class UserBadgeComponent {
   @Input() user!: any;

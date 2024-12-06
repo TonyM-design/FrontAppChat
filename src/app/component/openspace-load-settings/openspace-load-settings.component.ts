@@ -5,8 +5,7 @@ import { OpenspaceMapComponent } from '../openspace-map/openspace-map.component'
     selector: 'app-openspace-load-settings',
     templateUrl: './openspace-load-settings.component.html',
     styleUrls: ['./openspace-load-settings.component.css'],
-    imports:[OpenspaceMapComponent],
-    standalone: true
+    imports: [OpenspaceMapComponent]
 })
 export class OpenspaceLoadSettingsComponent {
 

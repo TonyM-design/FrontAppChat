@@ -14,7 +14,7 @@ import { WebSocketService } from 'src/app/service/web-socket.service';
     selector: 'app-add-contact',
     templateUrl: './add-contact.component.html',
     styleUrls: ['./add-contact.component.css'],
-    imports: [CommonModule,FormsModule,ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
     animations: [
         trigger('fadeInDownAnimation', [
             state('void', style({
@@ -38,8 +38,7 @@ import { WebSocketService } from 'src/app/service/web-socket.service';
             })),
             transition('void => *', animate('0.2s ease-in-out'))
         ]),
-    ],
-    standalone: true
+    ]
 })
 export class AddContactComponent {
   @Input() user!: User;

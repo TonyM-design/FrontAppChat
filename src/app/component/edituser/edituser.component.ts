@@ -11,9 +11,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-edituser',
     templateUrl: './edituser.component.html',
     styleUrls: ['./edituser.component.css'],
-    imports: [CommonModule,FormsModule],
-
-    standalone: true
+    imports: [CommonModule, FormsModule]
 })
 export class EdituserComponent {
   newEmail?: String;

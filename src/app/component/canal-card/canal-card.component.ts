@@ -25,48 +25,35 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-canal-card',
-  templateUrl: './canal-card.component.html',
-  styleUrls: ['./canal-card.component.css'],
-  imports: [CommonModule, UserBadgeComponent],
-  animations: [
-    trigger('fadeOutAnimation', [
-      state(
-        'void',
-        style({
-          opacity: 0,
-          transform: 'translateY(10px)',
-        })
-      ),
-      state(
-        '*',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)',
-        })
-      ),
-      transition('* => void', animate('0.3s ease-out')), // Animation lors de la fermeture
-      transition('void => *', animate('0.3s ease-in')), // Animation lors de l'apparition
-    ]),
-    trigger('fadeInTopAnimation', [
-      state(
-        'void',
-        style({
-          opacity: 0,
-          transform: 'translateY(0)',
-        })
-      ),
-      state(
-        '*',
-        style({
-          opacity: 1,
-          transform: 'translateY(-10px)',
-        })
-      ),
-      transition('void => *', animate('0.2s ease-in-out')),
-    ]),
-  ],
-  standalone: true,
+    selector: 'app-canal-card',
+    templateUrl: './canal-card.component.html',
+    styleUrls: ['./canal-card.component.css'],
+    imports: [CommonModule, UserBadgeComponent],
+    animations: [
+        trigger('fadeOutAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(10px)',
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)',
+            })),
+            transition('* => void', animate('0.3s ease-out')), // Animation lors de la fermeture
+            transition('void => *', animate('0.3s ease-in')), // Animation lors de l'apparition
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(0)',
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(-10px)',
+            })),
+            transition('void => *', animate('0.2s ease-in-out')),
+        ]),
+    ]
 })
 export class CanalCardComponent {
   @Input() canal!: Canal;

@@ -12,8 +12,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-adduser',
     templateUrl: './adduser.component.html',
     styleUrls: ['./adduser.component.css'],
-    imports: [CommonModule,ReactiveFormsModule],
-
+    imports: [CommonModule, ReactiveFormsModule],
     animations: [
         trigger('fadeOut', [
             state('visible', style({
@@ -28,18 +27,17 @@ import { UserService } from 'src/app/service/user.service';
             ])
         ]),
         trigger('fadeInDownAnimation', [
-          state('void', style({
-              opacity: 0,
-              transform: 'translateY(-10px)'
-          })),
-          state('*', style({
-              opacity: 1,
-              transform: 'translateY(0)'
-          })),
-          transition('void => *', animate('0.5s ease-in-out'))
-      ]),
-    ],
-    standalone: true
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.5s ease-in-out'))
+        ]),
+    ]
 })
 
 export class AdduserComponent {

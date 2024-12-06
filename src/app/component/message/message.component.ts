@@ -17,8 +17,7 @@ import { UserService } from 'src/app/service/user.service';
     selector: 'app-message',
     templateUrl: './message.component.html',
     styleUrls: ['./message.component.css'],
-    imports: [CommonModule,MessageQuoteComponent,UserBadgeComponent],
-    standalone: true
+    imports: [CommonModule, MessageQuoteComponent, UserBadgeComponent]
 })
 export class MessageComponent {
   @Input() message!: Message;

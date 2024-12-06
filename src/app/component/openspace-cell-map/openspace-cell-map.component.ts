@@ -7,8 +7,7 @@ import { OpenspaceService } from 'src/app/service/openspace.service';
     selector: 'app-openspace-cell-map',
     templateUrl: './openspace-cell-map.component.html',
     imports: [CommonModule],
-        styleUrls: ['./openspace-cell-map.component.css'],
-    standalone: true,
+    styleUrls: ['./openspace-cell-map.component.css']
 })
 export class OpenspaceCellMapComponent {
   @Input() id: number | undefined;

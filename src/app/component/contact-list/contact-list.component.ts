@@ -16,8 +16,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-contact-list',
     templateUrl: './contact-list.component.html',
     styleUrls: ['./contact-list.component.css'],
-    imports: [AddContactComponent,ContactCardComponent,ContactInvitationComponent,CommonModule],
-
+    imports: [AddContactComponent, ContactCardComponent, ContactInvitationComponent, CommonModule],
     animations: [
         trigger('fadeInDownAnimation', [
             state('void', style({
@@ -41,9 +40,7 @@ import { CommonModule } from '@angular/common';
             })),
             transition('void => *', animate('0.3s ease-in-out'))
         ]),
-
-    ],
-    standalone: true
+    ]
 })
 export class ContactListComponent {
   user!: User;

@@ -24,32 +24,24 @@ import { NavigationService } from 'src/app/service/navigation.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-addcanal',
-  templateUrl: './addcanal.component.html',
-  styleUrls: ['./addcanal.component.css'],
-  imports: [CommonModule, ReactiveFormsModule],
-
-  changeDetection: ChangeDetectionStrategy.Default,
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state(
-        'void',
-        style({
-          opacity: 0,
-          transform: 'translateY(-10px)', // Initial position off-screen
-        })
-      ),
-      state(
-        '*',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)', // Final position on-screen
-        })
-      ),
-      transition('void => *', animate('1s ease-in-out')), // Transition duration and easing
-    ]),
-  ],
-  standalone: true,
+    selector: 'app-addcanal',
+    templateUrl: './addcanal.component.html',
+    styleUrls: ['./addcanal.component.css'],
+    imports: [CommonModule, ReactiveFormsModule],
+    changeDetection: ChangeDetectionStrategy.Default,
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)', // Initial position off-screen
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)', // Final position on-screen
+            })),
+            transition('void => *', animate('1s ease-in-out')), // Transition duration and easing
+        ]),
+    ]
 })
 export class AddcanalComponent {
   form: FormGroup;

@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-contact-card',
     templateUrl: './contact-card.component.html',
     styleUrls: ['./contact-card.component.css'],
-    imports: [CommonModule,UserBadgeComponent],
-
+    imports: [CommonModule, UserBadgeComponent],
     animations: [
         trigger('fadeInDownAnimation', [
             state('void', style({
@@ -39,8 +38,7 @@ import { CommonModule } from '@angular/common';
             })),
             transition('void => *', animate('0.3s ease-in-out'))
         ]),
-    ],
-    standalone: true
+    ]
 })
 export class ContactCardComponent {
   @Input() contact!: User;

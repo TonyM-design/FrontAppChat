@@ -29,8 +29,7 @@ import { CommonModule } from '@angular/common';
             transition('void => *', animate('0.5s ease-in-out')) // Transition duration and easing
         ]),
     ],
-    imports: [MessageQuoteComponent,ReactiveFormsModule,CommonModule],
-    standalone: true
+    imports: [MessageQuoteComponent, ReactiveFormsModule, CommonModule]
 })
 
 export class AddmessageComponent {

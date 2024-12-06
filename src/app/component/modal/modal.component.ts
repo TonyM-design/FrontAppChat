@@ -17,8 +17,7 @@ import { AddUserToCanalComponent } from '../add-user-to-canal/add-user-to-canal.
     selector: 'app-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.css'],
-    imports: [CommonModule,FormsModule,AddcanalComponent,AddUserToCanalComponent],
-
+    imports: [CommonModule, FormsModule, AddcanalComponent, AddUserToCanalComponent],
     animations: [
         trigger('testAnimation', [
             state('void', style({
@@ -29,8 +28,7 @@ import { AddUserToCanalComponent } from '../add-user-to-canal/add-user-to-canal.
             })),
             transition('void => *', animate('1s ease-in-out')) // Transition duration and easing
         ]),
-    ],
-    standalone: true
+    ]
 })
 export class ModalComponent {
   @Input() id?: string;

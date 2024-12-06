@@ -9,8 +9,7 @@ import { CanalListComponent } from '../canal-list/canal-list.component';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    imports:[CommonModule,CanalListComponent],
-    standalone: true
+    imports: [CommonModule, CanalListComponent]
 })
 export class HomeComponent {
 

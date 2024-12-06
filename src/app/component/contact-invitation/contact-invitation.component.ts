@@ -13,8 +13,7 @@ import { UserBadgeComponent } from '../user-badge/user-badge.component';
     selector: 'app-contact-invitation',
     templateUrl: './contact-invitation.component.html',
     styleUrls: ['./contact-invitation.component.css'],
-    imports: [CommonModule,UserBadgeComponent],
-
+    imports: [CommonModule, UserBadgeComponent],
     animations: [
         trigger('fadeInDownAnimation', [
             state('void', style({
@@ -55,8 +54,7 @@ import { UserBadgeComponent } from '../user-badge/user-badge.component';
             transition('from-opacity-100 => to-opacity-50', animate('0.2s ease-in-out')),
             transition('to-opacity-50 => to-opacity-0', animate('0.1s ease-out')) // Animate to final state
         ])
-    ],
-    standalone: true
+    ]
 })
 export class ContactInvitationComponent {
   @Input() contact!: User;

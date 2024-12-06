@@ -9,8 +9,7 @@ import { OpenspaceMapComponent } from '../openspace-map/openspace-map.component'
     selector: 'app-openspace-parameters-tools',
     templateUrl: './openspace-parameters-tools.component.html',
     styleUrls: ['./openspace-parameters-tools.component.css'],
-    imports: [CommonModule,FormsModule,ReactiveFormsModule,OpenspaceMapComponent],
-    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, OpenspaceMapComponent]
 })
 export class OpenspaceParametersToolsComponent {
   form: FormGroup;

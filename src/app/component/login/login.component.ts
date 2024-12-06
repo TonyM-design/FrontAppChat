@@ -13,8 +13,7 @@ import { StorageService } from 'src/app/service/storage.service';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    imports : [CommonModule,FormsModule],
-    standalone: true
+    imports: [CommonModule, FormsModule]
 })
 export class LoginComponent {
   user: User = {
