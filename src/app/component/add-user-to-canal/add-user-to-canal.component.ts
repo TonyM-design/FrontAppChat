@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { User } from 'src/app/entity/user';
 import { ModalService } from 'src/app/service/modal.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-add-user-to-canal',
-  templateUrl: './add-user-to-canal.component.html',
-  styleUrls: ['./add-user-to-canal.component.css']
+    selector: 'app-add-user-to-canal',
+    templateUrl: './add-user-to-canal.component.html',
+    styleUrls: ['./add-user-to-canal.component.css'],
+    imports: [CommonModule],
+
+    standalone: true
 })
 export class AddUserToCanalComponent {
   assignedUsers: Set<User> = new Set<User>();

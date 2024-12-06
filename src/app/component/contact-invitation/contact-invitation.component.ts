@@ -1,4 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Observable, combineLatest, concatMap, lastValueFrom, take } from 'rxjs';
 import { InviteContact } from 'src/app/entity/InviteContact';
@@ -6,54 +7,56 @@ import { User } from 'src/app/entity/user';
 import { InviteService } from 'src/app/service/invite.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
+import { UserBadgeComponent } from '../user-badge/user-badge.component';
 
 @Component({
-  selector: 'app-contact-invitation',
-  templateUrl: './contact-invitation.component.html',
-  styleUrls: ['./contact-invitation.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-    trigger('fadeInTopAnimation', [
-      state('void', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      state('*', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      transition('void => *', animate('0.2s ease-in-out'))
-    ]),
+    selector: 'app-contact-invitation',
+    templateUrl: './contact-invitation.component.html',
+    styleUrls: ['./contact-invitation.component.css'],
+    imports: [CommonModule,UserBadgeComponent],
 
-    trigger('AcceptInvite', [
-      state('void', style({
-        opacity: 1,
-      })),
-      state('from-opacity-100', style({
-        opacity: 1
-      })),
-      state('to-opacity-50', style({
-        opacity: 0.5,
-      })),
-      state('to-opacity-0', style({
-        opacity: 0,
-      })),
-      transition('void => from-opacity-100', animate('0.1s ease-in')),  // Optional: Add transition from void to initial state
-      transition('from-opacity-100 => to-opacity-50', animate('0.2s ease-in-out')),  // Animate to midpoint
-      transition('to-opacity-50 => to-opacity-0', animate('0.1s ease-out')) // Animate to final state
-    ])
-
-  ]
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            state('*', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            transition('void => *', animate('0.2s ease-in-out'))
+        ]),
+        trigger('AcceptInvite', [
+            state('void', style({
+                opacity: 1,
+            })),
+            state('from-opacity-100', style({
+                opacity: 1
+            })),
+            state('to-opacity-50', style({
+                opacity: 0.5,
+            })),
+            state('to-opacity-0', style({
+                opacity: 0,
+            })),
+            transition('void => from-opacity-100', animate('0.1s ease-in')),
+            transition('from-opacity-100 => to-opacity-50', animate('0.2s ease-in-out')),
+            transition('to-opacity-50 => to-opacity-0', animate('0.1s ease-out')) // Animate to final state
+        ])
+    ],
+    standalone: true
 })
 export class ContactInvitationComponent {
   @Input() contact!: User;

@@ -34,6 +34,7 @@ export class CanalService {
     let authorizedCanals: Canal[] = [];
     try {
       let canals: Canal[] = await lastValueFrom(this.http.get<Canal[]>(this.url));
+      console.log(canals)
       const userLogged = this.storageService.get("userLogged");
       for (const canal of canals) {
         if (canal.users === undefined) {

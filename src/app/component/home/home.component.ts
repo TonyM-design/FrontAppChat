@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
+import { CanalListComponent } from '../canal-list/canal-list.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    imports:[CommonModule,CanalListComponent],
+    standalone: true
 })
 export class HomeComponent {
 

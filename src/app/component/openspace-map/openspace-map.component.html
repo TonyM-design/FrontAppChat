@@ -1,0 +1,24 @@
+<section
+  class="  bg-slate-100 flex align-middle items-center justify-center border"
+>
+  <div
+    class=""
+    *ngFor="let columns of arrayCells; let i = index"
+    id="{{ 'height' + i + 'date.now()' }}"
+  >
+    <div
+      class="flex"
+      *ngFor="let rows of arrayCells[i]; let j = index"
+      id="{{ 'width' + j }}"
+    >
+      <app-openspace-cell-map
+        [indexHeight]="arrayCells[i][j].indexHeight"
+        [indexWidth]="arrayCells[i][j].indexWidth"
+        [isDeadCell]="arrayCells[i][j].isDeadCell"
+        [isDeskCell]="arrayCells[i][j].isDeskCell"
+        [assignedUser]="undefined"
+      >
+      </app-openspace-cell-map>
+    </div>
+  </div>
+</section>

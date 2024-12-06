@@ -1,0 +1,154 @@
+<style>
+  .gradient-mask-b-0 {
+    mask-image: linear-gradient(to bottom, white 60%, transparent 85%);
+  }
+</style>
+
+<section
+  class="border rounded-lg m-6 mt-16 bg-slate-100 mr-6 h-screen overflow-clip"
+>
+  <div [ngClass]="{ hidden: !isOpen }">
+    <div class="m-6">
+      <h1 class="text-4xl font-bold text-slate-400">
+        Nouveau modèle d'openspace
+      </h1>
+
+      <div class="font-light text-[#6B7280]">
+        Modifier les différents paramétres de l'openspace.
+      </div>
+    </div>
+
+    <div id="newWorkspace" #newWorkspace class="w-1/6 ml-6 absolute z-10">
+      <div class="border rounded-lg p-3 bg-white shadow-sm">
+        <form [formGroup]="form" action="" class="grid grid-cols-12">
+          <input
+            formControlName="Name"
+            id="textInputName"
+            type="text"
+            class="col-span-12 border border-x-0 border-t-0 p-2 bg-white border-slate-300 w-full font-light text-[#6B7280] mb-4 mt-2"
+            placeholder="Saisir un nom..."
+          />
+
+          <label
+            for="rangeInputHeight"
+            class="font-light text-[#6B7280] col-span-12"
+            >Hauteur:</label
+          >
+
+          <input
+            id="rangeInputHeight"
+            type="range"
+            class="col-span-9 border p-2 bg-white border-slate-300 w-full rounded-xl font-light text-[#6B7280]"
+            [value]="valueHeight"
+            min="0"
+            max="100"
+            step="1"
+            [(ngModel)]="valueHeight"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="this.onChangeBehaviorSubjectHeight($event)"
+          />
+
+          <input
+            type="number"
+            class="col-span-3 w-full col-start-10 pl-5 border-r-0 border-l-0 p-2 bg-white border-slate-300 font-light text-[#6B7280]"
+            [value]="valueHeight"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="valueHeight"
+            (ngModelChange)="this.onChangeBehaviorSubjectHeight($event)"
+          />
+
+          <hr class="w-full col-span-12 mb-2 mt-2" />
+
+          <label
+            for="rangeInputWidth"
+            class="font-light text-[#6B7280] col-span-12"
+            >Largeur:</label
+          >
+
+          <input
+            id="rangeInputWidth"
+            type="range"
+            class="col-span-9 border p-2 bg-white border-slate-300 w-full rounded-xl font-light text-[#6B7280]"
+            [value]="valueWidth"
+            min="0"
+            max="100"
+            step="1"
+            [(ngModel)]="valueWidth"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="this.onChangeBehaviorSubjectWidth($event)"
+          />
+
+          <input
+            type="number"
+            class="col-span-3 w-full col-start-10 pl-5 p-2 bg-white border-slate-300 font-light text-[#6B7280]"
+            [value]="valueWidth"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="valueWidth"
+            (ngModelChange)="this.onChangeBehaviorSubjectWidth($event)"
+          />
+          <hr class="w-full col-span-12 mb-2 mt-2" />
+
+          <!-- <label
+        for="rangeInputWidth"
+        class="font-light text-[#6B7280] col-span-12"
+        >places disponibles:</label
+      >
+
+      <div class="col-span-12 grid-cols-12 grid">
+        <input
+          type="number"
+          class="col-span-3 pl-5 p-2 bg-white border rounded-xl border-slate-300 font-light text-[#6B7280]"
+          value="0"
+        />
+      </div>-->
+
+
+        </form>
+
+
+        <div class="relative group inline-block" (click)="onClickAddDesk()">
+          <div
+              class="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute w-max  bg-slate-50 -mt-12  text-gray-800 border border-gray-300 rounded-lg shadow-lg py-1 z-10">
+              <p class="px-4 py-2 text-sm">Ajouter un bureau</p>
+          </div> <button
+            class="border rounded-xl font-light p-3 m-3 w-16 hover:cursor-pointer mt-2 "
+            type="button"
+
+          >
+            <i class="fa-solid fa-desktop"></i>
+            <span></span>
+          </button>
+
+      </div>
+
+
+
+
+      <div class="relative group inline-block">
+        <div
+            class="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute w-max  bg-slate-50 -mt-12  text-gray-800 border border-gray-300 rounded-lg shadow-lg py-1 z-10">
+            <p class="px-4 py-2 text-sm">Supprimer une cellule</p>
+        </div>
+          <button
+            class="border rounded-xl font-light p-3  w-16 hover:cursor-pointer mt-2"
+            type="button"
+            (click)="onClickAddDeadCell()"
+          >
+          <i class="fa-solid fa-ban"></i>
+            <span></span>
+          </button>
+        </div>
+        <button
+          [disabled]="form.invalid"
+          class="border rounded-xl font-light p-3 hover:cursor-pointer mt-2"
+          type="submit"
+        >
+          Sauvegarder l'openspace
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <app-openspace-map></app-openspace-map>
+  </div>
+</section>

@@ -7,36 +7,43 @@ import { InviteService } from 'src/app/service/invite.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
 import { WebSocketService } from 'src/app/service/web-socket.service';
+import { AddContactComponent } from '../add-contact/add-contact.component';
+import { ContactCardComponent } from '../contact-card/contact-card.component';
+import { ContactInvitationComponent } from '../contact-invitation/contact-invitation.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-    trigger('fadeInTopAnimation', [
-      state('void', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      state('*', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
+    selector: 'app-contact-list',
+    templateUrl: './contact-list.component.html',
+    styleUrls: ['./contact-list.component.css'],
+    imports: [AddContactComponent,ContactCardComponent,ContactInvitationComponent,CommonModule],
 
-  ]
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            state('*', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+
+    ],
+    standalone: true
 })
 export class ContactListComponent {
   user!: User;
@@ -46,7 +53,7 @@ export class ContactListComponent {
   subjectUserInviteToDisplay = new BehaviorSubject<InviteContact[][]>([])
 
   userListCombined!: any;
-  hideListDropdown: boolean = true;
+  hideSearchDropdown: boolean = true;
   hideContactDropdown!: boolean;
   hideInvitDropdown!: boolean;
 
@@ -61,6 +68,12 @@ export class ContactListComponent {
   onClickHideInvit() {
     this.hideInvitDropdown = true;
   }
+  onClickHideInvitAndContact(){
+    this.hideInvitDropdown = !this.hideInvitDropdown;
+    this.hideContactDropdown = !this.hideContactDropdown;
+
+  }
+
 
   onClickSwitchInvit() {
     this.hideInvitDropdown = !this.hideInvitDropdown;
@@ -76,11 +89,11 @@ export class ContactListComponent {
   }
 
   onHideListDropdownChange(newHideListDropdownValue: boolean) {
-    this.hideListDropdown = false
+    this.hideSearchDropdown = false
   }
 
   onClickHide() {
-    this.hideListDropdown = true
+    this.hideSearchDropdown = true
   }
 
   //au rechargement de la page le listener re ajoute le contact alors qu'il est deja present ( se produit une seule fois )
@@ -101,8 +114,8 @@ export class ContactListComponent {
 
 
   // rajouter une verification de la présence de id pour eviter un null a l'initialisation
-  // sinon peux etre un probleme d'initialisation, la methode est initialisé avant que le subjectToDelte soit defini et donc 
-  // recupere un changement d'état du a l'initialisation du subject to delete a null 
+  // sinon peux etre un probleme d'initialisation, la methode est initialisé avant que le subjectToDelte soit defini et donc
+  // recupere un changement d'état du a l'initialisation du subject to delete a null
   listenerContactToDelete() {
     this.webSocketService.getContactToDeleteSubject().subscribe((contactToDelete: any) => {
       console.log("declenchement Listener DELETE CONTACT")
@@ -122,7 +135,7 @@ export class ContactListComponent {
       const receivedInvites = await lastValueFrom(this.inviteService.getReceivedInvites(this.user.id))
       const sendedInvites = await lastValueFrom(this.inviteService.getSendedInvites(this.user.id))
       this.hideInvitDropdown = false
-      this.hideListDropdown = true
+      this.hideSearchDropdown = true
       return this.subjectUserInviteToDisplay.next([[...receivedInvites], [...sendedInvites]])
     })
   }
@@ -134,7 +147,7 @@ export class ContactListComponent {
       const toDelete: number = receivedInvites.findIndex(invite => invite.id == inviteToDelete.id)
       receivedInvites.splice(toDelete, 1)
       this.hideInvitDropdown = false
-      this.hideListDropdown = true
+      this.hideSearchDropdown = true
       return this.subjectUserInviteToDisplay.next([[...receivedInvites], [...sendedInvites]])
     })
 

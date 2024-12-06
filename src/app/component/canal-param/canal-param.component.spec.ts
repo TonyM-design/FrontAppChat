@@ -8,8 +8,8 @@ describe('CanalParamComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CanalParamComponent]
-    });
+    imports: [CanalParamComponent]
+});
     fixture = TestBed.createComponent(CanalParamComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

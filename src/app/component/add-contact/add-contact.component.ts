@@ -1,6 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, catchError, combineLatest, filter, from, lastValueFrom, map, of, startWith, switchMap, take, tap, throwError, toArray } from 'rxjs';
 import { InviteContact } from 'src/app/entity/InviteContact';
 import { User } from 'src/app/entity/user';
@@ -10,34 +11,35 @@ import { UserService } from 'src/app/service/user.service';
 import { WebSocketService } from 'src/app/service/web-socket.service';
 
 @Component({
-  selector: 'app-add-contact',
-  templateUrl: './add-contact.component.html',
-  styleUrls: ['./add-contact.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-    trigger('fadeInTopAnimation', [
-      state('void', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      state('*', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      transition('void => *', animate('0.2s ease-in-out'))
-    ]),
-
-  ]
+    selector: 'app-add-contact',
+    templateUrl: './add-contact.component.html',
+    styleUrls: ['./add-contact.component.css'],
+    imports: [CommonModule,FormsModule,ReactiveFormsModule],
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            state('*', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            transition('void => *', animate('0.2s ease-in-out'))
+        ]),
+    ],
+    standalone: true
 })
 export class AddContactComponent {
   @Input() user!: User;
@@ -50,7 +52,7 @@ export class AddContactComponent {
   // gestion du input
   searchControl!: FormControl
 
-  // combined observable -> link bwn 
+  // combined observable -> link bwn
   contactsSuggests: any
 
 
@@ -110,8 +112,10 @@ export class AddContactComponent {
   }
 
   openListDropdown() {
+    console.log("TEST openListDropdown")
     this.hideListDropdown = false
     this.hideListDropdownChange.emit(this.hideListDropdown);
+    console.log(this.hideListDropdown)
   }
 
 
@@ -124,11 +128,12 @@ export class AddContactComponent {
   }
 
   private initObservable() {
-    // test ok 
+    // test ok
     const searchControlObservable = this.searchControl.valueChanges.pipe(
       startWith(this.searchControl.value),
       map(value => (value as String).toLowerCase()),
     );
+    console.log("init observable " + lastValueFrom(searchControlObservable))
     const userContactListObservable: Observable<User[]> = this.userService.getContactsById(this.user.id).pipe()
 
     this.contactsSuggests = combineLatest([

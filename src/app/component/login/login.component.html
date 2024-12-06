@@ -1,4 +1,4 @@
-<div class="w-full bg-gray-50  pt-40 h-screen">
+<div class="w-full pt-12 ">
   <div class="flex justify-around content-center align-middle  py-5  mt-4 pt-2">
     <div
       class="  w-full mx-5 border bg-white border-gray-300 shadow-sm rounded-xl max-w-xs p-2 opacity-60 bg-opacity-100">
@@ -37,7 +37,7 @@
           <hr />
           <div class="flex-none">
             <small class="decoration-gray-600 ">
-              <button routerLink="/register" type="button"
+              <button (click)="onClickSignIn()" type="button"
                 class="hover:underline focus:underline focus:text-cyan-800   ">
                 Créer un compte.
               </button>

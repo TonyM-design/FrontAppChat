@@ -6,11 +6,16 @@ import { CanalService } from 'src/app/service/canal.service';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 import { ModalService } from 'src/app/service/modal.service';
+import { ModalComponent } from '../modal/modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-editcanal',
-  templateUrl: './editcanal.component.html',
-  styleUrls: ['./editcanal.component.css']
+    selector: 'app-editcanal',
+    templateUrl: './editcanal.component.html',
+    styleUrls: ['./editcanal.component.css'],
+    imports: [CommonModule,ModalComponent],
+
+    standalone: true
 })
 export class EditcanalComponent {
   canals = this.canalService.subjectCanalList.asObservable();

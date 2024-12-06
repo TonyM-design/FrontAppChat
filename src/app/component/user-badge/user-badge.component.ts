@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { User } from 'src/app/entity/user';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-user-badge',
-  templateUrl: './user-badge.component.html',
-  styleUrls: ['./user-badge.component.css']
+    selector: 'app-user-badge',
+    templateUrl: './user-badge.component.html',
+    styleUrls: ['./user-badge.component.css'],
+    imports: [CommonModule],
+    standalone: true
 })
 export class UserBadgeComponent {
   @Input() user!: any;

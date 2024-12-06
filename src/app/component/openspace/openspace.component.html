@@ -1,0 +1,28 @@
+
+<section class=" mx-6  ">
+<div class="flex flex-row jus gap-3 mt-12 ">
+  <h1 class="text-4xl py-2 font-bold text-slate-600 my-auto">
+    Vos openspace.
+  </h1>
+</div>
+<div class="font-light text-[#6B7280] pb-8">
+ Vous pouvez créer de nouveaux openspaces ou charger des openspaces enregistrés.
+</div>
+</section>
+
+<section class=" flex  mx-24 justify-around align-middle   ">
+  <div (click)="onClickNewOpenspace()" class="  hover:cursor-pointer w-2/6" >
+
+   <app-openspace-parameters-tools ></app-openspace-parameters-tools>
+  </div>
+
+  <hr class="h-56 w-0.5 mt-16  bg-slate-200" >
+
+  <div  (click)="onClickLoadOpenspace()" class="w-2/6">
+
+<app-openspace-load-settings ></app-openspace-load-settings>
+ </div>
+
+
+
+</section>

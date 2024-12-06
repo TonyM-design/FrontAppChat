@@ -1,4 +1,7 @@
+import { UserBadgeComponent } from './../user-badge/user-badge.component';
+import { MessageQuoteComponent } from './../message-quote/message-quote.component';
 
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, lastValueFrom, map, take } from 'rxjs';
@@ -11,9 +14,11 @@ import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+    selector: 'app-message',
+    templateUrl: './message.component.html',
+    styleUrls: ['./message.component.css'],
+    imports: [CommonModule,MessageQuoteComponent,UserBadgeComponent],
+    standalone: true
 })
 export class MessageComponent {
   @Input() message!: Message;
@@ -105,7 +110,7 @@ export class MessageComponent {
 
 
   messageStyle(message: Message): { [key: string]: string } {
-    // "+33" -> opacity 20% for hex color values 
+    // "+33" -> opacity 20% for hex color values
     const backgroundColor: string = message.user.badgeColor + "33";
     return {
       backgroundColor

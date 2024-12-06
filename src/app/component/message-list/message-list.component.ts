@@ -10,11 +10,17 @@ import { NavigationService } from 'src/app/service/navigation.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { WebSocketService } from 'src/app/service/web-socket.service';
 import { GlobalService } from 'src/app/service/global.service';
+import { MessageComponent } from "../message/message.component";
+import { ModalComponent } from "../modal/modal.component";
+import { AddmessageComponent } from "../addmessage/addmessage.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-message-list',
-  templateUrl: './message-list.component.html',
-  styleUrls: ['./message-list.component.css']
+    selector: 'app-message-list',
+    templateUrl: './message-list.component.html',
+    styleUrls: ['./message-list.component.css'],
+    standalone: true,
+    imports: [CommonModule,MessageComponent, ModalComponent, AddmessageComponent]
 })
 export class MessageListComponent implements OnInit {
   canalUsed!: Canal;
@@ -47,7 +53,7 @@ export class MessageListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.list.nativeElement.addEventListener('scroll', (event: Event) => {
+    this.list?.nativeElement.addEventListener('scroll', (event: Event) => {
       this.onScroll(event)
       const scrollTop = (event.target as HTMLElement).scrollTop;
       const messagesLoadedList = this.messageService.subjectMessageToDisplay.getValue()

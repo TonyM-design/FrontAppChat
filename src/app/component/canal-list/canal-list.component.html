@@ -1,23 +1,43 @@
 <app-modal id="createCanalModal" title="Créer une discussion" class="h-full">
-
 </app-modal>
 
+<div class="px-4 pt-10 pb-28" *ngIf="storageService.get('userLogged') === null">
+  <h1 class="text-2xl text-center text-slate-300">
+    Connectez-vous ou créer un compte pour accéder à l'application.
+  </h1>
+  <div class="">
+    <app-login></app-login>
+  </div>
+</div>
 
-
-<div class="overflow-scroll w-full fixed pt-10 pb-28 h-screen overflow-x-hidden">
-  <div *ngIf='this.storageService.get("userLogged") !== undefined' class="pt-1">
-    <hr>
+<div class="w-full fixed pb-28 h-screen overflow-x-hidden">
+  <div *ngIf="this.storageService.get('userLogged') !== null" class="pt-1">
+    <div class="px-5">
+      <input
+        type="text"
+        class="border placeholder:text-slate-300 text-slate-500 w-full pb-1 text-xl border-t-0 border-x-0"
+        placeholder="Rechercher dans une conversation..."
+        name=""
+        id=""
+      />
+    </div>
     <div class="d-flex justify-content-between m-2">
-      <button type="button" (click)="modalService.open('createCanalModal')"
-        class="bg-white hover:bg-gray-400 hover:text-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow duration-150"><i
-          class="bi bi-plus-circle-fill"> </i>Nouvelle discussions </button>
-      <button type="button" class="border rounded-full p-2 font-normal" routerLink="/edit"><i
-          class="bi bi bi-pencil-fill"></i> Modifier un canal </button>
+      <button
+        type="button"
+        (click)="modalService.open('createCanalModal')"
+        class="bg-white text-cyan-500 hover:text-white rounded-full hover:bg-cyan-500 font-semibold py-2 px-4 duration-150"
+      >
+        <i class="fa-solid fa-plus text-sm"></i> Nouvelle discussion
+      </button>
     </div>
   </div>
-  <div *ngIf="(canals | async) as canals" class="  ">
-    <app-canal-card *ngFor=" let canal of canals" [canal]="canal"></app-canal-card>
+
+  <div *ngIf="this.storageService.get('userLogged')">
+    <div *ngIf="canals | async as canals" class="  ">
+      <app-canal-card
+        *ngFor="let canal of canals"
+        [canal]="canal"
+      ></app-canal-card>
+    </div>
   </div>
-
-
 </div>

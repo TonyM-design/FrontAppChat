@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { timeout } from 'rxjs';
@@ -10,34 +11,35 @@ import { NavigationService } from 'src/app/service/navigation.service';
 import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-    trigger('fadeInTopAnimation', [
-      state('void', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      state('*', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-
-  ]
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    imports:[CommonModule],
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            state('*', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+    ],
+    standalone: true
 })
 export class HeaderComponent {
   canals: any[] = [];
@@ -79,7 +81,9 @@ export class HeaderComponent {
   onClickLogout() {
     this.dropdownOpen = false;
     this.navigationService.onClickLogOut();
-    this.storageService.remove("userLogged")
+    this.storageService.remove("userLogged");
+    this.canalService.setCanalList()
+
   }
 
   onClickSignIn() {
@@ -100,6 +104,10 @@ export class HeaderComponent {
   onClickContacts() {
     this.dropdownOpen = false;
     this.navigationService.onClickContacts();
+  }
+  onClickOpenspace() {
+    this.dropdownOpen = false;
+    this.navigationService.onClickOpenspace();
   }
   onClickEditCanal() {
     this.dropdownOpen = false;

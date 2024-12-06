@@ -10,7 +10,7 @@ import { WebSocketService } from './web-socket.service';
 })
 export class NavigationService {
 
-  constructor(private storageService: StorageService, private router: Router, private canalService: CanalService, private webSocketService: WebSocketService) {
+  constructor(private storageService: StorageService, private router: Router, private webSocketService: WebSocketService) {
   }
   onClickProfil() {
     if (this.storageService.get("userLogged") !== undefined) {
@@ -30,11 +30,21 @@ export class NavigationService {
   onClickLogOut() {
     this.router.navigate(['']);
   }
+  onClickOpenspace() {
+    this.router.navigate(['/openspace']);
+  }
 
   openCanal(canalId: number) {
     this.router.navigate(['/' + canalId])
     this.webSocketService.joinRoom(canalId)
 
+  }
+
+  onClickNewOpenspace(){
+    this.router.navigate(['newOpenspace'])
+  }
+  onClickLoadOpenspace(){
+    this.router.navigate(['loadOpenspace'])
   }
 
   onClickHome() {

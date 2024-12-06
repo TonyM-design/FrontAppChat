@@ -9,6 +9,9 @@ import { LoginComponent } from './component/login/login.component';
 import { EdituserComponent } from './component/edituser/edituser.component';
 import { CanalListComponent } from './component/canal-list/canal-list.component';
 import { ContactListComponent } from './component/contact-list/contact-list.component';
+import { OpenspaceComponent } from './component/openspace/openspace.component';
+import { OpenspaceParametersToolsComponent } from './component/openspace-parameters-tools/openspace-parameters-tools.component';
+import { OpenspaceLoadSettingsComponent } from './component/openspace-load-settings/openspace-load-settings.component';
 
 
 const routes: Routes = [
@@ -23,7 +26,12 @@ const routes: Routes = [
   { path: 'canallist', component: CanalListComponent },
   { path: 'userProfil/:id', component: EdituserComponent },
   { path: 'contacts', component: ContactListComponent },
+  {path:'openspace', component: OpenspaceComponent},
+  {path:'newOpenspace', component: OpenspaceParametersToolsComponent},
+  {path:'loadOpenspace', component: OpenspaceLoadSettingsComponent},
+  // don't move aniwhere
   { path: ':id', component: MessageListComponent }
+
 
 
 ];

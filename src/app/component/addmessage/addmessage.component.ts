@@ -2,37 +2,35 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Message } from 'src/app/entity/message';
 
 
 import { MessageService } from 'src/app/service/message.service';
+import { MessageQuoteComponent } from "../message-quote/message-quote.component";
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
-
-  selector: 'app-addmessage',
-
-  templateUrl: './addmessage.component.html',
-
-  styleUrls: ['./addmessage.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(0px)' // Initial position off-screen
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(-10px)' // Final position on-screen
-      })),
-      transition('void => *', animate('0.5s ease-in-out')) // Transition duration and easing
-    ]),
-
-  ]
-
-
+    selector: 'app-addmessage',
+    templateUrl: './addmessage.component.html',
+    styleUrls: ['./addmessage.component.css'],
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(0px)' // Initial position off-screen
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(-10px)' // Final position on-screen
+            })),
+            transition('void => *', animate('0.5s ease-in-out')) // Transition duration and easing
+        ]),
+    ],
+    imports: [MessageQuoteComponent,ReactiveFormsModule,CommonModule],
+    standalone: true
 })
 
 export class AddmessageComponent {

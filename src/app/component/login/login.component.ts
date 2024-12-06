@@ -1,16 +1,20 @@
+import { CanalService } from 'src/app/service/canal.service';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, of, switchMap, take, throwError } from 'rxjs';
 import { User } from 'src/app/entity/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { NavigationService } from 'src/app/service/navigation.service';
 import { StorageService } from 'src/app/service/storage.service';
-import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    imports : [CommonModule,FormsModule],
+    standalone: true
 })
 export class LoginComponent {
   user: User = {
@@ -19,8 +23,11 @@ export class LoginComponent {
   };
   showAlert: boolean = false;
 
+  onClickSignIn() {
+    this.navigationService.onClickSignIn();
+  }
   form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private authService: AuthService, private storageService: StorageService) {
+  constructor(private canalService : CanalService, private fb: FormBuilder, private router: Router, private authService: AuthService, private storageService: StorageService, private navigationService : NavigationService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.maxLength(10)]],
@@ -46,6 +53,7 @@ export class LoginComponent {
       this.storageService.set('userLogged', userLog)
       this.showAlert = true;
       this.router.navigate([''])
+      this.canalService.setCanalList()
       return of(userLog);
     }),
       catchError(error => {

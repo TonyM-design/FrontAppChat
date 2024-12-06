@@ -7,36 +7,40 @@ import { CanalService } from 'src/app/service/canal.service';
 import { NavigationService } from 'src/app/service/navigation.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
+import { UserBadgeComponent } from '../user-badge/user-badge.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-contact-card',
-  templateUrl: './contact-card.component.html',
-  styleUrls: ['./contact-card.component.css'],
-  animations: [
-    trigger('fadeInDownAnimation', [
-      state('void', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      state('*', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
-    trigger('fadeInTopAnimation', [
-      state('void', style({
-        opacity: 1,
-        transform: 'translateY(0)'
-      })),
-      state('*', style({
-        opacity: 0,
-        transform: 'translateY(-10px)'
-      })),
-      transition('void => *', animate('0.3s ease-in-out'))
-    ]),
+    selector: 'app-contact-card',
+    templateUrl: './contact-card.component.html',
+    styleUrls: ['./contact-card.component.css'],
+    imports: [CommonModule,UserBadgeComponent],
 
-  ]
+    animations: [
+        trigger('fadeInDownAnimation', [
+            state('void', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            state('*', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+        trigger('fadeInTopAnimation', [
+            state('void', style({
+                opacity: 1,
+                transform: 'translateY(0)'
+            })),
+            state('*', style({
+                opacity: 0,
+                transform: 'translateY(-10px)'
+            })),
+            transition('void => *', animate('0.3s ease-in-out'))
+        ]),
+    ],
+    standalone: true
 })
 export class ContactCardComponent {
   @Input() contact!: User;

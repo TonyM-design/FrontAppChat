@@ -8,8 +8,8 @@ describe('AddUserToCanalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddUserToCanalComponent]
-    });
+    imports: [AddUserToCanalComponent]
+});
     fixture = TestBed.createComponent(AddUserToCanalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -8,8 +8,8 @@ describe('UserBadgeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserBadgeComponent]
-    });
+    imports: [UserBadgeComponent]
+});
     fixture = TestBed.createComponent(UserBadgeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

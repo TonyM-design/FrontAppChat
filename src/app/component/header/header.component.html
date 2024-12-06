@@ -6,10 +6,12 @@
         (click)="onClickHome()">Messages</a>
 
       <a class="mr-5 hover:text-gray-900  border-r pr-4 border-gray-500" (click)="onClickContacts()">Contacts</a>
+      <a class="mr-5 hover:text-gray-900  border-r pr-4 border-gray-500" (click)="onClickOpenspace()">Openspace</a>
+      <a class=" hover:text-gray-900  border-gray-500">
 
-      <a class="mr-5 hover:text-gray-900  border-gray-500">
-
-        <button (click)="openDropdown()" type="button" class="relative transition duration-300   border-2   rounded-full bg-slate-200 p-2 hover:bg-slate-100   hover:border-slate-300
+        <button (click)="openDropdown()"
+        type="button"
+        class="relative transition duration-300 border-2 rounded-full bg-slate-200 p-2 hover:bg-slate-100 hover:border-slate-300
                    flex ">
 
           <i class="fa-regular fa-user"></i>
@@ -42,5 +44,4 @@
 
   </div>
 
-  <app-header-sub-info></app-header-sub-info>
 </header>

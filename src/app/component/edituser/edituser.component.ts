@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
@@ -6,9 +8,12 @@ import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-edituser',
-  templateUrl: './edituser.component.html',
-  styleUrls: ['./edituser.component.css']
+    selector: 'app-edituser',
+    templateUrl: './edituser.component.html',
+    styleUrls: ['./edituser.component.css'],
+    imports: [CommonModule,FormsModule],
+
+    standalone: true
 })
 export class EdituserComponent {
   newEmail?: String;

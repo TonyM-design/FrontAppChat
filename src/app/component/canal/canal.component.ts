@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-canal',
-  templateUrl: './canal.component.html',
-  styleUrls: ['./canal.component.css']
+    selector: 'app-canal',
+    templateUrl: './canal.component.html',
+    styleUrls: ['./canal.component.css'],
+    standalone: true
 })
 export class CanalComponent {
 

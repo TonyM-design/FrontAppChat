@@ -1,13 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import { Message } from 'src/app/entity/message';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-message-quote',
-  templateUrl: './message-quote.component.html',
-  styleUrls: ['./message-quote.component.css']
+    selector: 'app-message-quote',
+    templateUrl: './message-quote.component.html',
+    styleUrls: ['./message-quote.component.css'],
+    standalone: true,
+    imports: [CommonModule,FormsModule],
+
 })
 export class MessageQuoteComponent {
   @Input() messageInput: any;
@@ -38,7 +42,7 @@ export class MessageQuoteComponent {
   }
 
   messageStyle(): { [key: string]: string } {
-    // "+33" -> opacity 20% for hex color values 
+    // "+33" -> opacity 20% for hex color values
     const backgroundColor: string = this.messageInput.user.badgeColor + "33";
     return {
       backgroundColor
@@ -46,7 +50,7 @@ export class MessageQuoteComponent {
   }
 
   messageStyleOriginal(message: Message): { [key: string]: string } {
-    // "+33" -> opacity 20% for hex color values 
+    // "+33" -> opacity 20% for hex color values
     const backgroundColor: string = message.user.badgeColor + "33";
     return {
       backgroundColor

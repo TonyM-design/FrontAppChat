@@ -8,8 +8,8 @@ describe('CanalCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CanalCardComponent]
-    });
+    imports: [CanalCardComponent]
+});
     fixture = TestBed.createComponent(CanalCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,9 +1,9 @@
-<div class="hover:bg-slate-50  active:bg-slate-50">
+<div class="hover:bg-slate-50  active:bg-slate-50 ">
 
 
 
     <div (click)="openDropdown()"
-        class=" h-auto  animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards p-6 pb-2 items-baseline justify-between grid grid-cols-12 hover:bg-slate-50  active:bg-slate-50">
+        class=" h-auto overflow-hidden animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards p-6 pb-2 items-baseline justify-between grid grid-cols-12 hover:bg-slate-50  active:bg-slate-50">
         <div *ngIf="openIsToDelete == true"
             class="w-full h-fit  absolute z-10 animate-fade-down animate-once animate-duration-300 animate-ease-in-out animate-normal animate-fill-forwards    grid grid-cols-12 hover:bg-slate-50 cursor-pointer  active:bg-slate-50">
             <div role="alert" class="col-span-12 ">

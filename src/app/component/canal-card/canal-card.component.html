@@ -1,34 +1,7 @@
-<div #infoBloc class=" w-full mb-2 ">
-
-    <div
-        class=" bg-white w-full h-full  border-gray-200 border-opacity-60  overflow-hidden transition duration-300 hover:shadow-none hover:cursor-pointer">
-
+<div #infoBloc class=" w-full mb-2 " id="infoBloc">
+    <div class=" bg-white w-full h-full  border-gray-200 border-opacity-60  overflow-hidden transition duration-300 hover:shadow-none hover:cursor-pointer">
         <div class="py-3 px-6 flex items-center justify-between ">
-            <div *ngIf="canalPropertiesIsOpen === true" [style.height]="canalPropertiesHeight+'px'"
-                [ngStyle]="canalPropertieStyle()" class="  absolute z-10 right-0 px-6 w-1/2 max-h-fit rounded-lg rounded-e-none  mt-20 bg-slate-100 
-                animate-fade-left animate-once animate-duration-[1500ms] animate-ease-in-out animate-normal
-                animate-fill-forwards">
-                <ul class="items-center align-middle">
-                    <li>
-                        <a class="hover:underline focus:underline  text-cyan-500"> Ignorer </a>
-                    </li>
-                    <li>
-                        <a class="hover:underline focus:underline  text-cyan-500"> Archiver</a>
-
-                    </li>
-                    <li>
-                        <a class="hover:underline focus:underline  text-cyan-500"> Quitter la conversation</a>
-
-                    </li>
-                    <li>
-                        <a (click)="canalPropertiesIsOpen = false"
-                            class="hover:underline focus:underline  text-cyan-500"> Fermer</a>
-
-                    </li>
-                </ul>
-            </div>
-
-            <div (click)="changeCanal(canal)" id="infoBloc">
+            <div (click)="changeCanal(canal)" >
                 <h1 class="title-font text-lg font-medium text-gray-900 ">{{canal.name}}</h1>
                 <div class="flex mt-1">
                     <div *ngIf="usersInCanal as users" class="flex justify-start">
@@ -48,33 +21,52 @@
                         class="text-gray-400 pl-2 inline-flex items-center lg:ml-auto md:ml-0  leading-none text-sm  py-1">
                         <i class="fa-regular fa-user w-4 h-4 ml-0.5"></i>{{usersInCanal.length}}
                     </span>
-
-
                 </div>
             </div>
-            <i (click)="openCanalProperties()" class="text-xl text-slate-500 fa-solid fa-ellipsis-vertical"></i>
+            <i (click)="openCanalProperties()" class="text-xl text-slate-500 fa-solid fa-ellipsis-vertical" id="parameterBtn"></i>
 
         </div>
 
 
-        <div #lastMessageBloc id="lastMessageBloc" *ngIf="lastMessage !== undefined"
-            class=" ml-4 mr-6 mb-2 border-b-0 border-x-0 border  border-slate-200 border-opacity-60 ">
 
+        <div *ngIf="canalPropertiesIsOpen === true"
+          [@fadeInTopAnimation]
+        class=" h-4  ml-4 mr-6 my-2 bg-opacity-90
+       ">
+        <ul class="flex justify-between ">
+            <li>
+                <a class="hover:underline focus:underline  text-cyan-500"> Ignorer </a>
+            </li>
+            <li>
+                <a class="hover:underline focus:underline  text-cyan-500"> Archiver</a>
+
+            </li>
+            <li>
+                <a class="hover:underline focus:underline  text-cyan-500"> Quitter</a>
+
+            </li>
+            <li>
+                <a (click)="canalPropertiesIsOpen = false"
+                    class="hover:underline focus:underline  text-cyan-500"> Fermer</a>
+
+            </li>
+        </ul>
+    </div>
+
+        <div #lastMessageBloc id="lastMessageBloc" [@fadeOutAnimation] *ngIf="lastMessage !== undefined && canalPropertiesIsOpen === false "
+            class=" ml-4 mr-6 mb-2  ">
             <p class="text-slate-400"><small>
                     {{lastMessage?.user?.nickname}} :
-                    {{lastMessage?.date| date: 'le
-                    dd/MM/yy, à HH:mm'}}</small><br>
+                    {{lastMessage?.date| date: 'le MM/yy, à HH:mm'}}</small><br>
             </p>
-
             <div class=" mt-2 px-3 py-1.5 w-fit rounded-xl max-w-xs border shadow-[0_3px_10px_rgb(0,0,0,0.05)]"
                 [ngStyle]="messageStyle(lastMessage)">
                 <p class="leading-relaxed mb-1.5  text-slate-400    text-sm">
-
                     {{lastMessage?.content}}
                 </p>
             </div>
         </div>
-    </div>
 
+    </div>
     <hr>
 </div>

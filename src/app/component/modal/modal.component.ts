@@ -1,5 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { forkJoin, lastValueFrom, map, of, switchMap } from 'rxjs';
 import { Canal } from 'src/app/entity/canal';
 import { User } from 'src/app/entity/user';
@@ -8,24 +10,27 @@ import { CanalService } from 'src/app/service/canal.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { UserService } from 'src/app/service/user.service';
+import { AddcanalComponent } from '../addcanal/addcanal.component';
+import { AddUserToCanalComponent } from '../add-user-to-canal/add-user-to-canal.component';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css'],
-  animations: [
-    trigger('testAnimation', [
-      state('void', style({
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.css'],
+    imports: [CommonModule,FormsModule,AddcanalComponent,AddUserToCanalComponent],
 
-        transform: 'translateY(-10px)' // Initial position off-screen
-      })),
-      state('*', style({
-        transform: 'translateY(100)' // Final position on-screen
-      })),
-      transition('void => *', animate('1s ease-in-out')) // Transition duration and easing
-    ]),
-
-  ]
+    animations: [
+        trigger('testAnimation', [
+            state('void', style({
+                transform: 'translateY(-10px)' // Initial position off-screen
+            })),
+            state('*', style({
+                transform: 'translateY(100)' // Final position on-screen
+            })),
+            transition('void => *', animate('1s ease-in-out')) // Transition duration and easing
+        ]),
+    ],
+    standalone: true
 })
 export class ModalComponent {
   @Input() id?: string;
@@ -96,7 +101,7 @@ export class ModalComponent {
 
 
   // SPECIFIC PART : ASSIGN USER TO CANAL MODAL
-  // filter user to assign 
+  // filter user to assign
   async initializeAssignUsersModal() {
     let alreadyAssignedUsers: User[] = [];
     if (this.canalTarget?.users.length !== 0) {
